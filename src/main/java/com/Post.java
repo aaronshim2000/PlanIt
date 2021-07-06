@@ -1,4 +1,4 @@
-package com.example;
+/* package com.example;
 
 enum Type {
     TEXT, REVIEW, PLANNING
@@ -39,4 +39,4 @@ public class Post
     {
         type = t;
     }
-}
+} */

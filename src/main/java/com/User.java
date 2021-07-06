@@ -1,4 +1,4 @@
-package com.example;
+/* package com.example;
 
 public class User
 {
@@ -24,4 +24,4 @@ public class User
     {
         password = s;
     }
-}
+} */
