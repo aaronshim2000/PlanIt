@@ -2,8 +2,11 @@ package com.example;
 
 public class User
 {
-    private String user;
-    private String password;
+    private String user; //username
+    private String password; //password
+    private String email; //email address
+    private String fname; //first name
+    private String lname; //last name
 
     public String getUser()
     {
@@ -15,13 +18,44 @@ public class User
         return this.password;
     }
 
+    public String getEmail()
+    {
+        return this.email;
+    }
+
+    public String getFname()
+    {
+        return this.fname;
+    }
+
+    public String getLname()
+    {
+        return this.lname;
+    }
+
+
     public void setUser(String s)
     {
-        user = s;
+        this.user = s;
     }
 
     public void setPassword(String s)
     {
-        password = s;
+        this.password = s;
+    }
+
+    public void setEmail(String s)
+    {
+        this.email = s;
+    }
+    
+    public void setFname(String s)
+    {
+        this.fname = s;
+    }
+
+    public void setLname(String s)
+    {
+        this.lname = s;
     }
 }
