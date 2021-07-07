@@ -1,6 +1,6 @@
 package com.example;
 
-enum Type {
+enum Category {
     NORMAL, REVIEW, PLAN
 }
 
@@ -8,7 +8,7 @@ public class Post
 {
     private String title;
     private String description;
-    private Type type;
+    private Category category;
 
     public String getTitle()
     {
@@ -20,9 +20,9 @@ public class Post
         return this.description;
     }
 
-    public String getType()
+    public Type getCategory()
     {
-        return this.type;
+        return this.category;
     }
 
     public void setTitle(String s)
@@ -35,8 +35,8 @@ public class Post
         description = s;
     }
 
-    public void setType(Type t)
+    public void setCategory(Category c)
     {
-        type = t;
+        category = c;
     }
 }
