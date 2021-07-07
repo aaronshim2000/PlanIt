@@ -1,7 +1,7 @@
 package com.example;
 
 enum Type {
-    TEXT, REVIEW, PLANNING
+    NORMAL, REVIEW, PLAN
 }
 
 public class Post
@@ -12,12 +12,12 @@ public class Post
 
     public String getTitle()
     {
-        return this.user;
+        return this.title;
     }
 
     public String getDescription()
     {
-        return this.password;
+        return this.description;
     }
 
     public String getType()
