@@ -16,6 +16,7 @@
 
 package com.example;
 
+import com.AdminMessage;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +25,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.http.MediaType;
 
 import javax.sql.DataSource;
+
+import java.lang.reflect.MalformedParameterizedTypeException;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -50,8 +54,35 @@ public class Main {
 
   @RequestMapping("/")
   String index() {
-    return "index";
+    return "homepage";
   }
+
+  @RequestMapping("/contact") 
+  String contact(Map<String, Object> model) {
+    AdminMessage adminMessage = new AdminMessage();
+    model.put("adminMessage", adminMessage);
+    return "contact";
+  }
+
+  @PostMapping(path = "/contact/addAdminMessage", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String contactAddAdminMessage(AdminMessage adminMessage) throws Exception {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+      Statement statement = connection.createStatement();
+      statement.executeUpdate(
+          "INSERT INTO adminMessages(user, email, message, category) VALUES ('" 
+          + adminMessage.getUser() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', " 
+          + adminMessage.getCategory() + ");");
+
+      return "redirect:/";
+    } 
+    catch (Exception e) 
+    {
+      return "error";
+    }
+  }
+
 
   @RequestMapping("/db")
   String db(Map<String, Object> model) {

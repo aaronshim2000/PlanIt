@@ -20,7 +20,7 @@ public class Post
         return this.description;
     }
 
-    public Type getCategory()
+    public Category getCategory()
     {
         return this.category;
     }
