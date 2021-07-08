@@ -32,10 +32,7 @@ import org.springframework.http.MediaType;
 import javax.sql.DataSource;
 
 import java.lang.reflect.MalformedParameterizedTypeException;
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -136,6 +133,11 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) 
     {
       Statement statement = connection.createStatement();
+
+      statement.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS adminMessages (user varchar(20), email varchar(100), "
+              + "message varchar(1000), category ENUM('CONTACT', 'REPORT'));");
+
       statement.executeUpdate(
           "INSERT INTO adminMessages(user, email, message, category) VALUES ('" 
           + adminMessage.getUser() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', " 
