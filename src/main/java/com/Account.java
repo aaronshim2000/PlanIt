@@ -1,6 +1,6 @@
 package com.example;
 
-public class User
+public class Account
 {
     private String username; //username
     private String password; //password
