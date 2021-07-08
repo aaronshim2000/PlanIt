@@ -57,6 +57,35 @@ public class Main {
     return "homepage";
   }
 
+  @RequestMapping("/login")
+  String login(Map<String, Object> model){
+    User user = new User();
+    model.put("user", user);
+    return "login";
+  }
+
+  @PostMapping(
+    path = "/login",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleLogin(Map<String, Object> model, User u) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+      String sql = "SELECT COUNT (*) FROM users WHERE username = '" + u.getUser() + "'";
+      System.out.println(sql);
+      ResultSet rs = stmt.executeUpdate(sql);
+      if(rs == "0"){
+        return "login";
+      }
+      sql = "SELECT password FROM users WHERE username = '" + u.getUser() + "'";
+      rs = stmt.executeUpdate(sql);
+      if(rs != u.getPassword()){
+        return "login";
+      }
+      return "dashboard";
+    }
+  }
+
   @RequestMapping("/contact") 
   String contact(Map<String, Object> model) {
     AdminMessage adminMessage = new AdminMessage();

@@ -9,8 +9,9 @@
 </head>
 <body>
     <h1>Forgot Password</h1>
-    <form action="#" method="post" id="forgot">
-        <input type="email" placeholder="Email" required> <br> <br>
+    <form action="#" method="post" id="forgot" th:action="@{/forgot}" th:object="${user}">
+        <p>Please enter your email address:</p>
+        <input type="email" placeholder="Email Address" th:field=*{email} required> <br> <br>
         <input type="submit" value="Send Verification Code">
     </form>
     <br>

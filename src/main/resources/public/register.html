@@ -9,20 +9,27 @@
 </head>
 <body>
     <h1>Register</h1>
-    <form action="#" method="post" id="register">
+    <form action="#" method="post" id="register" th:action="@{/register}" th:object="${user}">
         <span>Username: </span>
-        <input type="text" placeholder="Username" required> <span>(required)</span> <br> <br>
+        <input type="text" placeholder="Username" th:field=*{username} required> <span>(required)</span> <br> <br>
+
         <span>First Name: </span>
-        <input type="text" placeholder="Firstname"> <br> <br>
+        <input type="text" placeholder="Firstname" th:field=*{fname}> <br> <br>
+
         <span>Last Name: </span>
-        <input type="text" placeholder="Lastname"> <br> <br>
+        <input type="text" placeholder="Lastname" th:field=*{lname}> <br> <br>
+
         <span>Email Address: </span>
-        <input type="email" placeholder="email@example.com" required> <span>(required)</span> <br> <br>
+        <input type="email" placeholder="email@example.com" th:field=*{email} required> <span>(required)</span> <br> <br>
+
         <span>Password: </span>
-        <input type="password" placeholder="Password" required> <span>(required)</span> <br> <br>
+        <input type="password" placeholder="Password" th:field=*{password} required> <span>(required)</span> <br> <br>
+
         <span>Confirm Password: </span>
-        <input type="password" placeholder="Confirm Password" required> <span>(required)</span> <br> <br>
+        <input type="password" placeholder="Confirm Password" th:field=*{confirm} required> <span>(required)</span> <br> <br>
+
         <input type="submit" value="CREATE ACCOUNT">
     </form>
+    <p><a href="login.html">Back to Login</a> <br></p>
 </body>
 </html>

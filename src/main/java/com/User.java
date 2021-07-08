@@ -2,7 +2,7 @@ package com.example;
 
 public class User
 {
-    private String user; //username
+    private String username; //username
     private String password; //password
     private String email; //email address
     private String fname; //first name
@@ -10,7 +10,7 @@ public class User
 
     public String getUser()
     {
-        return this.user;
+        return this.username;
     }
 
     public String getPassword()
@@ -36,7 +36,7 @@ public class User
 
     public void setUser(String s)
     {
-        this.user = s;
+        this.username = s;
     }
 
     public void setPassword(String s)
