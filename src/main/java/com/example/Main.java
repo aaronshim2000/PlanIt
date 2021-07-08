@@ -16,8 +16,8 @@
 
 package com.example;
 
-import com.Account;
-import com.AdminMessage;
+//import com.Account;
+//import com.AdminMessage;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,8 +71,9 @@ public class Main {
       Statement stmt = connection.createStatement();
       String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUser() + "'";
       System.out.println(sql);
-      ResultSet rs = stmt.executeUpdate(sql);
-      if(rs != 0){
+      ResultSet rs = stmt.executeQuery(sql);
+      int x = rs.getInt(0);
+      if(x != 0){
         return "register";
       }
       sql = "INSERT INTO accounts (username, password, email, fname, lname) VALUES ('" + u.getUser() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "')";
@@ -103,13 +104,15 @@ public class Main {
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (username varchar(20), password varchar(30), email varchar(64), fname varchar(20), lname varchar(20))");
       String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUser() + "'";
       System.out.println(sql);
-      ResultSet rs = stmt.executeUpdate(sql);
-      if(rs == "0"){
+      ResultSet rs = stmt.executeQuery(sql);
+      int x = rs.getInt(0);
+      if(x == 0){
         return "login";
       }
       sql = "SELECT password FROM users WHERE username = '" + u.getUser() + "'";
-      rs = stmt.executeUpdate(sql);
-      if(rs != u.getPassword()){
+      rs = stmt.executeQuery(sql);
+      String pass = rs.getString(0);
+      if(pass != u.getPassword()){
         return "login";
       }
       return "homepage";
