@@ -16,6 +16,7 @@
 
 package com.example;
 
+import com.Account;
 import com.AdminMessage;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
@@ -57,9 +58,40 @@ public class Main {
     return "homepage";
   }
 
+  @RequestMapping("/register")
+  String register(Map<String, Object> model){
+    Account user = new Account();
+    model.put("user", user);
+    return "register";
+  }
+
+  @PostMapping(
+    path = "/register",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleRegister(Map<String, Object> model, Account u) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+      String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUser() + "'";
+      System.out.println(sql);
+      ResultSet rs = stmt.executeUpdate(sql);
+      if(rs != 0){
+        return "register";
+      }
+      sql = "INSERT INTO accounts (username, password, email, fname, lname) VALUES ('" + u.getUser() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "')";
+      stmt.executeUpdate(sql);
+      System.out.println(u.getUser() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
+      return "redirect:login";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
+      return "error";
+    }
+  }
+
   @RequestMapping("/login")
   String login(Map<String, Object> model){
-    User user = new User();
+    Account user = new Account();
     model.put("user", user);
     return "login";
   }
@@ -68,10 +100,11 @@ public class Main {
     path = "/login",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleLogin(Map<String, Object> model, User u) throws Exception{
+  public String handleLogin(Map<String, Object> model, Account u) throws Exception{
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
-      String sql = "SELECT COUNT (*) FROM users WHERE username = '" + u.getUser() + "'";
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (username varchar(20), password varchar(30), email varchar(64), fname varchar(20), lname varchar(20))");
+      String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUser() + "'";
       System.out.println(sql);
       ResultSet rs = stmt.executeUpdate(sql);
       if(rs == "0"){
@@ -82,7 +115,11 @@ public class Main {
       if(rs != u.getPassword()){
         return "login";
       }
-      return "dashboard";
+      return "homepage";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
+      return "error";
     }
   }
 
