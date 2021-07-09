@@ -6,14 +6,14 @@ enum MessageCategory {
 
 public class AdminMessage
 {
-    private String user;
+    private String username;
     private String email;
     private String message;
     private MessageCategory category;
 
-    public String getUser()
+    public String getUsername()
     {
-        return this.user;
+        return this.username;
     }
 
     public String getEmail()
@@ -31,9 +31,9 @@ public class AdminMessage
         return this.category;
     }
 
-    public void setUser(String s)
+    public void setUsername(String s)
     {
-        user = s;
+        username = s;
     }
 
     public void setEmail(String s)

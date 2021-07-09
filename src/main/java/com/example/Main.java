@@ -24,9 +24,6 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 
@@ -58,8 +55,8 @@ public class Main {
 
   @RequestMapping("/register")
   String register(Map<String, Object> model){
-    Account user = new Account();
-    model.put("user", user);
+    Account account = new Account();
+    model.put("account", account);
     return "register";
   }
 
@@ -71,7 +68,8 @@ public class Main {
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
       //Create table (if it doesn't exist)
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (username varchar(20), password varchar(30), email varchar(64), fname varchar(20), lname varchar(20))");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial PRIMARY KEY, username varchar(20), "
+      + "password varchar(30), email varchar(64), fname varchar(20), lname varchar(20))");
       String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUser() + "'";
       System.out.println(sql);
       ResultSet rs = stmt.executeQuery(sql);
@@ -80,10 +78,10 @@ public class Main {
         return "register"; //if one exists
       }
       //add new account to table
-      sql = "INSERT INTO accounts (username, password, email, fname, lname) VALUES ('" + u.getUser() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "')";
+      sql = "INSERT INTO accounts (username, password, email, fname, lname) VALUES ('" + u.getUsername() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "')";
       stmt.executeUpdate(sql);
-      System.out.println(u.getUser() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
-      return "redirect:/success";
+      System.out.println(u.getUsername() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
+      return "login";
     }
     catch(Exception e){
       model.put("Error", e.getMessage());
@@ -105,16 +103,14 @@ public class Main {
   public String handleLogin(Map<String, Object> model, Account u) throws Exception{
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
-      //Create table (if it doesn't exist)
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (username varchar(20), password varchar(30), email varchar(64), fname varchar(20), lname varchar(20))");
-      String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUser() + "'";
+      String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUsername() + "'";
       System.out.println(sql);
       ResultSet rs = stmt.executeQuery(sql);
       int x = rs.getInt(0);
       if(x == 0){ //check if no user matches the username
         return "login"; //if none exist
       }
-      sql = "SELECT password FROM users WHERE username = '" + u.getUser() + "'";
+      sql = "SELECT password FROM users WHERE username = '" + u.getUsername() + "'";
       rs = stmt.executeQuery(sql);
       String pass = rs.getString(0);
       if(pass != u.getPassword()){ //check if password is correct
@@ -155,7 +151,7 @@ public class Main {
 
       statement.executeUpdate(
           "INSERT INTO adminMessages(user, email, message, category) VALUES ('" 
-          + adminMessage.getUser() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', " 
+          + adminMessage.getUsername() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', " 
           + adminMessage.getCategory() + ");");
 
       return "redirect:/";
