@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="post.css">
+	<title>Create a Post</title>
+	<script src="post.js" defer></script>
+	<script src="https://kit.fontawesome.com/860ecee8df.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<div class="centerdiv">
+	<p><input type="radio" id="p1" name="postselect"/>
+	Text Post</p>
+	<p><input type="radio" id="p2" name="postselect"/>
+	Review</p>
+	<p><input type="radio" id="p3" name="postselect" checked/>
+	Plan</p>
+	<p>Title</p>
+	<form><!-- action='#' method="post"><!-- th:action="@{/}" th:object="${}"-->
+		<input type = "text" maxlength="49"><!--th:field={title}-->
+		<p></p>
+		<textarea placeholder="Add a description" class="contents" name="textcontent" rows = 12 cols=80 style="resize: vertical;"></textarea><!--th:field={content}-->
+		<p><input type="submit" value="CREATE POST"></p>
+	</form>
+	</div>
+</body>
+</html>
