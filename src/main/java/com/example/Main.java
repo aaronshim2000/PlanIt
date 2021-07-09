@@ -16,6 +16,7 @@
 
 package com.example;
 
+import com.AdminMessage;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -138,7 +139,7 @@ public class Main {
     return "contact";
   }
 
-  @PostMapping(path = "/contact/addAdminMessage", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  @PostMapping(path = "/contact", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
   public String contactAddAdminMessage(AdminMessage adminMessage) throws Exception {
 
     try (Connection connection = dataSource.getConnection()) 
@@ -148,6 +149,8 @@ public class Main {
       statement.executeUpdate(
           "CREATE TABLE IF NOT EXISTS adminMessages (user varchar(20), email varchar(100), "
               + "message varchar(1000), category ENUM('CONTACT', 'REPORT'));");
+
+      adminMessage.setCategory(MessageCategory.CONTACT);
 
       statement.executeUpdate(
           "INSERT INTO adminMessages(user, email, message, category) VALUES ('" 
