@@ -1,1 +1,6 @@
-com/example/Type.class
+com\example\Account.class
+com\example\Main.class
+com\example\AdminMessage.class
+com\example\PostCategory.class
+com\example\Post.class
+com\example\MessageCategory.class

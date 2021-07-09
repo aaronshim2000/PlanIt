@@ -9,7 +9,7 @@ public class AdminMessage
     private String user;
     private String email;
     private String message;
-    private Category category;
+    private MessageCategory category;
 
     public String getUser()
     {
@@ -26,7 +26,7 @@ public class AdminMessage
         return this.message;
     }
 
-    public Category getCategory()
+    public MessageCategory getCategory()
     {
         return this.category;
     }
@@ -46,7 +46,7 @@ public class AdminMessage
         message = s;
     }
 
-    public void setCategory(Category c)
+    public void setCategory(MessageCategory c)
     {
         category = c;
     }

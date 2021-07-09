@@ -8,7 +8,7 @@ public class Post
 {
     private String title;
     private String description;
-    private Category category;
+    private PostCategory category;
 
     public String getTitle()
     {
@@ -20,7 +20,7 @@ public class Post
         return this.description;
     }
 
-    public Category getCategory()
+    public PostCategory getCategory()
     {
         return this.category;
     }
@@ -35,7 +35,7 @@ public class Post
         description = s;
     }
 
-    public void setCategory(Category c)
+    public void setCategory(PostCategory c)
     {
         category = c;
     }
