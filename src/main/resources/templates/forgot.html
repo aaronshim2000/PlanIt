@@ -8,8 +8,9 @@
     <title>Forgot Password</title>
 </head>
 <body>
+    <a th:href="@{/}">Home</a> <br>
     <h1>Forgot Password</h1>
-    <form action="#" method="post" id="forgot" th:action="@{/forgot}" th:object="${user}">
+    <form action="#" method="post" id="forgot" th:action="@{/forgot}" th:object="${account}">
         <p>Please enter your email address:</p>
         <input type="email" placeholder="Email Address" th:field=*{email} required> <br> <br>
         <input type="submit" value="Send Verification Code">

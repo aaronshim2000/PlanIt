@@ -87,6 +87,7 @@ public class Main {
       sql = "INSERT INTO accounts (username, password, email, fname, lname) VALUES ('" + u.getUsername() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "')";
       stmt.executeUpdate(sql);
       System.out.println(u.getUsername() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
+      model.put("message", "Account successfully created");
       return "login";
     }
     catch(Exception e){
@@ -117,6 +118,7 @@ public class Main {
       int x = rs.getInt("count");
       System.out.println(x);
       if(x == 0){ //check if no user matches the username
+        model.put("message", "Invalid Username");
         return "login"; //if none exist
       }
       //check if password is correct
@@ -126,6 +128,7 @@ public class Main {
       rs.next();
       String pass = rs.getString("password");
       if(!pass.equals(u.getPassword())){ //check if password is correct
+        model.put("message", "Incorrect Password");
         return "login"; //if not correct
       }
       return "homepage"; //go to main page
