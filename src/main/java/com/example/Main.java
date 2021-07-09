@@ -254,7 +254,7 @@ public class Main {
 
     model.put("message", message);
 
-    // Notify users when notifications are done in the future
+    // Notify users of when notifications are done in the future
 
     return "deleteAll";
   }
