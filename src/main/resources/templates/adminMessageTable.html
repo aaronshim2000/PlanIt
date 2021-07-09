@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/stylesheets/adminMessageTable.css">
+    <link rel="stylesheet" th:href="@{/stylesheets/adminMessageTable.css}">
     <title>View Admin Messages</title>
 </head>
 
 <body>
-    <h1>List of Messages</h1>
+    <h1>Administrator Messages</h1>
     <form id="messageTableForm" action="#" method="post" th:action="@{/adminMessage}" th:object="${adminMessage}">
 
         <table class=content-table>
@@ -42,6 +42,13 @@
 
     </form>
 </body>
+
+<div id="buttons">
+    <form action="#" th:action="@{/deleteAll}" th:method="get">
+        <input type="submit" class="button" value="Delete all Messages">
+        </input>
+    </form>
+</div>
 
 </html>
 
