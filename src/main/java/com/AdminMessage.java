@@ -1,6 +1,6 @@
 package com.example;
 
-enum Category {
+enum MessageCategory {
     CONTACT, REPORT
 }
 
