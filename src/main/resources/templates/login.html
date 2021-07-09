@@ -9,9 +9,9 @@
 </head>
 <body>
     <h1>Login</h1>
-    <form action="#" method="post" id="login" th:action="@{/login}" th:object="${user}">
+    <form action="#" method="post" id="login" th:action="@{/login}" th:object="${account}">
         <span>Username: </span>
-        <input type="text" placeholder="Username" th:field=*{user} required> <br> <br>
+        <input type="text" placeholder="Username" th:field=*{username} required> <br> <br>
 
         <span>Password: </span>
         <input type="password" placeholder="Password" th:field=*{password} required> <br> <br>

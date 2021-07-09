@@ -9,10 +9,10 @@
 </head>
 <body>
     <h1>Register</h1>
-    <form action="#" method="post" id="register" th:action="@{/register}" th:object="${user}">
+    <form action="#" method="post" id="register" th:action="@{/register}" th:object="${account}">
 
         <span>Username: </span>
-        <input type="text" placeholder="Username" th:field=*{user} required> <span>(required)</span> <br> <br>
+        <input type="text" placeholder="Username" th:field=*{username} required> <span>(required) </span> <span th:text="${taken}"></span> <br> <br>
 
         <span>First Name: </span>
         <input type="text" placeholder="Firstname" th:field=*{fname}> <br> <br>
@@ -26,8 +26,8 @@
         <span>Password: </span>
         <input type="password" placeholder="Password" th:field=*{password} required> <span>(required)</span> <br> <br>
 
-        <span>Confirm Password: </span>
-        <input type="password" placeholder="Confirm Password" th:field=*{password} required> <span>(required)</span> <br> <br>
+        <!-- <span>Confirm Password: </span>
+        <input type="password" placeholder="Confirm Password" th:field=*{password} required> <span>(required)</span> <br> <br> -->
 
         <input type="submit" value="CREATE ACCOUNT">
     </form>

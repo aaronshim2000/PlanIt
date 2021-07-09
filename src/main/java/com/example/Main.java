@@ -71,11 +71,16 @@ public class Main {
       //Create table (if it doesn't exist)
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial PRIMARY KEY, username varchar(20), "
       + "password varchar(30), email varchar(64), fname varchar(20), lname varchar(20))");
+      //get number of accounts with the same username from accounts table
       String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUsername() + "'";
       System.out.println(sql);
+      //get number of accounts from resultset
       ResultSet rs = stmt.executeQuery(sql);
-      int x = rs.getInt(0);
-      if(x != 0){ //check if there are any users that match the username
+      rs.next();
+      int x = rs.getInt("count");
+      System.out.println(x);
+      if(x != 0){ //check if there are is at least 1 account in table
+        model.put("taken", "This username has been taken");
         return "register"; //if one exists
       }
       //add new account to table
@@ -92,8 +97,8 @@ public class Main {
 
   @RequestMapping("/login")
   String login(Map<String, Object> model){
-    Account user = new Account();
-    model.put("user", user);
+    Account account = new Account();
+    model.put("account", account);
     return "login";
   }
 
@@ -104,18 +109,24 @@ public class Main {
   public String handleLogin(Map<String, Object> model, Account u) throws Exception{
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
+      //check if the username is in the table
       String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUsername() + "'";
-      System.out.println(sql);
+      //get number from resultset
       ResultSet rs = stmt.executeQuery(sql);
-      int x = rs.getInt(0);
+      rs.next();
+      int x = rs.getInt("count");
+      System.out.println(x);
       if(x == 0){ //check if no user matches the username
         return "login"; //if none exist
       }
-      sql = "SELECT password FROM users WHERE username = '" + u.getUsername() + "'";
+      //check if password is correct
+      sql = "SELECT password FROM accounts WHERE username = '" + u.getUsername() + "'";
+      System.out.println(sql);
       rs = stmt.executeQuery(sql);
-      String pass = rs.getString(0);
-      if(pass != u.getPassword()){ //check if password is correct
-        return "login";
+      rs.next();
+      String pass = rs.getString("password");
+      if(!pass.equals(u.getPassword())){ //check if password is correct
+        return "login"; //if not correct
       }
       return "homepage"; //go to main page
     }
@@ -127,8 +138,8 @@ public class Main {
 
   @RequestMapping("/forgot")
   String forgot(Map<String, Object> model){
-    Account user = new Account();
-    model.put("user", user);
+    Account account = new Account();
+    model.put("account", account);
     return "forgot";
   }
 
