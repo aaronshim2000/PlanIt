@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete all Messages?</title>
+</head>
+
+<body>
+    <form action="#" id="deleteForm" method="post" th:action="@{/deleteAllMessages}" th:object="${adminMessage}">
+        <p th:text="${message}"></p>
+        <input name="id" type="hidden" th:value="${tag}">
+        <button type="submit" name="action" value="cancel">Cancel</button>
+        <button type="submit" name="action" value="delete">Delete</button>
+    </form>
+</body>
+
+</html>

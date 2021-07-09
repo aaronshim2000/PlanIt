@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/stylesheets/adminMessage.css}">
+    <title>Admin Message</title>
+</head>
+
+<body>
+    <a th:href="@{/viewAdminMessages}">Back to Messages</a>
+    <div class="container">
+        <ul class="table"> 
+            <li th:text="'ID: ' + ${id}"></li>
+            <li th:text="'Username: ' + ${username}"></li>
+            <li th:text="'Email: ' + ${email}"></li>
+            <li th:text="'Message: ' + ${message}"></li>
+            </div>
+        </ul>
+    </div>
+</body>
+
+<div id="buttons">
+    <form action="#" th:action="@{/reply}" th:method="get">
+        <input type="submit" class="button" value="Reply to message">
+        </input>
+    </form>
+</div>
+
+</html>
