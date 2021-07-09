@@ -24,6 +24,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.MediaType;
 
@@ -67,6 +70,8 @@ public class Main {
   public String handleRegister(Map<String, Object> model, Account u) throws Exception{
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
+      //Create table (if it doesn't exist)
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (username varchar(20), password varchar(30), email varchar(64), fname varchar(20), lname varchar(20))");
       String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUser() + "'";
       System.out.println(sql);
       ResultSet rs = stmt.executeQuery(sql);
@@ -78,7 +83,7 @@ public class Main {
       sql = "INSERT INTO accounts (username, password, email, fname, lname) VALUES ('" + u.getUser() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "')";
       stmt.executeUpdate(sql);
       System.out.println(u.getUser() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
-      return "redirect:login";
+      return "redirect:/success";
     }
     catch(Exception e){
       model.put("Error", e.getMessage());
