@@ -16,8 +16,6 @@
 
 package com.example;
 
-//import com.Account;
-//import com.AdminMessage;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -73,9 +71,10 @@ public class Main {
       System.out.println(sql);
       ResultSet rs = stmt.executeQuery(sql);
       int x = rs.getInt(0);
-      if(x != 0){
-        return "register";
+      if(x != 0){ //check if there are any users that match the username
+        return "register"; //if one exists
       }
+      //add new account to table
       sql = "INSERT INTO accounts (username, password, email, fname, lname) VALUES ('" + u.getUser() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "')";
       stmt.executeUpdate(sql);
       System.out.println(u.getUser() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
@@ -101,21 +100,22 @@ public class Main {
   public String handleLogin(Map<String, Object> model, Account u) throws Exception{
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
+      //Create table (if it doesn't exist)
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (username varchar(20), password varchar(30), email varchar(64), fname varchar(20), lname varchar(20))");
       String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUser() + "'";
       System.out.println(sql);
       ResultSet rs = stmt.executeQuery(sql);
       int x = rs.getInt(0);
-      if(x == 0){
-        return "login";
+      if(x == 0){ //check if no user matches the username
+        return "login"; //if none exist
       }
       sql = "SELECT password FROM users WHERE username = '" + u.getUser() + "'";
       rs = stmt.executeQuery(sql);
       String pass = rs.getString(0);
-      if(pass != u.getPassword()){
+      if(pass != u.getPassword()){ //check if password is correct
         return "login";
       }
-      return "homepage";
+      return "homepage"; //go to main page
     }
     catch(Exception e){
       model.put("Error", e.getMessage());
