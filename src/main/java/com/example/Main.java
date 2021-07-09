@@ -16,7 +16,6 @@
 
 package com.example;
 
-import com.AdminMessage;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
