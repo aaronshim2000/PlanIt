@@ -1,14 +1,10 @@
 package com.example;
 
-enum PostCategory {
-    NORMAL, REVIEW, PLAN
-}
-
 public class Post
 {
     private String title;
     private String description;
-    private PostCategory category;
+    private String category;
 
     public String getTitle()
     {
@@ -20,7 +16,7 @@ public class Post
         return this.description;
     }
 
-    public PostCategory getCategory()
+    public String getCategory()
     {
         return this.category;
     }
@@ -35,8 +31,8 @@ public class Post
         description = s;
     }
 
-    public void setCategory(PostCategory c)
+    public void setCategory(String s)
     {
-        category = c;
+        category = s;
     }
 }

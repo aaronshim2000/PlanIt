@@ -5,18 +5,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./public/stylesheets/contact.css">
+    <link rel="stylesheet" href="../public/stylesheets/contact.css">
     <title>Contact Us</title>
 </head>
 
 <body>
     <div class="container">
         <div class="title">Contact Us</div>
-        <form id="contactForm" action="#" method="post" th:action="@{/contact/addAdminMessage}" th:object="${contact}">
+        <form id="contactForm" action="#" method="post" th:action="@{/contact}" th:object="${adminMessage}">
             <div class="contact-details">
                 <div class="input-box">
                     <span class="details">Name</span>
-                    <input type="text" class="input" th:field=*{name} placeholder="Name" required>
+                    <input type="text" class="input" th:field=*{username} placeholder="Username" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Email</span>
@@ -24,7 +24,7 @@
                 </div>
                 <div class="input-box-large">
                     <span class="details">Message</span>
-                    <input type="textarea" class="input" th:field=*{message} placeholder="Message" required>
+                    <input type="text" class="input" th:field=*{message} placeholder="Message" required>
                 </div>
             </div>
             <div class="button">

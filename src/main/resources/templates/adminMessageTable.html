@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/stylesheets/adminMessageTable.css">
+    <title>View Admin Messages</title>
+</head>
+
+<body>
+    <h1>List of Messages</h1>
+    <form id="messageTableForm" action="#" method="post" th:action="@{/adminMessage}" th:object="${adminMessage}">
+
+        <table class=content-table>
+            <thead>
+                <tr>
+                    <th class="column">Id</th>
+                    <th class="column">Username</th>
+                    <th class="column">Email</th>
+                    <th class="column">Category</th>
+                    <th class="column"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="id,iter : ${ids}">
+                    <td th:text="${id}"></td>
+                    <td>
+                        <a th:text="${usernames[iter.index]}" th:href="@{/adminMessage(id=${id})}"></a>
+                    </td>
+                    </td>
+
+                    <td th:text="${emails[iter.index]}"></td>
+                    <td th:text="${categories[iter.index]}"></td>
+                    <td>
+                        <a th:text="Delete" th:href="@{/deleteAdminMessage(id=${id})}"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </form>
+</body>
+
+</html>
+

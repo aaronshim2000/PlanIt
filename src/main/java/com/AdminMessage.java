@@ -1,15 +1,17 @@
 package com.example;
 
-enum MessageCategory {
-    CONTACT, REPORT
-}
-
 public class AdminMessage
 {
+    private String id;
     private String username;
     private String email;
     private String message;
-    private MessageCategory category;
+    private String category;
+
+    public String getId()
+    {
+        return this.id;
+    }
 
     public String getUsername()
     {
@@ -26,9 +28,14 @@ public class AdminMessage
         return this.message;
     }
 
-    public MessageCategory getCategory()
+    public String getCategory()
     {
         return this.category;
+    }
+
+    public void setId(String s)
+    {
+        id = s;
     }
 
     public void setUsername(String s)
@@ -46,8 +53,8 @@ public class AdminMessage
         message = s;
     }
 
-    public void setCategory(MessageCategory c)
+    public void setCategory(String s)
     {
-        category = c;
+        category = s;
     }
 }

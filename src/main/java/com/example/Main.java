@@ -25,6 +25,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
 import org.springframework.http.MediaType;
 
 import javax.sql.DataSource;
@@ -138,6 +139,7 @@ public class Main {
     return "contact";
   }
 
+  // Submits the contact us form
   @PostMapping(path = "/contact", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
   public String contactAddAdminMessage(AdminMessage adminMessage) throws Exception {
 
@@ -146,13 +148,13 @@ public class Main {
       Statement statement = connection.createStatement();
 
       statement.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS adminMessages (user varchar(20), email varchar(100), "
-              + "message varchar(1000), category ENUM('CONTACT', 'REPORT'));");
+          "CREATE TABLE IF NOT EXISTS adminMessages (username varchar(20), email varchar(100), "
+              + "message varchar(1000), category varchar(20));");
 
-      adminMessage.setCategory(MessageCategory.CONTACT);
+      adminMessage.setCategory("contact");
 
       statement.executeUpdate(
-          "INSERT INTO adminMessages(user, email, message, category) VALUES ('" 
+          "INSERT INTO adminMessages(username, email, message, category) VALUES ('" 
           + adminMessage.getUsername() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', " 
           + adminMessage.getCategory() + ");");
 
@@ -164,6 +166,74 @@ public class Main {
     }
   }
 
+  // Shows the table of admin messages
+  @RequestMapping("/viewAdminMessages") 
+  String viewAdminMessages(Map<String, Object> model) {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+      Statement statement = connection.createStatement();
+
+      statement.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS adminMessages (username varchar(20), email varchar(100), "
+              + "message varchar(1000), category varchar(20));");
+
+      ResultSet rs = statement.executeQuery("SELECT * FROM adminMessages");
+
+      ArrayList<String> usernames = new ArrayList<String>();
+      ArrayList<String> emails = new ArrayList<String>();
+      ArrayList<String> messages = new ArrayList<String>();
+      ArrayList<String> categories = new ArrayList<String>();
+
+      while (rs.next()) 
+      {
+        usernames.add(String.valueOf(rs.getString("username")));
+        emails.add(rs.getString("email"));
+        messages.add(rs.getString("message"));
+        categories.add(rs.getString("category"));
+      }
+
+      model.put("usernames", usernames);
+      model.put("emails", emails);
+      model.put("messages", messages);
+      model.put("categories", categories);
+
+      return "adminMessageTable";
+    } 
+    catch (Exception e) 
+    {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  // Selected a specific admin message, view its details
+  @RequestMapping("/adminMessage")
+  String adminMessage(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model) {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+      Statement statement = connection.createStatement();
+
+      ResultSet rs = statement.executeQuery("SELECT * FROM adminMessages where id=" + tag);
+
+      while (rs.next()) 
+      {
+        model.put("id", String.valueOf(rs.getInt("id")));
+        model.put("username", rs.getString("username"));
+        model.put("email", rs.getString("email"));
+        model.put("message", rs.getString("message"));
+        model.put("category", rs.getString("category"));
+      }
+
+      return "adminMessage";
+    } 
+    catch (Exception e) 
+    {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
 
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
