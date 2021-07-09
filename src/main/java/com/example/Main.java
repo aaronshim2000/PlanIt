@@ -128,6 +128,13 @@ public class Main {
     }
   }
 
+  @RequestMapping("/forgot")
+  String forgot(Map<String, Object> model){
+    Account user = new Account();
+    model.put("user", user);
+    return "forgot";
+  }
+
   @RequestMapping("/contact") 
   String contact(Map<String, Object> model) {
     AdminMessage adminMessage = new AdminMessage();
