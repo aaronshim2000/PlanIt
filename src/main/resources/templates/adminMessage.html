@@ -9,9 +9,9 @@
 </head>
 
 <body>
-    <a th:href="@{/viewAdminMessages}">Back to Messages</a>
     <div class="container">
         <ul class="table"> 
+            <li th:href="@{/viewAdminMessages}">Back to Messages</li>
             <li th:text="'ID: ' + ${id}"></li>
             <li th:text="'Username: ' + ${username}"></li>
             <li th:text="'Email: ' + ${email}"></li>
