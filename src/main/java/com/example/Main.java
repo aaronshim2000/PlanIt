@@ -71,7 +71,7 @@ public class Main {
       //Create table (if it doesn't exist)
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial PRIMARY KEY, username varchar(20), "
       + "password varchar(30), email varchar(64), fname varchar(20), lname varchar(20))");
-      String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUser() + "'";
+      String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUsername() + "'";
       System.out.println(sql);
       ResultSet rs = stmt.executeQuery(sql);
       int x = rs.getInt(0);
