@@ -53,6 +53,26 @@ public class Main {
   String index() {
     return "homepage";
   }
+  
+  @RequestMapping("/post")
+  String index() {
+    return "redirect:/post/text";
+  }
+
+  @RequestMapping("/post/text")
+  String index() {
+    return "post-text";
+  }
+
+  @RequestMapping("/post/review")
+  String index() {
+    return "post-review";
+  }
+
+  @RequestMapping("/post/plan")
+  String index() {
+    return "post-plan";
+  }
 
   @RequestMapping("/register")
   String register(Map<String, Object> model){
