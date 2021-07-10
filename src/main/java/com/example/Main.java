@@ -192,7 +192,7 @@ public class Main {
           + adminMessage.getUsername() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', '" 
           + adminMessage.getCategory() + "');");
 
-      return "viewAdminMessages";
+      return "redirect:/viewAdminMessages";
     } 
     catch (Exception e) 
     {
@@ -279,7 +279,7 @@ public class Main {
 
     // Notify users of when notifications are done in the future
 
-    return "deleteAllMessages";
+    return "deleteAll";
   }
 
   // Clicked on delete all stored messages
