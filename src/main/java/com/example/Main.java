@@ -55,22 +55,22 @@ public class Main {
   }
   
   @RequestMapping("/post")
-  String index() {
+  String post() {
     return "redirect:/post/text";
   }
 
   @RequestMapping("/post/text")
-  String index() {
+  String postText() {
     return "post-text";
   }
 
   @RequestMapping("/post/review")
-  String index() {
+  String postReview() {
     return "post-review";
   }
 
   @RequestMapping("/post/plan")
-  String index() {
+  String postPlan() {
     return "post-plan";
   }
 
@@ -192,7 +192,7 @@ public class Main {
           + adminMessage.getUsername() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', '" 
           + adminMessage.getCategory() + "');");
 
-      return "redirect:/";
+      return "viewAdminMessages";
     } 
     catch (Exception e) 
     {
@@ -279,7 +279,7 @@ public class Main {
 
     // Notify users of when notifications are done in the future
 
-    return "deleteAll";
+    return "deleteAllMessages";
   }
 
   // Clicked on delete all stored messages
