@@ -182,7 +182,7 @@ public class Main {
       Statement statement = connection.createStatement();
 
       statement.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS adminMessages (username varchar(20), email varchar(100), "
+          "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
               + "message varchar(1000), category varchar(20));");
 
       adminMessage.setCategory("contact");
@@ -209,7 +209,7 @@ public class Main {
       Statement statement = connection.createStatement();
 
       statement.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS adminMessages (username varchar(20), email varchar(100), "
+          "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
               + "message varchar(1000), category varchar(20));");
 
       ResultSet rs = statement.executeQuery("SELECT * FROM adminMessages");
@@ -270,20 +270,20 @@ public class Main {
   }
 
   // Prompt for deleting all messages
-  @RequestMapping("/deleteAll") 
+  @RequestMapping("/deleteAllMessages") 
   String attemptDeleteAll(Map<String, Object> model) {
 
     String message = "Do you wish to delete all messages?";
 
     model.put("message", message);
 
-    // Notify users of when notifications are done in the future
+    // Notify users of this when notifications are done in the future
 
-    return "deleteAll";
+    return "deleteAllMessages";
   }
 
   // Clicked on delete all stored messages
-  @PostMapping(path = "/deleteAll", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
+  @PostMapping(path = "/deleteAllMessages", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
   public String deleteAllMessages(Map<String, Object> model) throws Exception {
 
     try (Connection connection = dataSource.getConnection()) 
@@ -302,7 +302,7 @@ public class Main {
   }
 
   // Cancel and go back to the table
-  @PostMapping(path = "/deleteAll", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
+  @PostMapping(path = "/deleteAllMessages", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
   public String cancelDeleteAll(AdminMessage adminMessage) {
 
     return "redirect:/viewAdminMessages";
