@@ -74,6 +74,11 @@ public class Main {
     return "post-plan";
   }
 
+  @RequestMapping("/costCalculator")
+  String costCalculator() {
+    return "costCalculator";
+  }
+
   @RequestMapping("/register")
   String register(Map<String, Object> model){
     Account account = new Account();
