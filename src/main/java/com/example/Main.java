@@ -171,8 +171,8 @@ public class Main {
 
       statement.executeUpdate(
           "INSERT INTO adminMessages(username, email, message, category) VALUES ('" 
-          + adminMessage.getUsername() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', " 
-          + adminMessage.getCategory() + ");");
+          + adminMessage.getUsername() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', '" 
+          + adminMessage.getCategory() + "');");
 
       return "redirect:/";
     } 

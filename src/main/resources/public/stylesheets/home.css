@@ -92,6 +92,33 @@ h1{
   animation-duration: 1.5s;
 }
 
+html, body {
+  height: 100%;
+}
+
+#container {
+  min-height: 100%;
+}
+
+#main {
+  overflow: auto;
+  padding-bottom: 100px;
+}
+
+#footer {
+  background-color: black;
+  position: relative;
+  height: 100px;
+  margin-top: -100px;
+  clear: both;
+}
+
+.footer-text {
+  color: grey;
+  margin: 5px;
+  font-size: 1.6em;
+}
+
 @-webkit-keyframes fade {
   from {opacity: .4}
   to {opacity: 1}
