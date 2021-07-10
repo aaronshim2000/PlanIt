@@ -180,7 +180,7 @@ public class Main {
 
   // Submits the contact us form
   @PostMapping(path = "/contact", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String contactAddAdminMessage(AdminMessage adminMessage) throws Exception {
+  public String contactSent(AdminMessage adminMessage) throws Exception {
 
     try (Connection connection = dataSource.getConnection()) 
     {
@@ -219,22 +219,22 @@ public class Main {
 
       ResultSet rs = statement.executeQuery("SELECT * FROM adminMessages");
 
+      ArrayList<String> ids = new ArrayList<String>();
       ArrayList<String> usernames = new ArrayList<String>();
       ArrayList<String> emails = new ArrayList<String>();
-      ArrayList<String> messages = new ArrayList<String>();
       ArrayList<String> categories = new ArrayList<String>();
 
       while (rs.next()) 
       {
-        usernames.add(String.valueOf(rs.getString("username")));
+        ids.add(String.valueOf(rs.getString("id")));
+        usernames.add(rs.getString("username"));
         emails.add(rs.getString("email"));
-        messages.add(rs.getString("message"));
         categories.add(rs.getString("category"));
       }
 
+      model.put("ids", ids);
       model.put("usernames", usernames);
       model.put("emails", emails);
-      model.put("messages", messages);
       model.put("categories", categories);
 
       return "adminMessageTable";
