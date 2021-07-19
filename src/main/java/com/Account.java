@@ -1,12 +1,17 @@
-package com.example;
+package com;
 
 public class Account
 {
     private String id;
+
     private String username; //username
+
     private String password; //password
+
     private String email; //email address
+
     private String fname; //first name
+
     private String lname; //last name
 
     public String getId()

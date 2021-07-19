@@ -16,6 +16,7 @@
 
 package com.example;
 
+import com.Account;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,12 @@ import java.lang.reflect.MalformedParameterizedTypeException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Map;
+
+import java.io.*;
+import javax.servlet.*;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 @SpringBootApplication
@@ -107,7 +114,7 @@ public class Main {
     path = "/login",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleLogin(Map<String, Object> model, Account u) throws Exception{
+  public String handleLogin(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
       //check if the username is in the table
@@ -131,6 +138,26 @@ public class Main {
         model.put("message", "Incorrect Password");
         return "login"; //if not correct
       }
+      //GIVE USER INFORMATION TO SESSION *************************************************************************
+      request.getSession().setAttribute("USER", u.getUsername()); //put username into session
+      request.getSession().setAttribute("PASSWORD", u.getPassword()); //put password into session
+
+      rs = stmt.executeQuery("SELECT email FROM accounts WHERE username = '" + u.getUsername() + "'"); //find email from database
+      rs.next();
+      String email = rs.getString("email");
+      request.getSession().setAttribute("EMAIL", email); //put email into session
+
+      rs = stmt.executeQuery("SELECT fname FROM accounts WHERE username = '" + u.getUsername() + "'"); //find firstname from database
+      rs.next();
+      String fname = rs.getString("fname");
+      request.getSession().setAttribute("FNAME", fname); //put firstname into session
+
+      rs = stmt.executeQuery("SELECT lname FROM accounts WHERE username = '" + u.getUsername() + "'"); //find lastname from database
+      rs.next();
+      String lname = rs.getString("lname");
+      request.getSession().setAttribute("LNAME", lname); //put lastname into session
+
+      model.put("message", "Welcome, " + request.getSession().getAttribute("USER"));
       return "homepage"; //go to main page
     }
     catch(Exception e){
@@ -139,7 +166,7 @@ public class Main {
     }
   }
 
-  
+
 
   @RequestMapping("/forgot")
   String forgot(Map<String, Object> model){
