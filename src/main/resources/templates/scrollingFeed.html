@@ -10,9 +10,9 @@
 <body>　
 <nav>
     <ul>
-        <li><a href ="#plan_post">Plan Posts</a></li>
-        <li><a href ="#review_post">Review Posts</a></li>
-        <li><a href ="#text_post">Text Posts</a></li>
+        <li class="tab"><a href ="#plan_post">Plan Posts</a></li>
+        <li class="tab"><a href ="#review_post">Review Posts</a></li>
+        <li class="tab"><a href ="#text_post">Text Posts</a></li>
     </ul>
 </nav>
 
@@ -28,17 +28,15 @@
 <div id="text_post">
     <h2>Text Posts</h2>
 
-
-    <div th:each="title,iter : ${titles}">
-        <p th:text="${title}"/>
+    <div class="post" th:each="title,iter : ${titles}">
+        <p class="title" th:text="${title}"/>
         <p th:text="${descriptions[iter.index]}"/>
     </div>
-
-
 </div>
 
+
+
+<br>
 <a href="/homepage">BACK TO HOME PAGE</a>
-
-</div>
 </body>
 </html>
