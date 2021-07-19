@@ -10,6 +10,7 @@
 </head>
 
 <body>
+    <a th:href="@{/contact}">Back to Contact Us</a> <br>
     <h1>Administrator Messages</h1>
     <form id="messageTableForm" action="#" method="post" th:action="@{/adminMessage}" th:object="${adminMessage}">
 
@@ -44,7 +45,7 @@
 </body>
 
 <div id="buttons">
-    <form action="#" th:action="@{/deleteAll}" th:method="get">
+    <form action="#" th:action="@{/deleteAllMessages}" th:method="get">
         <input type="submit" class="button" value="Delete all Messages">
         </input>
     </form>

@@ -60,6 +60,31 @@ public class Main {
   String index() {
     return "homepage";
   }
+  
+  @RequestMapping("/post")
+  String post() {
+    return "redirect:/post/text";
+  }
+
+  @RequestMapping("/post/text")
+  String postText() {
+    return "post-text";
+  }
+
+  @RequestMapping("/post/review")
+  String postReview() {
+    return "post-review";
+  }
+
+  @RequestMapping("/post/plan")
+  String postPlan() {
+    return "post-plan";
+  }
+
+  @RequestMapping("/costCalculator")
+  String costCalculator() {
+    return "costCalculator";
+  }
 
   @RequestMapping("/register")
   String register(Map<String, Object> model){
@@ -184,14 +209,14 @@ public class Main {
 
   // Submits the contact us form
   @PostMapping(path = "/contact", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String contactAddAdminMessage(AdminMessage adminMessage) throws Exception {
+  public String contactSent(AdminMessage adminMessage) throws Exception {
 
     try (Connection connection = dataSource.getConnection()) 
     {
       Statement statement = connection.createStatement();
 
       statement.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS adminMessages (username varchar(20), email varchar(100), "
+          "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
               + "message varchar(1000), category varchar(20));");
 
       adminMessage.setCategory("contact");
@@ -201,7 +226,7 @@ public class Main {
           + adminMessage.getUsername() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', '" 
           + adminMessage.getCategory() + "');");
 
-      return "redirect:/";
+      return "redirect:/viewAdminMessages";
     } 
     catch (Exception e) 
     {
@@ -218,27 +243,27 @@ public class Main {
       Statement statement = connection.createStatement();
 
       statement.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS adminMessages (username varchar(20), email varchar(100), "
+          "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
               + "message varchar(1000), category varchar(20));");
 
       ResultSet rs = statement.executeQuery("SELECT * FROM adminMessages");
 
+      ArrayList<String> ids = new ArrayList<String>();
       ArrayList<String> usernames = new ArrayList<String>();
       ArrayList<String> emails = new ArrayList<String>();
-      ArrayList<String> messages = new ArrayList<String>();
       ArrayList<String> categories = new ArrayList<String>();
 
       while (rs.next()) 
       {
-        usernames.add(String.valueOf(rs.getString("username")));
+        ids.add(String.valueOf(rs.getString("id")));
+        usernames.add(rs.getString("username"));
         emails.add(rs.getString("email"));
-        messages.add(rs.getString("message"));
         categories.add(rs.getString("category"));
       }
 
+      model.put("ids", ids);
       model.put("usernames", usernames);
       model.put("emails", emails);
-      model.put("messages", messages);
       model.put("categories", categories);
 
       return "adminMessageTable";
@@ -279,20 +304,20 @@ public class Main {
   }
 
   // Prompt for deleting all messages
-  @RequestMapping("/deleteAll") 
+  @RequestMapping("/deleteAllMessages") 
   String attemptDeleteAll(Map<String, Object> model) {
 
     String message = "Do you wish to delete all messages?";
 
     model.put("message", message);
 
-    // Notify users of when notifications are done in the future
+    // Notify users of this when notifications are done in the future
 
-    return "deleteAll";
+    return "deleteAllMessages";
   }
 
   // Clicked on delete all stored messages
-  @PostMapping(path = "/deleteAll", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
+  @PostMapping(path = "/deleteAllMessages", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
   public String deleteAllMessages(Map<String, Object> model) throws Exception {
 
     try (Connection connection = dataSource.getConnection()) 
@@ -311,7 +336,7 @@ public class Main {
   }
 
   // Cancel and go back to the table
-  @PostMapping(path = "/deleteAll", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
+  @PostMapping(path = "/deleteAllMessages", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
   public String cancelDeleteAll(AdminMessage adminMessage) {
 
     return "redirect:/viewAdminMessages";

@@ -24,17 +24,29 @@
  }
  
  .rating .full:before {
-  padding-right: 2rem;
+  padding-right: 0.5rem;
  }
+
+input[name=starrate]:checked ~ .slabel,
+.slabel:hover, .slabel:hover ~ .slabel {
+  color: yellow;
+}
+
+input[name=starrate]:checked + .slabel:hover,
+input[name=starrate]:checked ~ .slabel:hover,
+input[name=starrate]:checked ~ .slabel:hover ~ .slabel,
+.slabel:hover ~ input[name=starrate]:checked ~ .slabel {
+  color: gold;
+}
     
-input[type=radio]:checked ~ label,
+/*input[name=starrate]:checked ~ label,
 label:hover, label:hover ~ label {
   color: yellow;
 }
 
-input[type=radio]:checked + label:hover,
-input[type=radio]:checked ~ label:hover,
-input[type=radio]:checked ~ label:hover ~ label,
-label:hover ~ input[type=radio]:checked ~ label {
+input[name=starrate]:checked + label:hover,
+input[name=starrate]:checked ~ label:hover,
+input[name=starrate]:checked ~ label:hover ~ label,
+label:hover ~ input[name=starrate]:checked ~ label {
   color: gold;
-}
+}*/

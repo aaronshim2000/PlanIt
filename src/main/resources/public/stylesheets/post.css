@@ -29,3 +29,14 @@ body{
 .contents{
 	
 }
+
+input[name="postselect"]{
+	width: 8px;
+	margin-top: -1px;
+	vertical-align: middle;
+}
+
+.rp{
+	font-size: 14px;
+	margin: 0;
+}
