@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="./stylesheets/scrollingFeed.css">
+    <title>Personalized Scrolling Feed</title>
+</head>
+<body>　
+<nav>
+    <ul>
+        <li><a href ="#plan_post">Plan Posts</a></li>
+        <li><a href ="#review_post">Review Posts</a></li>
+        <li><a href ="#text_post">Text Posts</a></li>
+    </ul>
+</nav>
+
+<div id="plan_post">
+    <h2>Plan Posts</h2>
+</div>
+
+<div id="review_post">
+    <h2>Review Posts</h2>
+</div>
+
+
+<div id="text_post">
+    <h2>Text Posts</h2>
+
+
+    <div th:each="title,iter : ${titles}">
+        <p th:text="${title}"/>
+        <p th:text="${descriptions[iter.index]}"/>
+    </div>
+
+
+</div>
+
+<a href="/homepage">BACK TO HOME PAGE</a>
+
+</div>
+</body>
+</html>

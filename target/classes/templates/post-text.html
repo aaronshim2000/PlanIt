@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/stylesheets/post.css">
 	<title>Create a Post</title>
-	<script src="post.js" defer></script>
+	<script type="text/javascript" src="/js/post.js" defer=""></script>
 	<script src="https://kit.fontawesome.com/860ecee8df.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -18,10 +18,10 @@
 	<p class="rp"><input type="radio" id="p3" name="postselect"/>
 	<label for="p3">Plan</label</p>
 	<h1 class="titlelabel">Title</h1>
-	<form><!-- action='#' method="post"><!-- th:action="@{/}" th:object="${}"-->
-		<input type = "text" maxlength="49"><!--th:field={title}-->
+	<form action="#" method="post" th:action="@{/post/text}" th:object="${post}">
+		<input type = "text" th:field=*{title} maxlength="49">
 		<p></p>
-		<textarea placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea><!--th:field={content}-->
+		<textarea th:field=*{description} placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea>
 		<p><input type="file" name="media" accept="image/*,video/*" multiple></p>
 		<p><input type="submit" value="CREATE POST"></p>
 	</form>

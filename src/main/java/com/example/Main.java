@@ -66,10 +66,58 @@ public class Main {
     return "redirect:/post/text";
   }
 
+
   @RequestMapping("/post/text")
-  String postText() {
+  String postText(Map<String,Object> model) {
+    Post post=new Post();
+    model.put("post",post);
     return "post-text";
   }
+
+  @PostMapping(path = "/post/text", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String submitTextPost(Map<String,Object> model,Post post) throws Exception {
+    try (Connection connection = dataSource.getConnection())
+    {
+      Statement statement = connection.createStatement();
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20))");
+      post.setCategory("text-post");
+      statement.executeUpdate("INSERT INTO posts(title,content,category) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "')");
+      return "redirect:/scrollingFeed";
+    }
+    catch (Exception e)
+    {
+      model.put("message",e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/scrollingFeed")
+  public String getPosts(Map<String, Object> model) {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE category='text-post'"); //get text posts from database
+
+      ArrayList<String> titles = new ArrayList<String>();
+      ArrayList<String> descriptions = new ArrayList<String>();
+
+      while (rs.next())
+      {
+        titles.add(rs.getString("title"));
+        descriptions.add(rs.getString("content"));
+      }
+
+      model.put("titles", titles);
+      model.put("descriptions", descriptions);
+
+      return "scrollingFeed";
+
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+
 
   @RequestMapping("/post/review")
   String postReview() {
