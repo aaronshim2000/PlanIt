@@ -14,6 +14,8 @@ public class Account
 
     private String lname; //last name
 
+    private String role; //role IMPLEMENT
+
     public String getId()
     {
         return this.id;
@@ -44,9 +46,14 @@ public class Account
         return this.lname;
     }
 
+    public String getRole()
+    {
+        return this.role;
+    }
+
     public void setId(String s)
     {
-        id = s;
+        this.id = s;
     }
 
     public void setUsername(String s)
@@ -72,5 +79,10 @@ public class Account
     public void setLname(String s)
     {
         this.lname = s;
+    }
+
+    public void setRole(String s)
+    {
+        this.role = s;
     }
 }

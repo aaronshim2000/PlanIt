@@ -102,7 +102,7 @@ public class Main {
       Statement stmt = connection.createStatement();
       //Create table (if it doesn't exist)
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS accounts (id serial PRIMARY KEY, username varchar(20), "
-      + "password varchar(30), email varchar(64), fname varchar(20), lname varchar(20))");
+      + "password varchar(30), email varchar(64), fname varchar(20), lname varchar(20), role varchar(20))");
       //get number of accounts with the same username from accounts table
       String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUsername() + "'";
       System.out.println(sql);
@@ -116,9 +116,9 @@ public class Main {
         return "register"; //if one exists
       }
       //add new account to table
-      sql = "INSERT INTO accounts (username, password, email, fname, lname) VALUES ('" + u.getUsername() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "')";
+      sql = "INSERT INTO accounts (username, password, email, fname, lname, role) VALUES ('" + u.getUsername() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "', 'default')";
       stmt.executeUpdate(sql);
-      System.out.println(u.getUsername() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
+      //System.out.println(u.getUsername() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
       model.put("message", "Account successfully created");
       return "login";
     }
@@ -181,6 +181,11 @@ public class Main {
       rs.next();
       String lname = rs.getString("lname");
       request.getSession().setAttribute("LNAME", lname); //put lastname into session
+
+      rs = stmt.executeQuery("SELECT role FROM accounts WHERE username = '" + u.getUsername() + "'"); //find role from database
+      rs.next();
+      String role = rs.getString("role");
+      request.getSession().setAttribute("ROLE", role);
 
       model.put("message", "Welcome, " + request.getSession().getAttribute("USER"));
       return "homepage"; //go to main page
