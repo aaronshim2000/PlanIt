@@ -6,6 +6,7 @@ public class Post
     private String description;
     private String category;
     private String visibility;
+    private String review;
 
     public String getTitle()
     {
@@ -25,6 +26,9 @@ public class Post
     public String getVisibility(){
         return this.visibility;
     }
+    public String getReview(){
+        return this.review;
+    }
 
     public void setTitle(String s)
     {
@@ -43,5 +47,8 @@ public class Post
 
     public void setVisibility(String s){
         visibility=s;
+    }
+    public void setReview(String s){
+        review=s;
     }
 }

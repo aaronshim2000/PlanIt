@@ -66,7 +66,6 @@ public class Main {
     return "redirect:/post/text";
   }
 
-
   @RequestMapping("/post/text")
   String postText(Map<String,Object> model) {
     Post post=new Post();
@@ -93,35 +92,66 @@ public class Main {
 
   @RequestMapping("/scrollingFeed")
   public String getPosts(Map<String, Object> model) {
+    //get text posts
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE category='text-post' AND visibility='PUBLIC'"); //get text posts from database
-
-      ArrayList<String> titles = new ArrayList<String>();
-      ArrayList<String> descriptions = new ArrayList<String>();
-
-      while (rs.next())
+      ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE category='text-post' AND visibility='PUBLIC'");
+      ArrayList<String> text_titles = new ArrayList<String>();
+      ArrayList<String> text_descriptions = new ArrayList<String>();
+      while (rs_text.next())
       {
-        titles.add(rs.getString("title"));
-        descriptions.add(rs.getString("content"));
+        text_titles.add(rs_text.getString("title"));
+        text_descriptions.add(rs_text.getString("content"));
       }
-
-      model.put("titles", titles);
-      model.put("descriptions", descriptions);
-
-      return "scrollingFeed";
-
+      model.put("text_titles", text_titles);
+      model.put("text_descriptions", text_descriptions);
+      //return "scrollingFeed";
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }
+    //get review posts
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE category='review-post' AND visibility='PUBLIC'");
+      ArrayList<String> review_titles = new ArrayList<String>();
+      ArrayList<String> review_descriptions = new ArrayList<String>();
+      while (rs_review.next())
+      {
+        review_titles.add(rs_review.getString("title"));
+        review_descriptions.add(rs_review.getString("content"));
+      }
+      model.put("review_titles", review_titles);
+      model.put("review_descriptions", review_descriptions);
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    return "scrollingFeed";
   }
 
-
-
   @RequestMapping("/post/review")
-  String postReview() {
+  String postReview(Map<String,Object> model) {
+    Post post=new Post();
+    model.put("post",post);
     return "post-review";
+  }
+
+  @PostMapping(path = "/post/review", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String submitReviewPost(Map<String,Object> model,Post post) throws Exception {
+    try (Connection connection = dataSource.getConnection())
+    {
+      Statement statement = connection.createStatement();
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10))");
+      post.setCategory("review-post");
+      statement.executeUpdate("INSERT INTO posts(title,content,category,visibility) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
+      return "redirect:/scrollingFeed";
+    }
+    catch (Exception e)
+    {
+      model.put("message",e.getMessage());
+      return "error";
+    }
   }
 
   @RequestMapping("/post/plan")
@@ -238,8 +268,6 @@ public class Main {
       return "error";
     }
   }
-
-
 
   @RequestMapping("/forgot")
   String forgot(Map<String, Object> model){

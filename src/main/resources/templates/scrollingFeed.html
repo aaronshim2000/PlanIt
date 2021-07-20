@@ -22,15 +22,19 @@
 
 <div id="review_post">
     <h2>Review Posts</h2>
+    <div class="post" th:each="title,iter : ${review_titles}">
+        <p class="title" th:text="${title}"/>
+        <p th:text="${review_descriptions[iter.index]}"/>
+    </div>
 </div>
 
 
 <div id="text_post">
     <h2>Text Posts</h2>
 
-    <div class="post" th:each="title,iter : ${titles}">
+    <div class="post" th:each="title,iter : ${text_titles}">
         <p class="title" th:text="${title}"/>
-        <p th:text="${descriptions[iter.index]}"/>
+        <p th:text="${text_descriptions[iter.index]}"/>
     </div>
 </div>
 
