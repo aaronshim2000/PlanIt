@@ -5,6 +5,7 @@ public class Post
     private String title;
     private String description;
     private String category;
+    private String visibility;
 
     public String getTitle()
     {
@@ -21,6 +22,10 @@ public class Post
         return this.category;
     }
 
+    public String getVisibility(){
+        return this.visibility;
+    }
+
     public void setTitle(String s)
     {
         title = s;
@@ -34,5 +39,9 @@ public class Post
     public void setCategory(String s)
     {
         category = s;
+    }
+
+    public void setVisibility(String s){
+        visibility=s;
     }
 }

@@ -79,9 +79,9 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10))");
       post.setCategory("text-post");
-      statement.executeUpdate("INSERT INTO posts(title,content,category) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "')");
+      statement.executeUpdate("INSERT INTO posts(title,content,category,visibility) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -95,7 +95,7 @@ public class Main {
   public String getPosts(Map<String, Object> model) {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE category='text-post'"); //get text posts from database
+      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE category='text-post' AND visibility='PUBLIC'"); //get text posts from database
 
       ArrayList<String> titles = new ArrayList<String>();
       ArrayList<String> descriptions = new ArrayList<String>();
