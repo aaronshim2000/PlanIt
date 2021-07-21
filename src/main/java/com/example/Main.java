@@ -78,7 +78,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
       post.setCategory("text-post");
       statement.executeUpdate("INSERT INTO posts(title,content,category,visibility) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
       return "redirect:/scrollingFeed";
@@ -116,13 +116,16 @@ public class Main {
       ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE category='review-post' AND visibility='PUBLIC'");
       ArrayList<String> review_titles = new ArrayList<String>();
       ArrayList<String> review_descriptions = new ArrayList<String>();
+      ArrayList<String> review_ratings=new ArrayList<String>();
       while (rs_review.next())
       {
         review_titles.add(rs_review.getString("title"));
         review_descriptions.add(rs_review.getString("content"));
+        review_ratings.add(rs_review.getString("rating"));
       }
       model.put("review_titles", review_titles);
       model.put("review_descriptions", review_descriptions);
+      model.put("review_ratings",review_ratings);
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -142,9 +145,9 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
       post.setCategory("review-post");
-      statement.executeUpdate("INSERT INTO posts(title,content,category,visibility) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
+      statement.executeUpdate("INSERT INTO posts(title,content,category,visibility,rating) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "')");
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -153,6 +156,7 @@ public class Main {
       return "error";
     }
   }
+
 
   @RequestMapping("/post/plan")
   String postPlan() {

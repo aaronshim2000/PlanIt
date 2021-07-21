@@ -24,10 +24,10 @@
     <h2>Review Posts</h2>
     <div class="post" th:each="title,iter : ${review_titles}">
         <p class="title" th:text="${title}"/>
+        <p class="rating" th:text="${review_ratings[iter.index]}+' / 5'"/>
         <p th:text="${review_descriptions[iter.index]}"/>
     </div>
 </div>
-
 
 <div id="text_post">
     <h2>Text Posts</h2>
@@ -37,8 +37,6 @@
         <p th:text="${text_descriptions[iter.index]}"/>
     </div>
 </div>
-
-
 
 <br>
 <a href="/homepage">BACK TO HOME PAGE</a>
