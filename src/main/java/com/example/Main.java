@@ -95,7 +95,7 @@ public class Main {
     //get text posts
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE category='text-post' AND visibility='PUBLIC'");
+      ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE category='text-post' AND visibility='PUBLIC' ORDER BY id DESC");
       ArrayList<String> text_titles = new ArrayList<String>();
       ArrayList<String> text_descriptions = new ArrayList<String>();
       while (rs_text.next())
@@ -113,7 +113,7 @@ public class Main {
     //get review posts
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE category='review-post' AND visibility='PUBLIC'");
+      ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE category='review-post' AND visibility='PUBLIC' ORDER BY id DESC");
       ArrayList<String> review_titles = new ArrayList<String>();
       ArrayList<String> review_descriptions = new ArrayList<String>();
       ArrayList<String> review_ratings=new ArrayList<String>();
@@ -130,6 +130,24 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
     }
+    //get plan posts
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs_plan = stmt.executeQuery("SELECT * FROM posts WHERE category='plan-post' AND visibility='PUBLIC' ORDER BY id DESC");
+      ArrayList<String> plan_titles = new ArrayList<String>();
+      ArrayList<String> plan_descriptions = new ArrayList<String>();
+      while (rs_plan.next())
+      {
+        plan_titles.add(rs_plan.getString("title"));
+        plan_descriptions.add(rs_plan.getString("content"));
+      }
+      model.put("plan_titles", plan_titles);
+      model.put("plan_descriptions", plan_descriptions);
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
     return "scrollingFeed";
   }
 
@@ -157,11 +175,30 @@ public class Main {
     }
   }
 
-
   @RequestMapping("/post/plan")
-  String postPlan() {
+  String postPlan(Map<String,Object> model) {
+    Post post=new Post();
+    model.put("post",post);
     return "post-plan";
   }
+
+  @PostMapping(path = "/post/plan", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String submitPlanPost(Map<String,Object> model,Post post) throws Exception {
+    try (Connection connection = dataSource.getConnection())
+    {
+      Statement statement = connection.createStatement();
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
+      post.setCategory("plan-post");
+      statement.executeUpdate("INSERT INTO posts(title,content,category,visibility) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
+      return "redirect:/scrollingFeed";
+    }
+    catch (Exception e)
+    {
+      model.put("message",e.getMessage());
+      return "error";
+    }
+  }
+
 
   @RequestMapping("/costCalculator")
   String costCalculator() {

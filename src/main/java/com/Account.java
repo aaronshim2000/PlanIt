@@ -1,5 +1,8 @@
 package com;
 
+import com.example.Post;
+import java.util.ArrayList;
+
 public class Account
 {
     private String id;
@@ -13,6 +16,10 @@ public class Account
     private String fname; //first name
 
     private String lname; //last name
+
+    private ArrayList<Account> friendList=new ArrayList<Account>();
+
+    private ArrayList<Post> postHistory=new ArrayList<Post>();
 
     public String getId()
     {
@@ -44,6 +51,14 @@ public class Account
         return this.lname;
     }
 
+    public ArrayList<Account> getFriendList(){
+        return this.friendList;
+    }
+
+    public ArrayList<Post> getPostHistory(){
+        return this.postHistory;
+    }
+
     public void setId(String s)
     {
         id = s;
@@ -72,5 +87,21 @@ public class Account
     public void setLname(String s)
     {
         this.lname = s;
+    }
+
+    public void setFriend(ArrayList<Account> a){
+        this.friendList=a;
+    }
+
+    public void setPostHistory(ArrayList<Post> p){
+        this.postHistory=p;
+    }
+
+    public void addFriend(Account a){
+        friendList.add(a);
+    }
+
+    public void addPostHistory(Post p){
+        postHistory.add(p);
     }
 }

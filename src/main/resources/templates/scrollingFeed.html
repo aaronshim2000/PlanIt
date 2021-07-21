@@ -18,6 +18,10 @@
 
 <div id="plan_post">
     <h2>Plan Posts</h2>
+    <div class="post" th:each="title,iter : ${plan_titles}">
+        <p class="title" th:text="${title}"/>
+        <p th:text="${plan_descriptions[iter.index]}"/>
+    </div>
 </div>
 
 <div id="review_post">
@@ -38,7 +42,7 @@
     </div>
 </div>
 
-<br>
-<a href="/homepage">BACK TO HOME PAGE</a>
+<br><br><br><br><br>
+<a href="/">BACK TO HOME PAGE</a>
 </body>
 </html>
