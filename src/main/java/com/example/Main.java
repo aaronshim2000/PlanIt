@@ -65,6 +65,11 @@ public class Main {
   String post() {
     return "redirect:/post/text";
   }
+  
+  @RequestMapping("/filetest")
+  String fileTest() {
+    return "fileupload";
+  }
 
   @RequestMapping("/post/text")
   String postText() {
