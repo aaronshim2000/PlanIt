@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,10 +18,14 @@
 	<p class="rp"><input type="radio" id="p3" name="postselect" checked/>
 	<label for="p3">Plan</label</p>
 	<h1 class="titlelabel">Title</h1>
-	<form><!-- action='#' method="post"><!-- th:action="@{/}" th:object="${}"-->
-		<input type = "text" maxlength="49"><!--th:field={title}-->
+	<form action="#" method="post" th:action="@{/post/plan}" th:object="${post}">
+		<input type = "text" maxlength="49" th:field=*{title}>
 		<p></p>
-		<textarea placeholder="Add a description" class="contents" name="textcontent" rows = 6 cols=80 style="resize: vertical;"></textarea><!--th:field={content}-->
+		<textarea placeholder="Add a description" th:field=*{description} class="contents" name="textcontent" rows = 6 cols=80 style="resize: vertical;"></textarea>
+		<p>
+			<label><input type="radio" name="visibility" th:field=*{visibility} value="PRIVATE" required>private</label>
+			<label><input type="radio" name="visibility" th:field=*{visibility} value="PUBLIC">public</label>
+		</p>
 		<p><input type="submit" value="CREATE POST"></p>
 	</form>
 	</div>

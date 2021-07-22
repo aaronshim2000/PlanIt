@@ -1,0 +1,71 @@
+html{
+  scroll-behavior: smooth;
+}
+
+body{
+  margin: 0;
+  padding: 0;
+}
+
+nav{
+ width: 100%;
+ background: #D3D3D3;
+ overflow: hidden;
+ position: fixed;
+ top: 0;
+}
+
+li{
+ float: left;
+}
+
+.tab{
+ padding: 25px;
+ width: 200px;
+ display: block;
+ text-decoration: none;
+ color:black;
+ font-weight: bold;
+}
+
+#plan_post{
+ height: 700px;
+ display: inline-block;
+ width: 100%;
+}
+
+#review_post{
+ height: 700px;
+ display: inline-block;
+ width: 100%;
+}
+
+#text_post
+{
+ height: 700px;
+ display: inline-block;
+ width: 100%;
+}
+
+h2{
+ margin:100px;
+ text-align: center;
+}
+
+.post{
+ border: 3px double #000000;
+ margin: 100px;
+ padding:20px;
+}
+
+.title{
+ border-bottom: 1px solid black;
+ padding-bottom: 10px;
+ text-align: left;
+ font-weight: bold;
+}
+
+.rating{
+ border-bottom: 1px solid black;
+ padding-bottom: 10px;
+}
