@@ -5,10 +5,21 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Delete all Messages?</title>
 </head>
 
 <body>
+    <!-- navbar header -->
+    <div id="navbar"></div>
+    <script>
+    $(function(){
+      $("#navbar").load("nav.html");
+    });
+    </script>
+    <!-- navbar header end -->
+    
     <form action="#" id="deleteForm" method="post" th:action="@{/deleteAllMessages}" th:object="${adminMessage}">
         <p th:text="${message}"></p>
         <input name="id" type="hidden" th:value="${tag}">

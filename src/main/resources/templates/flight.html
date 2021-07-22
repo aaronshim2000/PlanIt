@@ -5,14 +5,25 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../public/stylesheets/flight.css">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <script src="../static/js/flight.js"></script>
     <!--link rel="stylesheet" th:href="@{/stylesheets/flight.css}"-->
     <!--script type="text/javascript" src="/js/flight.js" defer=""-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Plan your Flight</title>
 </head>
 
 <body>
+    <!-- navbar header -->
+    <div id="navbar"></div>
+    <script>
+    $(function(){
+      $("#navbar").load("nav.html");
+    });
+    </script>
+    <!-- navbar header end -->
+    
     <div class="booking-form-box">
         <div class="radio-button">
         </div>

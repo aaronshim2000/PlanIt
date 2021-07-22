@@ -320,6 +320,12 @@ public class Main {
     }
   }
 
+  @RequestMapping("/logout")
+  String logout(HttpServletRequest request){
+    request.getSession().invalidate();
+    return("homepage");
+  }
+
   @RequestMapping("/forgot")
   String forgot(Map<String, Object> model){
     Account account = new Account();

@@ -6,10 +6,21 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/stylesheets/contact.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Contact Us</title>
 </head>
 
 <body>
+    <!-- navbar header -->
+    <div id="navbar"></div>
+    <script>
+    $(function(){
+      $("#navbar").load("nav.html");
+    });
+    </script>
+    <!-- navbar header end -->
+
     <div class="container">
         <a class="title" th:href="@{/}">Back to Homepage</a>
         <div class="title">Contact Us</div>

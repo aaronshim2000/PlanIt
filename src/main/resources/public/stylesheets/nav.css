@@ -1,0 +1,52 @@
+/* .root
+{
+    --main-color: #0099db;
+    --secondary-color: #e43b44;
+}
+
+body
+{
+    display: flex;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+}
+
+.container
+{
+    max-width: 700px;
+    width: 100%;
+    background: #fff;
+    padding: 25px 30px;
+    border-radius: 5px;
+    overflow: hidden;
+} */
+
+.navBar{
+    /* float: center; */
+    font-family: Verdana,sans-serif;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333;
+    width: 80%;
+    height: 50px;
+    margin: auto;
+}
+.navButton{
+    float: left;
+    
+}
+.navLink{
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border: 3px rgb(138, 138, 138);
+}
+.rightSide{
+    float: right;
+}

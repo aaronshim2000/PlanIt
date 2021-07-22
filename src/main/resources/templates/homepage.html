@@ -6,9 +6,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
     <link rel="stylesheet" th:href="@{/stylesheets/home.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <script type="text/javascript" th:src="@{/js/home.js}" defer></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
+  <!-- navbar header -->
+  <div id="navbar"></div>
+  <script>
+  $(function(){
+    $("#navbar").load("nav.html");
+  });
+  </script>
+  <!-- navbar header end -->
+  
   <div id="container">
     <div id="main">
       <h1>PlanIt</h1>
