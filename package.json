@@ -3,7 +3,7 @@
   "version": "0.3.0",
   "description": "PlanIt 276 Node",
   "engines": {
-    "node": "14.x"
+    "node": "14.x",
 	"npm": "3.9.5"
   },
   "main": "index.js",
