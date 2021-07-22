@@ -1,0 +1,32 @@
+{
+  "name": "node-planit",
+  "version": "0.3.0",
+  "description": "PlanIt 276 Node",
+  "engines": {
+    "node": "14.x"
+	"npm": "3.9.5"
+  },
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+  },
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.15.2"
+	"cloudinary": ""
+  },
+  "devDependencies": {
+    "got": "^11.3.0",
+    "tape": "^4.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/heroku/node-js-getting-started"
+  },
+  "keywords": [
+    "node",
+    "heroku",
+    "express"
+  ],
+  "license": "MIT"
+}
