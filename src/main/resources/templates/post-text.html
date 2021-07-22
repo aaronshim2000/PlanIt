@@ -20,26 +20,27 @@
     });
     </script>
     <!-- navbar header end -->
-    
+
 	<div class="centerdiv">
-	<p class="rp"><input type="radio" id="p1" name="postselect" checked/>
-	<label for="p1">Text Post</label</p>
-	<p class="rp"><input type="radio" id="p2" name="postselect"/>
-	<label for="p2">Review</label</p>
-	<p class="rp"><input type="radio" id="p3" name="postselect"/>
-	<label for="p3">Plan</label</p>
-	<h1 class="titlelabel">Title</h1>
-	<form action="#" method="post" th:action="@{/post/text}" th:object="${post}">
-		<input type = "text" th:field=*{title} maxlength="49">
-		<p></p>
-		<textarea th:field=*{description} placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea>
-		<p><input type="file" name="media" accept="image/*,video/*" multiple></p>
-		<p>
-		<label><input type="radio" name="visibility" th:field=*{visibility} value="PRIVATE" required>private</label>
-		<label><input type="radio" name="visibility" th:field=*{visibility} value="PUBLIC">public</label>
-		</p>
-		<p><input type="submit" value="CREATE POST"></p>
-	</form>
+		<p class="rp"><input type="radio" id="p1" name="postselect" checked/>
+			<label for="p1">Text Post</label</p>
+		<p class="rp"><input type="radio" id="p2" name="postselect"/>
+			<label for="p2">Review</label</p>
+		<p class="rp"><input type="radio" id="p3" name="postselect"/>
+			<label for="p3">Plan</label</p>
+		<h1 class="titlelabel">Title</h1>
+		<form action="#" method="post" th:action="@{/post/text}" th:object="${post}">
+			<input type = "text" th:field=*{title} maxlength="49">
+			<p></p>
+			<textarea th:field=*{description} placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea>
+			<p><input type="file" name="media" accept="image/*,video/*" multiple></p>
+			<p>
+				<label><input type="radio" name="visibility" th:field=*{visibility} value="PRIVATE" required>private</label>
+				<label><input type="radio" name="visibility" th:field=*{visibility} value="PUBLIC">public</label>
+				<label><input type="radio" name="visibility" th:field=*{visibility} value="FRIENDONLY">friend only</label>
+			</p>
+			<p><input type="submit" value="CREATE POST"></p>
+		</form>
 	</div>
 </body>
 </html>

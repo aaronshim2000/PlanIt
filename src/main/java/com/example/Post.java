@@ -10,7 +10,7 @@ public class Post
     private String category;
     private String visibility;
     private String rating;
-    private Account creator;
+    private String creator;
 
     public String getTitle()
     {
@@ -33,7 +33,7 @@ public class Post
     public String getRating(){
         return this.rating;
     }
-    public Account getCreator(){
+    public String getCreator(){
         return this.creator;
     }
 
@@ -58,7 +58,7 @@ public class Post
     public void setRating(String s){
         rating=s;
     }
-    public void setCreator(Account a){
-        creator=a;
+    public void setCreator(String s){
+        creator=s;
     }
 }

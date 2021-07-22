@@ -71,6 +71,7 @@ public class Main {
     return "fileupload";
   }
 
+
   @RequestMapping("/post/text")
   String postText(Map<String,Object> model) {
     Post post=new Post();
@@ -79,13 +80,15 @@ public class Main {
   }
 
   @PostMapping(path = "/post/text", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String submitTextPost(Map<String,Object> model,Post post) throws Exception {
+  public String submitTextPost(Map<String,Object> model,Post post, HttpServletRequest request) throws Exception {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
       post.setCategory("text-post");
-      statement.executeUpdate("INSERT INTO posts(title,content,category,visibility) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
+      String username= (String) request.getSession().getAttribute("USER");
+      post.setCreator(username);
+      statement.executeUpdate("INSERT INTO posts(post_date, creator, title, content,category,visibility) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -93,67 +96,6 @@ public class Main {
       model.put("message",e.getMessage());
       return "error";
     }
-  }
-
-  @RequestMapping("/scrollingFeed")
-  public String getPosts(Map<String, Object> model) {
-    //get text posts
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE category='text-post' AND visibility='PUBLIC' ORDER BY id DESC");
-      ArrayList<String> text_titles = new ArrayList<String>();
-      ArrayList<String> text_descriptions = new ArrayList<String>();
-      while (rs_text.next())
-      {
-        text_titles.add(rs_text.getString("title"));
-        text_descriptions.add(rs_text.getString("content"));
-      }
-      model.put("text_titles", text_titles);
-      model.put("text_descriptions", text_descriptions);
-      //return "scrollingFeed";
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-    //get review posts
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE category='review-post' AND visibility='PUBLIC' ORDER BY id DESC");
-      ArrayList<String> review_titles = new ArrayList<String>();
-      ArrayList<String> review_descriptions = new ArrayList<String>();
-      ArrayList<String> review_ratings=new ArrayList<String>();
-      while (rs_review.next())
-      {
-        review_titles.add(rs_review.getString("title"));
-        review_descriptions.add(rs_review.getString("content"));
-        review_ratings.add(rs_review.getString("rating"));
-      }
-      model.put("review_titles", review_titles);
-      model.put("review_descriptions", review_descriptions);
-      model.put("review_ratings",review_ratings);
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-    //get plan posts
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      ResultSet rs_plan = stmt.executeQuery("SELECT * FROM posts WHERE category='plan-post' AND visibility='PUBLIC' ORDER BY id DESC");
-      ArrayList<String> plan_titles = new ArrayList<String>();
-      ArrayList<String> plan_descriptions = new ArrayList<String>();
-      while (rs_plan.next())
-      {
-        plan_titles.add(rs_plan.getString("title"));
-        plan_descriptions.add(rs_plan.getString("content"));
-      }
-      model.put("plan_titles", plan_titles);
-      model.put("plan_descriptions", plan_descriptions);
-    } catch (Exception e) {
-      model.put("message", e.getMessage());
-      return "error";
-    }
-
-    return "scrollingFeed";
   }
 
   @RequestMapping("/post/review")
@@ -164,13 +106,15 @@ public class Main {
   }
 
   @PostMapping(path = "/post/review", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String submitReviewPost(Map<String,Object> model,Post post) throws Exception {
+  public String submitReviewPost(Map<String,Object> model,Post post,HttpServletRequest request) throws Exception {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
       post.setCategory("review-post");
-      statement.executeUpdate("INSERT INTO posts(title,content,category,visibility,rating) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "')");
+      String username= (String) request.getSession().getAttribute("USER");
+      post.setCreator(username);
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "')");
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -188,13 +132,15 @@ public class Main {
   }
 
   @PostMapping(path = "/post/plan", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String submitPlanPost(Map<String,Object> model,Post post) throws Exception {
+  public String submitPlanPost(Map<String,Object> model,Post post,HttpServletRequest request) throws Exception {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
       post.setCategory("plan-post");
-      statement.executeUpdate("INSERT INTO posts(title,content,category,visibility) VALUES ('" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
+      String username= (String) request.getSession().getAttribute("USER");
+      post.setCreator(username);
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),'" + username + "','" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -202,6 +148,94 @@ public class Main {
       model.put("message",e.getMessage());
       return "error";
     }
+  }
+
+
+  @RequestMapping("/scrollingFeed")
+  public String getPosts(Map<String, Object> model) {
+    //dealing with text posts
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE category='text-post' AND visibility='PUBLIC' ORDER BY id DESC");
+      ArrayList<String> text_titles = new ArrayList<String>();
+      ArrayList<String> text_descriptions = new ArrayList<String>();
+      ArrayList<String> text_postDates= new ArrayList<String>();
+      ArrayList<String> text_visibilities=new ArrayList<String>();
+      ArrayList<String> text_creators=new ArrayList<String>();
+      while (rs_text.next())
+      {
+        text_titles.add(rs_text.getString("title"));
+        text_descriptions.add(rs_text.getString("content"));
+        text_postDates.add(rs_text.getString("post_date"));
+        text_visibilities.add(rs_text.getString("visibility"));
+        text_creators.add(rs_text.getString("creator"));
+      }
+      model.put("text_titles", text_titles);
+      model.put("text_descriptions", text_descriptions);
+      model.put("text_postDates",text_postDates);
+      model.put("text_visibilities",text_visibilities);
+      model.put("text_creators",text_creators);
+      //return "scrollingFeed";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    //dealing with review posts
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE category='review-post' AND visibility='PUBLIC' ORDER BY id DESC");
+      ArrayList<String> review_titles = new ArrayList<String>();
+      ArrayList<String> review_descriptions = new ArrayList<String>();
+      ArrayList<String> review_ratings=new ArrayList<String>();
+      ArrayList<String> review_postDates=new ArrayList<String>();
+      ArrayList<String> review_visibilities=new ArrayList<String>();
+      ArrayList<String> review_creators=new ArrayList<String>();
+      while (rs_review.next())
+      {
+        review_titles.add(rs_review.getString("title"));
+        review_descriptions.add(rs_review.getString("content"));
+        review_ratings.add(rs_review.getString("rating"));
+        review_postDates.add(rs_review.getString("post_date"));
+        review_visibilities.add(rs_review.getString("visibility"));
+        review_creators.add(rs_review.getString("creator"));
+      }
+      model.put("review_titles", review_titles);
+      model.put("review_descriptions", review_descriptions);
+      model.put("review_ratings",review_ratings);
+      model.put("review_postDates",review_postDates);
+      model.put("review_visibilities",review_visibilities);
+      model.put("review_creators",review_creators);
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    //dealing with plan posts
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      ResultSet rs_plan = stmt.executeQuery("SELECT * FROM posts WHERE category='plan-post' AND visibility='PUBLIC' ORDER BY id DESC");
+      ArrayList<String> plan_titles = new ArrayList<String>();
+      ArrayList<String> plan_descriptions = new ArrayList<String>();
+      ArrayList<String> plan_postDates = new ArrayList<String>();
+      ArrayList<String> plan_visibilities = new ArrayList<String>();
+      ArrayList<String> plan_creators = new ArrayList<String>();
+      while (rs_plan.next())
+      {
+        plan_titles.add(rs_plan.getString("title"));
+        plan_descriptions.add(rs_plan.getString("content"));
+        plan_postDates.add(rs_plan.getString("post_date"));
+        plan_visibilities.add(rs_plan.getString("visibility"));
+        plan_creators.add(rs_plan.getString("creator"));
+      }
+      model.put("plan_titles", plan_titles);
+      model.put("plan_descriptions", plan_descriptions);
+      model.put("plan_postDates",plan_postDates);
+      model.put("plan_visibilities",plan_visibilities);
+      model.put("plan_creators",plan_creators);
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    return "scrollingFeed";
   }
 
 
