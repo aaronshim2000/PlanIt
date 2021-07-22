@@ -17,9 +17,8 @@ public class Account
 
     private String lname; //last name
 
-    private ArrayList<Account> friendList=new ArrayList<Account>();
+    private String role; //role IMPLEMENT
 
-    private ArrayList<Post> postHistory=new ArrayList<Post>();
 
     public String getId()
     {
@@ -51,17 +50,15 @@ public class Account
         return this.lname;
     }
 
-    public ArrayList<Account> getFriendList(){
-        return this.friendList;
-    }
 
-    public ArrayList<Post> getPostHistory(){
-        return this.postHistory;
+    public String getRole()
+    {
+        return this.role;
     }
 
     public void setId(String s)
     {
-        id = s;
+        this.id = s;
     }
 
     public void setUsername(String s)
@@ -89,19 +86,8 @@ public class Account
         this.lname = s;
     }
 
-    public void setFriend(ArrayList<Account> a){
-        this.friendList=a;
-    }
-
-    public void setPostHistory(ArrayList<Post> p){
-        this.postHistory=p;
-    }
-
-    public void addFriend(Account a){
-        friendList.add(a);
-    }
-
-    public void addPostHistory(Post p){
-        postHistory.add(p);
+    public void setRole(String s)
+    {
+        this.role = s;
     }
 }
