@@ -469,6 +469,68 @@ public class Main {
     return "redirect:/viewAdminMessages";
   }
 
+  //get a list of accounts for viewAccountsTable.html
+  @RequestMapping("/viewAccountsTable")
+  String viewAccountsTable(Map<String, Object> model){
+    try(Connection connection = dataSource.getConnection()){
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery("SELECT * FROM accounts");
+
+      ArrayList<String> ids = new ArrayList<String>();
+      ArrayList<String> usernames = new ArrayList<String>();
+      ArrayList<String> emails = new ArrayList<String>();
+      ArrayList<String> fnames = new ArrayList<String>();
+      ArrayList<String> lnames = new ArrayList<String>();
+
+      while(rs.next()){
+        ids.add(String.valueOf(rs.getString("id")));
+        usernames.add(String.valueOf(rs.getString("username")));
+        emails.add(String.valueOf(rs.getString("email")));
+        fnames.add(String.valueOf(rs.getString("fname")));
+        lnames.add(String.valueOf(rs.getString("lname")));
+      }
+      model.put("ids", ids);
+      model.put("usernames", usernames);
+      model.put("emails", emails);
+      model.put("fnames", fnames);
+      model.put("lnames", lnames);
+      return "viewAccountsTable";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  //get a specific account for viewAccounts
+  @RequestMapping("/viewAccount")
+  String viewAccount(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model) {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+      Statement statement = connection.createStatement();
+
+      ResultSet rs = statement.executeQuery("SELECT * FROM accounts where id=" + tag);
+
+      while (rs.next()) 
+      {
+        model.put("id", String.valueOf(rs.getInt("id")));
+        model.put("username", rs.getString("username"));
+        model.put("email", rs.getString("email"));
+        model.put("fname", rs.getString("fname"));
+        model.put("lname", rs.getString("lname"));
+        model.put("role", rs.getString("role"));
+      }
+
+      return "viewAccount";
+    } 
+    catch (Exception e) 
+    {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   @RequestMapping("/db")
   String db(Map<String, Object> model) {
     try (Connection connection = dataSource.getConnection()) {
