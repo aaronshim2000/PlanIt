@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../public/stylesheets/flight.css">
+    <script src="../static/js/flight.js"></script>
+    <!--link rel="stylesheet" th:href="@{/stylesheets/flight.css}"-->
+    <!--script type="text/javascript" src="/js/flight.js" defer=""-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
+    <title>Plan your Flight</title>
+</head>
+
+<body>
+    <div class="booking-form-box">
+        <div class="radio-button">
+        </div>
+        <div class="booking-form">
+            <label>Currency</label>
+            <input type="text" class="form-control" id="currency" placeholder="CAD" required>
+
+            <label>Origin Country</label>
+            <select class="form-control" id="origin"></select required>
+
+            <label>Destination Country</label>
+            <select class="form-control" id="destination"></select required>
+
+            <label>Departing Date</label>
+            <input type="date" class="form-control select-date" id="outboundDate" required>
+
+            <label>Returning Date</label>
+            <input type="date" class="form-control select-date" id="inboundDate" required>
+
+            <div class="input-group">
+                <button type="button" class="flight">Show Flights</button>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
