@@ -48,7 +48,7 @@ public class Flight
 
     public String getAirline()
     {
-        return airline();
+        return airline;
     }
 
     public void setId(String s)

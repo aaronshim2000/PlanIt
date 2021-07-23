@@ -564,7 +564,7 @@ public class Main {
   }
 
   @PostMapping(path = "/flight", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String flightSaved(Flight flight, HttpServletRequest request, HttpServletResponse response) throws Exception {
+  public String flightSaved(Flight flight, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
     HttpSession session = request.getSession(false);
     String target = request.getRequestURI();
     if (session == null)  {
@@ -604,7 +604,7 @@ public class Main {
   }
 
   @RequestMapping("/viewSavedFlights")
-  String viewSavedFlights(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response){
+  String viewSavedFlights(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
     HttpSession session = request.getSession(false);
     String target = request.getRequestURI();
     if (session == null)  {
