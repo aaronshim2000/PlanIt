@@ -7,31 +7,7 @@
 	<title>Upload File</title>
 	<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 	<script type="text/javascript" src="/js/fileupload.js" defer=""></script>
-	<style>
-	.imageCell{
-		background-size: contain;
-		background-repeat: no-repeat;
-		background-position: center;
-		padding: 0;
-		vertical-align: top;
-	}
-	.imageResult{
-		visibility: visible;
-		border: 0;
-		padding: 0;
-	}
-	.removeButton{
-		background-color: red;
-		width: 20px;
-		height: 20px;
-		color: white;
-		display: inline-block;
-		border-radius: 50%;
-		cursor: pointer;
-		position: relative;
-		float: right;
-	}
-	</style>
+	<link rel="stylesheet" href="/stylesheets/fileupload.css">
 </head>
 <body>
     <button id="upload_widgetImage" type="button" class="cloudinary-button">Upload files</button>
@@ -57,13 +33,3 @@
 	<p style="margin: 0;">random text</p>
 </body>
 </html>
-
-
-<!--
-<td id="viewImg00" class="imageCell" style="background-image: url('https://res.cloudinary.com/hq73wefct/image/upload/v1626847306/samples/landscapes/beach-boat.jpg');
-width: 250px;
-height: 250px;
-background-size: contain;
-background-repeat: no-repeat;
-background-position: center;"></td>
--->

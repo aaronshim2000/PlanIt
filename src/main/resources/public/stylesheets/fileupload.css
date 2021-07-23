@@ -1,0 +1,23 @@
+.imageCell{
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	padding: 0;
+	vertical-align: top;
+}
+.imageResult{
+	visibility: visible;
+	border: 0;
+	padding: 0;
+}
+.removeButton{
+	background-color: red;
+	width: 20px;
+	height: 20px;
+	color: white;
+	display: inline-block;
+	border-radius: 50%;
+	cursor: pointer;
+	position: relative;
+	float: right;
+}
