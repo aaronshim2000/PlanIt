@@ -26,12 +26,16 @@ var imgWidget = cloudinary.createUploadWidget({
   (error, result) => { 
     if (!error && result && result.event === "success") {
 	  var newRes = result.info;
+	  var domDimension = 'width';
+	  if (newRes.width < newRes.height){
+		domDimension = 'height';
+	  }
       imgResults.innerHTML = imgResults.innerHTML + '<input type="text" style="visibility: visible" id="imgRes' + imageCounter + '" value="' + newRes.url + '" disabled>';
 	  if (imageCounter < 5){
-		  imgViewer1.innerHTML = imgViewer1.innerHTML + '<img src="' + newRes.url + '" id="viewImg0' + imageCounter + 'width="250">'
+		  imgViewer1.innerHTML = imgViewer1.innerHTML + '<img src="' + newRes.url + '" id="viewImg0' + imageCounter + '" ' + domDimension + '="250">'
 	  }
 	  else{
-		  imgViewer2.innerHTML = imgViewer2.innerHTML + '<img src="' + newRes.url + '" id="viewImg0' + imageCounter + 'width="250">'
+		  imgViewer2.innerHTML = imgViewer2.innerHTML + '<img src="' + newRes.url + '" id="viewImg0' + imageCounter + '" ' + domDimension + '="250">'
 	  }
 	  imageCounter++;
     }
