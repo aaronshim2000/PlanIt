@@ -4,11 +4,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../public/stylesheets/flight.css">
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
-    <script src="../static/js/flight.js"></script>
-    <!--link rel="stylesheet" th:href="@{/stylesheets/flight.css}"-->
-    <!--script type="text/javascript" src="/js/flight.js" defer=""-->
+
+    <!-- local-->
+    <!-- <link rel="stylesheet" href="../public/stylesheets/flight.css"> -->
+    <!-- <script src="../static/js/flight.js"></script> -->
+
+    <!-- webapp-->
+    <link rel="stylesheet" th:href="@{/stylesheets/flight.css}">
+    <script type="text/javascript" src="/js/flight.js" defer=""></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Plan your Flight</title>
@@ -23,7 +28,7 @@
         </div>
         <div class="booking-form">
             <label>Currency</label>
-            <input type="text" class="form-control" id="currency" placeholder="CAD" required>
+            <input type="text" class="form-control" value="CAD" id="currency" required>
 
             <label>Origin Country</label>
             <select class="form-control" id="origin"></select required>
@@ -32,15 +37,31 @@
             <select class="form-control" id="destination"></select required>
 
             <label>Departing Date</label>
-            <input type="date" class="form-control select-date" id="outboundDate" required>
-
-            <label>Returning Date</label>
-            <input type="date" class="form-control select-date" id="inboundDate" required>
+            <input type="text" class="form-control select-date" id="outboundDate" placeholder="yyyy-mm-dd or anytime" required>
 
             <div class="input-group">
-                <button type="button" class="flight">Show Flights</button>
+                <button onclick="getResponse()" class="flight">Show Flights</button>
             </div>
         </div>
+    </div>
+
+    <div>
+        <form id="flightTableForm" action="#" method="post" th:action="@{/flight}" th:object="${flight}" onsubmit="return saveRow()">
+            <table class=content-table>
+                <thead>
+                    <tr>
+                        <th class="column">Price</th>
+                        <th class="column">Airline</th>
+                        <th class="column">Departing Date</th>
+                        <th class="column"></th>
+                    </tr>
+                </thead>
+                <tbody id="tableBody">
+
+                </tbody>
+            </table>
+    
+        </form>
     </div>
 </body>
 

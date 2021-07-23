@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/stylesheets/adminMessageTable.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <title>Saved Flights</title>
+</head>
+
+<body>
+    <!-- navbar header -->
+    <div th:replace="fragments/nav :: navbar"></div>
+    
+    <h1>Saved Flights</h1>
+    <form id="savedFlightsForm" action="#" method="post" th:action="@{/viewFlight}" th:object="${flight}">
+        <table class=content-table>
+            <thead>
+                <tr>
+                    <th class="column">Id</th>
+                    <th class="column">Price</th>
+                    <th class="column">Origin</th>
+                    <th class="column">Destination</th>
+                    <th class="column">Outbound Date</th>
+                    <th class="column">Airline</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="id,iter : ${ids}">
+                    <td th:text="${id}"></td>
+                    <td th:text="${prices[iter.index]}"></td>
+                    <td th:text="${origins[iter.index]}"></td>
+                    <td th:text="${destinations[iter.index]}"></td>
+                    <td th:text="${outboundDates[iter.index]}"></td>
+                    <td th:text="${airlines[iter.index]}"></td>
+                    <td>
+                        <a th:text="Delete" th:href="@{/deleteSavedFlight(id=${id})}"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </form>
+
+    <a href="/flight">Plan a flight</a>
+</body>
+
+</html>
+
