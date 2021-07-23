@@ -29,6 +29,8 @@ import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.MediaType;
 
+import javax.net.ssl.HandshakeCompletedEvent;
+import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
 import java.lang.reflect.MalformedParameterizedTypeException;
@@ -150,9 +152,26 @@ public class Main {
     }
   }
 
-
   @RequestMapping("/scrollingFeed")
-  public String getPosts(Map<String, Object> model) {
+  public String getPosts(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // check if user already login
+    HttpSession session = request.getSession(false);
+    String target = request.getRequestURI();
+    if (session == null)  {
+      // if not yet
+      session = request.getSession(true);
+      session.setAttribute("target", target);
+      response.sendRedirect("/login");
+    }
+    else{
+      Object loginCheck = session.getAttribute("login");
+      if (loginCheck == null){
+        //if not yet
+        session.setAttribute("target", target);
+        response.sendRedirect("/login");
+      }
+    }
+
     //dealing with text posts
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
@@ -344,6 +363,13 @@ public class Main {
       rs.next();
       String role = rs.getString("role");
       request.getSession().setAttribute("ROLE", role);
+
+
+      request.getSession().setAttribute("login", "OK");
+      if(request.getSession().getAttribute("target")!=null){
+        model.put("message","You can access the page now.");
+        return "homepage";
+      }
 
       model.put("message", "Welcome, " + request.getSession().getAttribute("USER"));
       model.put("user", request.getSession().getAttribute("USER"));
@@ -611,5 +637,20 @@ public class Main {
       return new HikariDataSource(config);
     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }
