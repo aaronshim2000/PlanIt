@@ -13,13 +13,7 @@
 
 <body>
     <!-- navbar header -->
-    <div id="navbar"></div>
-    <script>
-    $(function(){
-      $("#navbar").load("nav.html");
-    });
-    </script>
-    <!-- navbar header end -->
+    <div th:replace="fragments/nav :: navbar"></div>
     
     <a th:href="@{/contact}">Back to Contact Us</a> <br>
     <h1>Administrator Messages</h1>

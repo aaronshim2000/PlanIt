@@ -13,13 +13,7 @@
 
 <body>
     <!-- navbar header -->
-    <div id="navbar"></div>
-    <script>
-    $(function(){
-      $("#navbar").load("nav.html");
-    });
-    </script>
-    <!-- navbar header end -->
+    <div th:replace="fragments/nav :: navbar"></div>
 
     <div class="container">
         <a class="title" th:href="@{/}">Back to Homepage</a>
