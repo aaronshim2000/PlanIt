@@ -75,7 +75,6 @@ public class Main {
     return "fileupload";
   }
 
-
   @RequestMapping("/post/text")
   String postText(Map<String, Object> model, HttpServletRequest request) {
     Post post=new Post();
