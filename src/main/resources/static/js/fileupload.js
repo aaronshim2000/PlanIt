@@ -1,4 +1,6 @@
 var imgResults = document.getElementById("resultsP");
+var imgViewer1 = document.getElementById("viewImages1");
+var imgViewer2 = document.getElementById("viewImages2");
 var imageCounter = 0;
 
 function uploadImages(){
@@ -23,14 +25,20 @@ var imgWidget = cloudinary.createUploadWidget({
   googleApiKey: 'AIzaSyBwjuDWKJxCU5dEYC16AtB7AV26-n1Y-RY' },
   (error, result) => { 
     if (!error && result && result.event === "success") {
-	  var newRes = result.info; 
+	  var newRes = result.info;
       imgResults.innerHTML = imgResults.innerHTML + '<input type="text" style="visibility: visible" id="imgRes' + imageCounter + '" value="' + newRes.url + '" disabled>';
-	  i++;
+	  if (imageCounter < 5){
+		  imgViewer1.innerHTML = imgViewer1.innerHTML + '<img src="' + newRes.url + '" id="viewImg0' + imageCounter + 'width="250">'
+	  }
+	  else{
+		  imgViewer2.innerHTML = imgViewer2.innerHTML + '<img src="' + newRes.url + '" id="viewImg0' + imageCounter + 'width="250">'
+	  }
+	  imageCounter++;
     }
   }
 )
 
-document.getElementById("upload_widgetImage").addEventListener("click", function(){uploadImages()}, false);
+document.getElementById("upload_widgetImage").addEventListener("click", function(){uploadImages()});
 
 /*var cl = new cloudinary.Cloudinary({cloud_name: "planit276", secure: true});
 var i00s = document.getElementById("image00s");
