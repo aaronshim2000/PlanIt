@@ -6,8 +6,8 @@
             <li class="navButton"><a class="navLink" href="/scrollingFeed">Feed</a></li>
             <li class="navButton"><a class="navLink" href="/costCalculator">Cost Calculator</a></li>
             <li class="navButton"><a class="navLink" href="/contact">Contact Us</a></li>
-            <li class="rightSide"><a class="navLink" href="/login">Login</a></li>
+            <li class="rightSide" th:if="!${logged}"><a class="navLink" href="/login">Login</a></li>
+            <li class="rightSide" th:if="${logged}"><a class="navLink" href="/logout">Logout</a></li>
         </ul>
     </nav>
-    <span th:text="${user}">Test</span>
 </div>

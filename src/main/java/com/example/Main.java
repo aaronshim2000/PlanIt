@@ -287,7 +287,6 @@ public class Main {
       ResultSet rs = stmt.executeQuery(sql);
       rs.next();
       int x = rs.getInt("count");
-      System.out.println(x);
       if(x != 0){ //check if there are is at least 1 account in table
         model.put("taken", "This username has been taken");
         return "register"; //if one exists
@@ -325,19 +324,19 @@ public class Main {
       ResultSet rs = stmt.executeQuery(sql);
       rs.next();
       int x = rs.getInt("count");
-      System.out.println(x);
       if(x == 0){ //check if no user matches the username
         model.put("message", "Invalid Username");
+        System.out.println("Login username found");
         return "login"; //if none exist
       }
       //check if password is correct
       sql = "SELECT password FROM accounts WHERE username = '" + u.getUsername() + "'";
-      System.out.println(sql);
       rs = stmt.executeQuery(sql);
       rs.next();
       String pass = rs.getString("password");
       if(!pass.equals(u.getPassword())){ //check if password is correct
         model.put("message", "Incorrect Password");
+        System.out.println("Login password found");
         return "login"; //if not correct
       }
       //GIVE USER INFORMATION TO SESSION *************************************************************************
@@ -379,13 +378,6 @@ public class Main {
       model.put("Error", e.getMessage());
       return "error";
     }
-  }
-
-  @RequestMapping("/nav")
-  String navInfo(Map<String, Object> model, HttpServletRequest request){
-    model.put("user", request.getSession().getAttribute("USER"));
-    System.out.println("X");
-    return "nav";
   }
 
   @RequestMapping("/logout")
