@@ -35,13 +35,9 @@
                     <td>
                         <a th:text="${usernames[iter.index]}" th:href="@{/adminMessage(id=${id})}"></a>
                     </td>
-                    </td>
 
                     <td th:text="${emails[iter.index]}"></td>
                     <td th:text="${categories[iter.index]}"></td>
-                    <td>
-                        <a th:text="Delete" th:href="@{/deleteAdminMessage(id=${id})}"></a>
-                    </td>
                 </tr>
             </tbody>
         </table>

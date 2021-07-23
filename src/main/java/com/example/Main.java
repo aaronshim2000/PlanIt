@@ -565,26 +565,13 @@ public class Main {
   @PostMapping(path = "/flight", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
   public String flightSaved(Flight flight, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
     HttpSession session = request.getSession(false);
-    String target = request.getRequestURI();
-    if (session == null)  {
-      session = request.getSession(true);
-      session.setAttribute("target", target);
-      response.sendRedirect("/login");
-    }
-    else{
-      Object loginCheck = session.getAttribute("login");
-      if (loginCheck == null){
-        session.setAttribute("target", target);
-        response.sendRedirect("/login");
-      }
-    }
 
     try (Connection connection = dataSource.getConnection()) 
     {
       Statement statement = connection.createStatement();
       statement.executeUpdate(
           "CREATE TABLE IF NOT EXISTS savedFlights (id serial PRIMARY KEY, username varchar(20), price varchar(20), "
-              + "origin varchar(20), destination varchar(20), outboundDate varchar(20), airline varchar(50)");
+              + "origin varchar(20), destination varchar(20), outboundDate varchar(20), airline varchar(50))");
 
       String username= (String) session.getAttribute("USER");
       flight.setUsername(username);
@@ -605,19 +592,6 @@ public class Main {
   @RequestMapping("/viewSavedFlights")
   String viewSavedFlights(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
     HttpSession session = request.getSession(false);
-    String target = request.getRequestURI();
-    if (session == null)  {
-      session = request.getSession(true);
-      session.setAttribute("target", target);
-      response.sendRedirect("/login");
-    }
-    else{
-      Object loginCheck = session.getAttribute("login");
-      if (loginCheck == null){
-        session.setAttribute("target", target);
-        response.sendRedirect("/login");
-      }
-    }
 
     try(Connection connection = dataSource.getConnection()){
       Statement statement = connection.createStatement();
@@ -626,7 +600,7 @@ public class Main {
 
       statement.executeUpdate(
           "CREATE TABLE IF NOT EXISTS savedFlights (id serial PRIMARY KEY, username varchar(20), price varchar(20), "
-              + "origin varchar(20), destination varchar(20), outboundDate varchar(20), airline varchar(50)");
+              + "origin varchar(20), destination varchar(20), outboundDate varchar(20), airline varchar(50))");
 
       ResultSet rs = statement.executeQuery("SELECT * FROM savedFlights where username=" + username);
 
