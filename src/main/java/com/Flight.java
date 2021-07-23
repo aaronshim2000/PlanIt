@@ -5,20 +5,28 @@ public class Flight
 {
     private String id;
     
-    private int price;
+    private String username;
+
+    private String price;
 
     private String origin;
     private String destination;
 
     private String outboundDate;
-    private String inboundDate;
+
+    private String airline;
 
     public String getId()
     {
         return id;
     }
 
-    public int getPrice()
+    public String getUsername()
+    {
+        return username;
+    }
+
+    public String getPrice()
     {
         return price;
     }
@@ -38,9 +46,9 @@ public class Flight
         return outboundDate;
     }
 
-    public String getInboundDate()
+    public String getAirline()
     {
-        return inboundDate;
+        return airline;
     }
 
     public void setId(String s)
@@ -48,9 +56,14 @@ public class Flight
         id = s;
     }
 
-    public void setPrice(int i)
+    public void setUsername(String s)
     {
-        price = i;
+        username = s;
+    }
+
+    public void setPrice(String s)
+    {
+        price = s;
     }
 
     public void setOrigin(String s)
@@ -68,8 +81,8 @@ public class Flight
         outboundDate = s;
     }
 
-    public void setInboundDate(String s)
+    public void setAirline(String s)
     {
-        inboundDate = s;
+        airline = s;
     }
 }

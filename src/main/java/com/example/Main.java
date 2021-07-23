@@ -555,6 +555,150 @@ public class Main {
     return "redirect:/viewAdminMessages";
   }
 
+  @RequestMapping("/flight") 
+  String flight(Map<String, Object> model) {
+    Flight flight = new Flight();
+    model.put("flight", flight);
+    return "flight";
+  }
+
+  @PostMapping(path = "/flight", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String flightSaved(Flight flight, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
+    HttpSession session = request.getSession(false);
+    String target = request.getRequestURI();
+    if (session == null)  {
+      session = request.getSession(true);
+      session.setAttribute("target", target);
+      response.sendRedirect("/login");
+    }
+    else{
+      Object loginCheck = session.getAttribute("login");
+      if (loginCheck == null){
+        session.setAttribute("target", target);
+        response.sendRedirect("/login");
+      }
+    }
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+      Statement statement = connection.createStatement();
+      statement.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS savedFlights (id serial PRIMARY KEY, username varchar(20), price varchar(20), "
+              + "origin varchar(20), destination varchar(20), outboundDate varchar(20), airline varchar(50)");
+
+      String username= (String) session.getAttribute("USER");
+      flight.setUsername(username);
+
+      statement.executeUpdate(
+          "INSERT INTO savedFlights(username, price, origin, destination, outboundDate, outCarrier) VALUES ('" 
+          + flight.getUsername() + "', '" + flight.getPrice() + "', '" + flight.getOrigin() + "', '" + flight.getDestination() + "', '"
+          + flight.getOutboundDate() + "', '" + flight.getAirline() + "');");
+
+      return "redirect:/viewSavedFlights";
+    } 
+    catch (Exception e) 
+    {
+      return "error";
+    }
+  }
+
+  @RequestMapping("/viewSavedFlights")
+  String viewSavedFlights(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws IOException, Exception {
+    HttpSession session = request.getSession(false);
+    String target = request.getRequestURI();
+    if (session == null)  {
+      session = request.getSession(true);
+      session.setAttribute("target", target);
+      response.sendRedirect("/login");
+    }
+    else{
+      Object loginCheck = session.getAttribute("login");
+      if (loginCheck == null){
+        session.setAttribute("target", target);
+        response.sendRedirect("/login");
+      }
+    }
+
+    try(Connection connection = dataSource.getConnection()){
+      Statement statement = connection.createStatement();
+
+      String username= (String) session.getAttribute("USER");
+
+      statement.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS savedFlights (id serial PRIMARY KEY, username varchar(20), price varchar(20), "
+              + "origin varchar(20), destination varchar(20), outboundDate varchar(20), airline varchar(50)");
+
+      ResultSet rs = statement.executeQuery("SELECT * FROM savedFlights where username=" + username);
+
+      ArrayList<String> ids = new ArrayList<String>();
+      ArrayList<String> prices = new ArrayList<String>();
+      ArrayList<String> origins = new ArrayList<String>();
+      ArrayList<String> destinations = new ArrayList<String>();
+      ArrayList<String> outboundDates = new ArrayList<String>();
+      ArrayList<String> airlines = new ArrayList<String>();
+
+      while(rs.next()){
+        ids.add(rs.getString("id"));
+        prices.add(rs.getString("price"));
+        origins.add(rs.getString("origin"));
+        destinations.add(rs.getString("destination"));
+        outboundDates.add(rs.getString("outboundDate"));
+        airlines.add(rs.getString("airline"));
+      }
+
+      model.put("ids", ids);
+      model.put("prices", prices);
+      model.put("origins", origins);
+      model.put("destinations", destinations);
+      model.put("outboundDates", outboundDates);
+      model.put("airlines", airlines);
+
+      return "viewSavedFlights";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/deleteFlight") 
+  String attemptDelete(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model) {
+
+    String message = "Do you wish to delete flight " + tag + "?";
+
+    Flight flight = new Flight();
+    model.put("flight", flight);
+    model.put("message", message);
+    model.put("tag", tag);
+
+    return "deleteFlight";
+  }
+
+  @PostMapping(path = "/deleteFlight", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
+  public String deleteFlight(Map<String, Object> model, Flight flight, @RequestParam("id") String id) throws Exception {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+          Statement statement = connection.createStatement();
+          statement.executeUpdate("DELETE FROM savedFlights WHERE id = " + id + ";");
+
+          String message = "Succesfully deleted flight with id " + id; 
+          model.put("message", message);
+
+          return "redirect:/viewFlightsTable";
+    } 
+    catch (Exception e) 
+    {
+      return "error";
+    }
+  }
+
+  @PostMapping(path = "/deleteFlight", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
+  public String cancelDelete(Flight flight) {
+
+    return "redirect:/viewFlightsTable";
+  }
+
   //get a list of accounts for viewAccountsTable.html
   @RequestMapping("/viewAccountsTable")
   String viewAccountsTable(Map<String, Object> model, HttpServletRequest request){
@@ -650,7 +794,6 @@ public class Main {
       return new HikariDataSource(config);
     }
   }
-
 
 
 

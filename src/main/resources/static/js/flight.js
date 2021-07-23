@@ -24,16 +24,15 @@ async function getResponse()
     // format: url/countryOfUser/Currency/language/origin/destination/outbound-date/inbound-date
     // example url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/US/USD/en-US/SFO-sky/JFK-sky/2019-09-01?inboundpartialdate=2019-12-01"
 
-    var country = "US"; // idk if this matters
-    var currency = getElementById("currency").innerHTML; 
+    var country = "CA";
+    var currency = document.getElementById("currency").value; 
     var language = "en-US";
-    var origin = getElementById("origin").innerHTML;
-    var destination = getElementById("destination").innerHTML;
-    var outboundDate = getElementById("outboundDate").innerHTML;
-    var inboundDate = getElementById("inboundDate").innerHTML;
+    var origin = document.getElementById("origin").value;
+    var destination = document.getElementById("destination").value;
+    var outboundDate = document.getElementById("outboundDate").value;
 
     var api_url = "https://skyscanner-skyscanner-flight-search-v1.p.rapidapi.com/apiservices/browsequotes/v1.0/"
-        + country + "/" + currency + "/" + language + "/" + origin + "/" + destination + "/" + outboundDate + "?inboundpartialdate=" + inboundDate;
+        + country + "/" + currency + "/" + language + "/" + origin + "/" + destination + "/" + outboundDate;
     fetch(api_url, {
 	"method": "GET",
 	"headers": {
@@ -41,11 +40,69 @@ async function getResponse()
 		"x-rapidapi-host": "skyscanner-skyscanner-flight-search-v1.p.rapidapi.com"
 	}
     })
-    .then(response => {
-        const data = response.json;
-        // Manipulate the data from json file
+    .then(async response => {
+        const data = await response.json();   
+        console.log(data);
+        buildTable(data);
     })
     .catch(err => {
         console.error(err);
     });
+}
+
+function buildTable(data)
+{
+    var table = document.getElementById("tableBody");
+
+    table.innerHTML = "";
+
+    for (var i = 0; i < data.Quotes.length; i++)
+    {
+        var quote = data.Quotes[i];
+
+        var outboundCarrierId = quote.OutboundLeg.CarrierIds[0];
+        var departureDate = quote.OutboundLeg.DepartureDate.slice(0,10);
+
+        var outCarrierName;
+
+        for (var j = 0; j < data.Carriers.length; j++)
+        {
+            var carrier = data.Carriers[j];
+
+            if (outboundCarrierId == carrier.CarrierId)
+                outCarrierName = carrier.Name;
+        }
+
+        var row = `<tr id=row${i}>
+                        <td id=price${i}>${quote.MinPrice} ${data.Currencies[0].Code}</td>
+                        <td id=outCarrier${i}>${outCarrierName}</td>   
+                        <td id=departureDate${i}>${departureDate}</td>
+                        <td>
+                            <button class=save onclick="saveRow(${i})">Save</button>
+                        </td>
+                    </tr>`;
+        table.innerHTML += row;
+    }
+}
+
+function saveRow(i)
+{
+    var table = document.getElementById("tableBody");
+
+    var price = document.getElementById("price" + i).value;
+    var origin = document.getElementById("origin").value;
+    var destination = document.getElementById("destination").value;
+    var outboundDate = document.getElementById("departureDate" + i).value;
+    var outCarrier = document.getElementById("outCarrier" + i).value;
+
+    var rows = 
+        `<input type="text" value="${price}" th:field=*{price}>
+        <input type="text" value="${origin}" th:field=*{origin}>
+        <input type="text" value="${destination}" th:field=*{destination}>
+        <input type="text" value="${outboundDate}" th:field=*{outboundDate}>
+        <input type="text" value="${outCarrier}" th:field=*{airline}>`
+
+    table.innerHTML += rows;
+
+    return true;
 }
