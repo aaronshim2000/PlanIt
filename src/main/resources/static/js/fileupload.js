@@ -77,7 +77,7 @@ var imgWidget = cloudinary.createUploadWidget({
 	  var newRes = result.info;
 	  var currCell = document.getElementById("viewImg0" + imageCounter);
 	  var currRes = document.getElementById("imageRes0" + imageCounter);
-	  currCell.style = "width: 250px; height: 250px; background-image: url('" + newRes.url + ");";
+	  currCell.style = 'width: 250px; height: 250px; background-image: url("' + newRes.url + '"';
 	  currRes.value = newRes.url;
 	  currCell.innerHTML = '<button type="button" id="removeImg0' + imageCounter + '" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button>' + currCell.innerHTML;
 	  imageCounter++;
