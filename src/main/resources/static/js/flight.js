@@ -77,9 +77,6 @@ function buildTable(data)
                         <td id=price${i}>${quote.MinPrice} ${data.Currencies[0].Code}</td>
                         <td id=outCarrier${i}>${outCarrierName}</td>   
                         <td id=departureDate${i}>${departureDate}</td>
-                        <td>
-                            <button class=save onclick="saveRow(${i})">Save</button>
-                        </td>
                     </tr>`;
         table.innerHTML += row;
     }
