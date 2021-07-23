@@ -1,9 +1,9 @@
-var imgResults = document.getElementById("imgRes");
+var imgResults = document.getElementById("resultsP");
 var imageCounter = 0;
 
 function uploadImages(){
 	imageCounter = 0;
-	imgResults.outerHTML = '<input type="text" style="visibility: visible" id="imgRes" value="" disabled>';
+	imgResults.innerHTML = '<input type="text" style="visibility: visible" id="imgRes" value="" disabled>';
 	imgWidget.open();
 }
 
@@ -24,7 +24,7 @@ var imgWidget = cloudinary.createUploadWidget({
   (error, result) => { 
     if (!error && result && result.event === "success") {
 	  var newRes = result.info; 
-      imgResults.outerHTML = imgResults.outerHTML + '<input type="text" style="visibility: visible" id="imgRes' + imageCounter + '" value="' + newRes.url + '" disabled>';
+      imgResults.innerHTML = imgResults.innerHTML + '<input type="text" style="visibility: visible" id="imgRes' + imageCounter + '" value="' + newRes.url + '" disabled>';
 	  i++;
     }
   }
