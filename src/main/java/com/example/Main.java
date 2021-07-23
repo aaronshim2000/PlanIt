@@ -59,12 +59,14 @@ public class Main {
   }
 
   @RequestMapping("/")
-  String index() {
+  String index(Map<String, Object> model, HttpServletRequest request) { 
+    model.put("user", request.getSession().getAttribute("USER"));
     return "homepage";
   }
   
   @RequestMapping("/post")
-  String post() {
+  String post(Map<String, Object> model, HttpServletRequest request) {
+    model.put("user", request.getSession().getAttribute("USER"));
     return "redirect:/post/text";
   }
   
@@ -75,9 +77,10 @@ public class Main {
 
 
   @RequestMapping("/post/text")
-  String postText(Map<String,Object> model) {
+  String postText(Map<String, Object> model, HttpServletRequest request) {
     Post post=new Post();
     model.put("post",post);
+    model.put("user", request.getSession().getAttribute("USER"));
     return "post-text";
   }
 
@@ -91,6 +94,7 @@ public class Main {
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
       statement.executeUpdate("INSERT INTO posts(post_date, creator, title, content,category,visibility) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
+      model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -101,9 +105,10 @@ public class Main {
   }
 
   @RequestMapping("/post/review")
-  String postReview(Map<String,Object> model) {
+  String postReview(Map<String, Object> model, HttpServletRequest request) {
     Post post=new Post();
     model.put("post",post);
+    model.put("user", request.getSession().getAttribute("USER"));
     return "post-review";
   }
 
@@ -117,6 +122,7 @@ public class Main {
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
       statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "')");
+      model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -127,9 +133,10 @@ public class Main {
   }
 
   @RequestMapping("/post/plan")
-  String postPlan(Map<String,Object> model) {
+  String postPlan(Map<String, Object> model, HttpServletRequest request) {
     Post post=new Post();
     model.put("post",post);
+    model.put("user", request.getSession().getAttribute("USER"));
     return "post-plan";
   }
 
@@ -143,6 +150,7 @@ public class Main {
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
       statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),'" + username + "','" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
+      model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -194,6 +202,7 @@ public class Main {
       model.put("text_postDates",text_postDates);
       model.put("text_visibilities",text_visibilities);
       model.put("text_creators",text_creators);
+      
       //return "scrollingFeed";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -259,14 +268,16 @@ public class Main {
 
 
   @RequestMapping("/costCalculator")
-  String costCalculator() {
+  String costCalculator(Map<String, Object> model, HttpServletRequest request) {
+    model.put("user", request.getSession().getAttribute("USER"));
     return "costCalculator";
   }
 
   @RequestMapping("/register")
-  String register(Map<String, Object> model){
+  String register(Map<String, Object> model, HttpServletRequest request){
     Account account = new Account();
     model.put("account", account);
+    model.put("user", request.getSession().getAttribute("USER"));
     return "register";
   }
 
@@ -305,7 +316,11 @@ public class Main {
   }
 
   @RequestMapping("/login")
-  String login(Map<String, Object> model){
+  String login(Map<String, Object> model, HttpServletRequest request){
+    if(request.getSession().getAttribute("USER") != null){
+      model.put("message", "Already logged in");
+      return "homepage";
+    }
     Account account = new Account();
     model.put("account", account);
     return "login";
@@ -363,7 +378,7 @@ public class Main {
       String role = rs.getString("role");
       request.getSession().setAttribute("ROLE", role);
 
-
+      model.put("user", request.getSession().getAttribute("USER"));
       request.getSession().setAttribute("login", "OK");
       if(request.getSession().getAttribute("target")!=null){
         model.put("message","You can access the page now.");
@@ -371,7 +386,6 @@ public class Main {
       }
 
       model.put("message", "Welcome, " + request.getSession().getAttribute("USER"));
-      model.put("user", request.getSession().getAttribute("USER"));
       return "homepage"; //go to main page
     }
     catch(Exception e){
@@ -384,20 +398,23 @@ public class Main {
   String logout(Map<String, Object> model, HttpServletRequest request){
     request.getSession().invalidate();
     model.put("message", "Successfully logged out");
+    model.put("user", request.getSession().getAttribute("USER"));
     return("homepage");
   }
 
   @RequestMapping("/forgot")
-  String forgot(Map<String, Object> model){
+  String forgot(Map<String, Object> model, HttpServletRequest request){
     Account account = new Account();
     model.put("account", account);
+    model.put("user", request.getSession().getAttribute("USER"));
     return "forgot";
   }
 
   @RequestMapping("/contact") 
-  String contact(Map<String, Object> model) {
+  String contact(Map<String, Object> model, HttpServletRequest request) {
     AdminMessage adminMessage = new AdminMessage();
     model.put("adminMessage", adminMessage);
+    model.put("user", request.getSession().getAttribute("USER"));
     return "contact";
   }
 
@@ -430,7 +447,7 @@ public class Main {
 
   // Shows the table of admin messages
   @RequestMapping("/viewAdminMessages") 
-  String viewAdminMessages(Map<String, Object> model) {
+  String viewAdminMessages(Map<String, Object> model, HttpServletRequest request) {
 
     try (Connection connection = dataSource.getConnection()) 
     {
@@ -459,6 +476,7 @@ public class Main {
       model.put("usernames", usernames);
       model.put("emails", emails);
       model.put("categories", categories);
+      model.put("user", request.getSession().getAttribute("USER"));
 
       return "adminMessageTable";
     } 
@@ -471,7 +489,7 @@ public class Main {
 
   // Selected a specific admin message, view its details
   @RequestMapping("/adminMessage")
-  String adminMessage(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model) {
+  String adminMessage(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
 
     try (Connection connection = dataSource.getConnection()) 
     {
@@ -487,6 +505,7 @@ public class Main {
         model.put("message", rs.getString("message"));
         model.put("category", rs.getString("category"));
       }
+      model.put("user", request.getSession().getAttribute("USER"));
 
       return "adminMessage";
     } 
@@ -512,7 +531,7 @@ public class Main {
 
   // Clicked on delete all stored messages
   @PostMapping(path = "/deleteAllMessages", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
-  public String deleteAllMessages(Map<String, Object> model) throws Exception {
+  public String deleteAllMessages(Map<String, Object> model, HttpServletRequest request) throws Exception {
 
     try (Connection connection = dataSource.getConnection()) 
     {
@@ -521,6 +540,7 @@ public class Main {
 
           String message = "Succesfully deleted all messages"; 
           model.put("message", message);
+          model.put("user", request.getSession().getAttribute("USER"));
           return "redirect:/viewAdminMessages";
     } 
     catch (Exception e) 
@@ -538,7 +558,7 @@ public class Main {
 
   //get a list of accounts for viewAccountsTable.html
   @RequestMapping("/viewAccountsTable")
-  String viewAccountsTable(Map<String, Object> model){
+  String viewAccountsTable(Map<String, Object> model, HttpServletRequest request){
     try(Connection connection = dataSource.getConnection()){
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery("SELECT * FROM accounts");
@@ -561,6 +581,7 @@ public class Main {
       model.put("emails", emails);
       model.put("fnames", fnames);
       model.put("lnames", lnames);
+      model.put("user", request.getSession().getAttribute("USER"));
       return "viewAccountsTable";
     }
     catch(Exception e){
@@ -571,7 +592,7 @@ public class Main {
 
   //get a specific account for viewAccounts
   @RequestMapping("/viewAccount")
-  String viewAccount(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model) {
+  String viewAccount(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
 
     try (Connection connection = dataSource.getConnection()) 
     {
@@ -589,6 +610,7 @@ public class Main {
         model.put("role", rs.getString("role"));
       }
 
+      model.put("user", request.getSession().getAttribute("USER"));
       return "viewAccount";
     } 
     catch (Exception e) 
