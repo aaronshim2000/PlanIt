@@ -346,6 +346,7 @@ public class Main {
       request.getSession().setAttribute("ROLE", role);
 
       model.put("message", "Welcome, " + request.getSession().getAttribute("USER"));
+      model.put("user", request.getSession().getAttribute("USER"));
       return "homepage"; //go to main page
     }
     catch(Exception e){
@@ -354,9 +355,17 @@ public class Main {
     }
   }
 
+  @RequestMapping("/nav")
+  String navInfo(Map<String, Object> model, HttpServletRequest request){
+    model.put("user", request.getSession().getAttribute("USER"));
+    System.out.println("X");
+    return "nav";
+  }
+
   @RequestMapping("/logout")
-  String logout(HttpServletRequest request){
+  String logout(Map<String, Object> model, HttpServletRequest request){
     request.getSession().invalidate();
+    model.put("message", "Successfully logged out");
     return("homepage");
   }
 
