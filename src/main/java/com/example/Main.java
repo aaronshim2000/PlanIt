@@ -556,7 +556,7 @@ public class Main {
   }
 
   @RequestMapping("/flight")
-  String costCalculator(Map<String, Object> model, HttpServletRequest request) {
+  String flightCalculator(Map<String, Object> model, HttpServletRequest request) {
     model.put("user", request.getSession().getAttribute("USER"));
     return "flight";
   }
