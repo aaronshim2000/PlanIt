@@ -29,7 +29,7 @@
 		<form action="#" method="post" th:action="@{/post/text}" th:object="${post}">
 			<input type = "text" th:field=*{title} maxlength="49">
 			<p></p>
-			<textarea th:field=*{description} maxlength="2000" placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea>
+			<textarea th:field=*{description} maxlength="2000" placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea><p></p>
 			<button id="upload_widgetImage" type="button" class="cloudinary-button">Upload files</button>
 			<table>
 			<tbody>
