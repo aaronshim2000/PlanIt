@@ -285,6 +285,11 @@ public class Main {
     return "register";
   }
 
+  @RequestMapping("/map")
+  String postMap() {
+    return "map";
+  }
+  
   @PostMapping(
     path = "/register",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
