@@ -92,7 +92,7 @@ public class Main {
       post.setCategory("text-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date, creator, title, content,category,visibility) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() +  + "','" + post.getImage06() +  + "','" + post.getImage07() +  + "','" + post.getImage08() +  + "','" + post.getImage09() + "')");
+      statement.executeUpdate("INSERT INTO posts(post_date, creator, title, content,category,visibility) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() + "','" + post.getImage06() + "','" + post.getImage07() + "','" + post.getImage08() + "','" + post.getImage09() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
