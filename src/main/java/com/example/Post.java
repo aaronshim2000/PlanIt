@@ -22,6 +22,7 @@ public class Post
 	private String image07;
 	private String image08;
 	private String image09;
+	private String video00;
 
     public String getTitle()
     {
@@ -123,6 +124,11 @@ public class Post
         return this.image09;
     }
 	
+	public String getVideo00()
+    {
+        return this.video00;
+    }
+	
 	public void setImage00(String s)
     {
         image00 = s;
@@ -171,5 +177,10 @@ public class Post
 	public void setImage09(String s)
     {
         image09 = s;
+    }
+	
+	public void setVideo00(String s)
+    {
+        video00 = s;
     }
 }
