@@ -44,6 +44,7 @@ function uploadImages(){
 	imgCell07.innerHTML = '<input type="text" th:field=*{image07} id="imageRes07" class="imageResult" value="empty" disabled>';
 	imgCell08.innerHTML = '<input type="text" th:field=*{image08} id="imageRes08" class="imageResult" value="empty" disabled>';
 	imgCell09.innerHTML = '<input type="text" th:field=*{image09} id="imageRes09" class="imageResult" value="empty" disabled>';
+	imgWidget.open();
 	imgRes00 = document.getElementById("imageRes00");
 	imgRes01 = document.getElementById("imageRes01");
 	imgRes02 = document.getElementById("imageRes02");
@@ -54,7 +55,6 @@ function uploadImages(){
 	imgRes07 = document.getElementById("imageRes07");
 	imgRes08 = document.getElementById("imageRes08");
 	imgRes09 = document.getElementById("imageRes09");
-	imgWidget.open();
 }
 
 function removeImageNo( index ){
@@ -87,10 +87,9 @@ var imgWidget = cloudinary.createUploadWidget({
     if (!error && result && result.event === "success") {
 	  var newRes = result.info;
 	  var currCell = document.getElementById("viewImg0" + imageCounter);
-	  var currRes = document.getElementById("imageRes0" + imageCounter);
 	  currCell.style = 'width: 250px; height: 250px; background-image: url("' + newRes.url + '"';
-	  currRes.value = '"' + newRes.url + '"';
-	  currCell.innerHTML = '<button type="button" id="removeImg0' + imageCounter + '" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button>' + currCell.innerHTML;
+	  currCell.innerHTML =
+'<button type="button" id="removeImg0' + imageCounter + '" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" value="' + newRes.url + '" disabled>';
 	  imageCounter++;
     }
   }
