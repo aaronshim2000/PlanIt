@@ -66,6 +66,9 @@ public class Main {
   
   @RequestMapping("/post")
   String post(Map<String, Object> model, HttpServletRequest request) {
+    if(request.getSession().getAttribute("USER") == null){
+      return "redirect:/login";
+    }
     model.put("user", request.getSession().getAttribute("USER"));
     return "redirect:/post/text";
   }
@@ -120,7 +123,7 @@ public class Main {
       post.setCategory("review-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04,image05,image06,image07,image08,image09) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -262,6 +265,7 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
     }
+    model.put("user", request.getSession().getAttribute("USER"));
     return "scrollingFeed";
   }
 
