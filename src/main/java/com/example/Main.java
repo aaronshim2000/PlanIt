@@ -262,6 +262,7 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
     }
+    model.put("user", request.getSession().getAttribute("USER"));
     return "scrollingFeed";
   }
 
