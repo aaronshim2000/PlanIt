@@ -6,7 +6,9 @@
 	vertical-align: top;
 }
 .imageResult{
-	visibility: visible;
+	visibility: hidden;
+	width: 0px;
+	height: 0px;
 	border: 0;
 	padding: 0;
 }
