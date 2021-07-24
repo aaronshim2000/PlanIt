@@ -34,24 +34,35 @@ function uploadImages(){
 	imgCell07.style = "";
 	imgCell08.style = "";
 	imgCell09.style = "";
-	imgRes00.value = "empty";
-	imgRes01.value = "empty";
-	imgRes02.value = "empty";
-	imgRes03.value = "empty";
-	imgRes04.value = "empty";
-	imgRes05.value = "empty";
-	imgRes06.value = "empty";
-	imgRes07.value = "empty";
-	imgRes08.value = "empty";
-	imgRes09.value = "empty";
+	imgCell00.innerHTML = '<input type="text" th:field=*{image00} id="imageRes00" class="imageResult" value="empty" disabled>';
+	imgCell01.innerHTML = '<input type="text" th:field=*{image01} id="imageRes01" class="imageResult" value="empty" disabled>';
+	imgCell02.innerHTML = '<input type="text" th:field=*{image02} id="imageRes02" class="imageResult" value="empty" disabled>';
+	imgCell03.innerHTML = '<input type="text" th:field=*{image03} id="imageRes03" class="imageResult" value="empty" disabled>';
+	imgCell04.innerHTML = '<input type="text" th:field=*{image04} id="imageRes04" class="imageResult" value="empty" disabled>';
+	imgCell05.innerHTML = '<input type="text" th:field=*{image05} id="imageRes05" class="imageResult" value="empty" disabled>';
+	imgCell06.innerHTML = '<input type="text" th:field=*{image06} id="imageRes06" class="imageResult" value="empty" disabled>';
+	imgCell07.innerHTML = '<input type="text" th:field=*{image07} id="imageRes07" class="imageResult" value="empty" disabled>';
+	imgCell08.innerHTML = '<input type="text" th:field=*{image08} id="imageRes08" class="imageResult" value="empty" disabled>';
+	imgCell09.innerHTML = '<input type="text" th:field=*{image09} id="imageRes09" class="imageResult" value="empty" disabled>';
+	imgRes00 = document.getElementById("imageRes00");
+	imgRes01 = document.getElementById("imageRes01");
+	imgRes02 = document.getElementById("imageRes02");
+	imgRes03 = document.getElementById("imageRes03");
+	imgRes04 = document.getElementById("imageRes04");
+	imgRes05 = document.getElementById("imageRes05");
+	imgRes06 = document.getElementById("imageRes06");
+	imgRes07 = document.getElementById("imageRes07");
+	imgRes08 = document.getElementById("imageRes08");
+	imgRes09 = document.getElementById("imageRes09");
 	imgWidget.open();
 }
 
 function removeImageNo( index ){
 	imageCounter--;
 	while (index < imageCounter){
-		document.getElementById("viewImg0" + index).style = document.getElementById("viewImg0" + (index+1)).style;
-		document.getElementById("imageRes0" + index).value = document.getElementById("imageRes0" + (index+1)).value;
+		//document.getElementById("viewImg0" + index).style = '"' + document.getElementById("viewImg0" + (index+1)).style + '"';
+		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url("' + document.getElementById("imageRes0" + (index+1)).value + ')"';
+		document.getElementById("imageRes0" + index).value = '"' + document.getElementById("imageRes0" + (index+1)).value + '"';
 		index++;
 	}
 	document.getElementById("viewImg0" + imageCounter).style = "";
@@ -77,8 +88,8 @@ var imgWidget = cloudinary.createUploadWidget({
 	  var newRes = result.info;
 	  var currCell = document.getElementById("viewImg0" + imageCounter);
 	  var currRes = document.getElementById("imageRes0" + imageCounter);
-	  currCell.style = "width: 250px; height: 250px; background-image: url('" + newRes.url + ");";
-	  currRes.value = newRes.url;
+	  currCell.style = 'width: 250px; height: 250px; background-image: url("' + newRes.url + '"';
+	  currRes.value = '"' + newRes.url + '"';
 	  currCell.innerHTML = '<button type="button" id="removeImg0' + imageCounter + '" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button>' + currCell.innerHTML;
 	  imageCounter++;
     }
