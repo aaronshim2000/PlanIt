@@ -1,5 +1,8 @@
 package com;
 
+import com.example.Post;
+import java.util.ArrayList;
+
 public class Account
 {
     private String id;
@@ -15,6 +18,7 @@ public class Account
     private String lname; //last name
 
     private String role; //role IMPLEMENT
+
 
     public String getId()
     {
@@ -45,6 +49,7 @@ public class Account
     {
         return this.lname;
     }
+
 
     public String getRole()
     {

@@ -5,11 +5,16 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" th:href="@{/stylesheets/adminMessageTable.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/table.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>View Admin Messages</title>
 </head>
 
 <body>
+    <!-- navbar header -->
+    <div th:replace="fragments/nav :: navbar"></div>
+    
     <a th:href="@{/contact}">Back to Contact Us</a> <br>
     <h1>Administrator Messages</h1>
     <form id="messageTableForm" action="#" method="post" th:action="@{/adminMessage}" th:object="${adminMessage}">
@@ -21,7 +26,6 @@
                     <th class="column">Username</th>
                     <th class="column">Email</th>
                     <th class="column">Category</th>
-                    <th class="column"></th>
                 </tr>
             </thead>
             <tbody>
@@ -30,13 +34,9 @@
                     <td>
                         <a th:text="${usernames[iter.index]}" th:href="@{/adminMessage(id=${id})}"></a>
                     </td>
-                    </td>
 
                     <td th:text="${emails[iter.index]}"></td>
                     <td th:text="${categories[iter.index]}"></td>
-                    <td>
-                        <a th:text="Delete" th:href="@{/deleteAdminMessage(id=${id})}"></a>
-                    </td>
                 </tr>
             </tbody>
         </table>

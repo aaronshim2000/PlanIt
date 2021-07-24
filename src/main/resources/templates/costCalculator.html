@@ -4,12 +4,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <link rel="stylesheet" th:href="@{/stylesheets/costCalculator.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <title>Travel Cost Calculator</title>
    <script type="text/javascript" src="/js/costCalculator.js" defer=""></script>
+   <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 
 <body>
+    <!-- navbar header -->
+    <div th:replace="fragments/nav :: navbar"></div>
+    
 <h2>Travel Cost Calculator</h2>
 
 <table id="table" border="1">

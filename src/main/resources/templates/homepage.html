@@ -6,9 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Homepage</title>
     <link rel="stylesheet" th:href="@{/stylesheets/home.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <script type="text/javascript" th:src="@{/js/home.js}" defer></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
+  <!-- navbar header -->
+  <div th:replace="fragments/nav :: navbar"></div>
+  
   <div id="container">
     <div id="main">
       <h1>PlanIt</h1>
@@ -47,15 +52,8 @@
   </div>
 
   <footer id="footer">
-    <a class="footer-text" th:href="@{/login}">Login </a>
-    <a class="footer-text" th:href="@{/register}">Register </a>
-    <a class="footer-text" th:href="@{/forgot}">Forgot password </a>
-    <a class="footer-text" th:href="@{/post/text}">Create Post</a>
-    <a class="footer-text" th:href="@{/costCalculator}">Travel Cost Calculator</a>
-    <a class="footer-text" th:href="@{/contact}">Contact</a>
-    <a class="footer-text" th:href="@{/map}">Map</a>
-  </footer>
 
+  </footer>
 
 </body>
 </html> 
