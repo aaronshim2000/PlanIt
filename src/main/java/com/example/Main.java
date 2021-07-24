@@ -184,8 +184,9 @@ public class Main {
 
     //dealing with text posts
     try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE category='text-post' AND visibility='PUBLIC' ORDER BY id DESC");
+      Statement stmt = connection.createStatement(); 
+      String username= (String) request.getSession().getAttribute("USER");
+      ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE (category='text-post' AND visibility='PUBLIC') OR (category='text-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
       ArrayList<String> text_titles = new ArrayList<String>();
       ArrayList<String> text_descriptions = new ArrayList<String>();
       ArrayList<String> text_postDates= new ArrayList<String>();
@@ -212,8 +213,9 @@ public class Main {
     }
     //dealing with review posts
     try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement();
-      ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE category='review-post' AND visibility='PUBLIC' ORDER BY id DESC");
+      Statement stmt = connection.createStatement(); 
+      String username= (String) request.getSession().getAttribute("USER");
+      ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE (category='review-post' AND visibility='PUBLIC') OR (category='review-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
       ArrayList<String> review_titles = new ArrayList<String>();
       ArrayList<String> review_descriptions = new ArrayList<String>();
       ArrayList<String> review_ratings=new ArrayList<String>();
@@ -242,7 +244,8 @@ public class Main {
     //dealing with plan posts
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
-      ResultSet rs_plan = stmt.executeQuery("SELECT * FROM posts WHERE category='plan-post' AND visibility='PUBLIC' ORDER BY id DESC");
+      String username= (String) request.getSession().getAttribute("USER");
+      ResultSet rs_plan = stmt.executeQuery("SELECT * FROM posts WHERE (category='plan-post' AND visibility='PUBLIC') OR (category='plan-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
       ArrayList<String> plan_titles = new ArrayList<String>();
       ArrayList<String> plan_descriptions = new ArrayList<String>();
       ArrayList<String> plan_postDates = new ArrayList<String>();
