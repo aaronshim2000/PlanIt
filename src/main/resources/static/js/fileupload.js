@@ -60,13 +60,22 @@ function uploadImages(){
 function removeImageNo( index ){
 	imageCounter--;
 	while (index < imageCounter){
-		//document.getElementById("viewImg0" + index).style = '"' + document.getElementById("viewImg0" + (index+1)).style + '"';
-		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url("' + document.getElementById("imageRes0" + (index+1)).value + ')"';
-		document.getElementById("imageRes0" + index).value = '"' + document.getElementById("imageRes0" + (index+1)).value + '"';
+		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url(' + document.getElementById("imageRes0" + (index+1)).value + ')';
+		document.getElementById("vewImg0" + index).innerHTML = '<button type="button" id="removeImg0' + index + '" onclick="removeImageNo(' + index + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + index + '} id="imageRes0' + index + '" class="imageResult" value="' + document.getElementById("imageRes0" + (index+1)).value + '" disabled>';
 		index++;
 	}
 	document.getElementById("viewImg0" + imageCounter).style = "";
 	document.getElementById("viewImg0" + imageCounter).innerHTML = '<input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" value="empty" disabled>';
+	imgRes00 = document.getElementById("imageRes00");
+	imgRes01 = document.getElementById("imageRes01");
+	imgRes02 = document.getElementById("imageRes02");
+	imgRes03 = document.getElementById("imageRes03");
+	imgRes04 = document.getElementById("imageRes04");
+	imgRes05 = document.getElementById("imageRes05");
+	imgRes06 = document.getElementById("imageRes06");
+	imgRes07 = document.getElementById("imageRes07");
+	imgRes08 = document.getElementById("imageRes08");
+	imgRes09 = document.getElementById("imageRes09");
 }
 
 var imgWidget = cloudinary.createUploadWidget({
@@ -88,8 +97,7 @@ var imgWidget = cloudinary.createUploadWidget({
 	  var newRes = result.info;
 	  var currCell = document.getElementById("viewImg0" + imageCounter);
 	  currCell.style = 'width: 250px; height: 250px; background-image: url("' + newRes.url + '"';
-	  currCell.innerHTML =
-'<button type="button" id="removeImg0' + imageCounter + '" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" value="' + newRes.url + '" disabled>';
+	  currCell.innerHTML = '<button type="button" id="removeImg0' + imageCounter + '" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" value="' + newRes.url + '" disabled>';
 	  imageCounter++;
     }
   }
