@@ -12,6 +12,7 @@ public class Post
     private String rating;
     private String creator;
 	
+	private int imagesNum;
 	private String image00;
 	private String image01;
 	private String image02;
@@ -22,6 +23,7 @@ public class Post
 	private String image07;
 	private String image08;
 	private String image09;
+	private String video00;
 
     public String getTitle()
     {
@@ -73,6 +75,11 @@ public class Post
         creator=s;
     }
 	
+	public int getImagesNum()
+	{
+		return this.imagesNum;
+	}
+	
 	public String getImage00()
     {
         return this.image00;
@@ -123,6 +130,16 @@ public class Post
         return this.image09;
     }
 	
+	public String getVideo00()
+    {
+        return this.video00;
+    }
+	
+	public void setImagesNum(int n)
+	{
+		imagesNum = n;
+	}
+	
 	public void setImage00(String s)
     {
         image00 = s;
@@ -171,5 +188,10 @@ public class Post
 	public void setImage09(String s)
     {
         image09 = s;
+    }
+	
+	public void setVideo00(String s)
+    {
+        video00 = s;
     }
 }
