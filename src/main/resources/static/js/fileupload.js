@@ -60,7 +60,8 @@ function uploadImages(){
 function removeImageNo( index ){
 	imageCounter--;
 	while (index < imageCounter){
-		document.getElementById("viewImg0" + index).style = '"' + document.getElementById("viewImg0" + (index+1)).style + '"';
+		//document.getElementById("viewImg0" + index).style = '"' + document.getElementById("viewImg0" + (index+1)).style + '"';
+		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url("' + document.getElementById("imageRes0" + (index+1)).value + ')"';
 		document.getElementById("imageRes0" + index).value = '"' + document.getElementById("imageRes0" + (index+1)).value + '"';
 		index++;
 	}
