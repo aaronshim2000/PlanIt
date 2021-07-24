@@ -66,6 +66,9 @@ public class Main {
   
   @RequestMapping("/post")
   String post(Map<String, Object> model, HttpServletRequest request) {
+    if(request.getSession().getAttribute("USER") == null){
+      return "redirect:/login";
+    }
     model.put("user", request.getSession().getAttribute("USER"));
     return "redirect:/post/text";
   }
