@@ -10,6 +10,9 @@
 	<script type="text/javascript" src="/js/post.js" defer=""></script>
 	<script src="https://kit.fontawesome.com/860ecee8df.js" crossorigin="anonymous"></script>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
+	<script type="text/javascript" src="/js/fileupload.js" defer=""></script>
+	<link rel="stylesheet" href="/stylesheets/fileupload.css">
 </head>
 <body>
 	<!-- navbar header -->
@@ -26,8 +29,26 @@
 		<form action="#" method="post" th:action="@{/post/text}" th:object="${post}">
 			<input type = "text" th:field=*{title} maxlength="49">
 			<p></p>
-			<textarea th:field=*{description} placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea>
-			<p><input type="file" name="media" accept="image/*,video/*" multiple></p>
+			<textarea th:field=*{description} maxlength="2000" placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea>
+			<button id="upload_widgetImage" type="button" class="cloudinary-button">Upload files</button>
+			<table>
+			<tbody>
+			  <tr>
+				<td id="viewImg00" class="imageCell" style=""><input type="text" th:field=*{image00} id="imageRes00" class="imageResult" value="empty" disabled></td>
+				<td id="viewImg01" class="imageCell" style=""><input type="text" th:field=*{image01} id="imageRes01" class="imageResult" value="empty" disabled></td>
+				<td id="viewImg02" class="imageCell" style=""><input type="text" th:field=*{image02} id="imageRes02" class="imageResult" value="empty" disabled></td>
+				<td id="viewImg03" class="imageCell" style=""><input type="text" th:field=*{image03} id="imageRes03" class="imageResult" value="empty" disabled></td>
+				<td id="viewImg04" class="imageCell" style=""><input type="text" th:field=*{image04} id="imageRes04" class="imageResult" value="empty" disabled></td>
+			  </tr>
+			  <tr>
+				<td id="viewImg05" class="imageCell" style=""><input type="text" th:field=*{image05} id="imageRes05" class="imageResult" value="empty" disabled></td>
+				<td id="viewImg06" class="imageCell" style=""><input type="text" th:field=*{image06} id="imageRes06" class="imageResult" value="empty" disabled></td>
+				<td id="viewImg07" class="imageCell" style=""><input type="text" th:field=*{image07} id="imageRes07" class="imageResult" value="empty" disabled></td>
+				<td id="viewImg08" class="imageCell" style=""><input type="text" th:field=*{image08} id="imageRes08" class="imageResult" value="empty" disabled></td>
+				<td id="viewImg09" class="imageCell" style=""><input type="text" th:field=*{image09} id="imageRes09" class="imageResult" value="empty" disabled></td>
+			  </tr>
+			</tbody>
+			</table>
 			<p>
 				<label><input type="radio" name="visibility" th:field=*{visibility} value="PRIVATE" required>private</label>
 				<label><input type="radio" name="visibility" th:field=*{visibility} value="PUBLIC">public</label>

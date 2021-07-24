@@ -92,7 +92,7 @@ public class Main {
       post.setCategory("text-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date, creator, title, content,category,visibility) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() +  + "','" + post.getImage06() +  + "','" + post.getImage07() +  + "','" + post.getImage08() +  + "','" + post.getImage09() + "')");
+      statement.executeUpdate("INSERT INTO posts(post_date, creator, title, content,category,visibility) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() +  "','" + post.getImage06() + "','" + post.getImage07() + "','" + post.getImage08() + "','" + post.getImage09() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -265,11 +265,16 @@ public class Main {
     return "scrollingFeed";
   }
 
-
   @RequestMapping("/costCalculator")
   String costCalculator(Map<String, Object> model, HttpServletRequest request) {
     model.put("user", request.getSession().getAttribute("USER"));
     return "costCalculator";
+  }
+
+  @RequestMapping("/flightCalculator")
+  String flightCalculator(Map<String, Object> model, HttpServletRequest request) {
+    model.put("user", request.getSession().getAttribute("USER"));
+    return "flightCalculator";
   }
 
   @RequestMapping("/register")
@@ -553,12 +558,6 @@ public class Main {
   public String cancelDeleteAll(AdminMessage adminMessage) {
 
     return "redirect:/viewAdminMessages";
-  }
-
-  @RequestMapping("/flight")
-  String flight(Map<String, Object> model, HttpServletRequest request) {
-    model.put("user", request.getSession().getAttribute("USER"));
-    return "flight";
   }
 
   //get a list of accounts for viewAccountsTable.html
