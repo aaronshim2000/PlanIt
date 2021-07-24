@@ -26,7 +26,7 @@
 		<form action="#" method="post" th:action="@{/post/text}" th:object="${post}">
 			<input type = "text" th:field=*{title} maxlength="49">
 			<p></p>
-			<textarea th:field=*{description} placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea>
+			<textarea th:field=*{description} maxlength="2000" placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea>
 			<p><input type="file" name="media" accept="image/*,video/*" multiple></p>
 			<p>
 				<label><input type="radio" name="visibility" th:field=*{visibility} value="PRIVATE" required>private</label>
