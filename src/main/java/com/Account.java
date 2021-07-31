@@ -17,7 +17,7 @@ public class Account
 
     private String lname; //last name
 
-    private String role; //role IMPLEMENT
+    private String role; //role
 
 
     public String getId()

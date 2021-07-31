@@ -17,6 +17,7 @@
 package com.example;
 
 import com.Account;
+import com.Notification;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -632,6 +633,79 @@ public class Main {
     catch (Exception e) 
     {
       model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+  
+
+  //Get notifications for logged in user
+  @RequestMapping("/notifications")
+  String getNotifications(Map<String, Object> model, HttpServletRequest request){
+    if(request.getSession().getAttribute("USER") == null){
+      return "redirect:/login";
+    }
+    try(Connection connection = dataSource.getConnection()){
+      Statement statement = connection.createStatement();
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(20), recipient varchar(20), sender varchar(20), body varchar(1000), time timestamp);");
+      ResultSet rs = statement.executeQuery("SELECT * FROM notifications WHERE recipient='"+request.getSession().getAttribute("USER")+"'");
+
+      //ArrayList<String> ids = new ArrayList<String>();
+      ArrayList<String> titles = new ArrayList<String>();
+      // ArrayList<String> recipients = new ArrayList<String>();
+      ArrayList<String> senders = new ArrayList<String>();
+      ArrayList<String> bodies = new ArrayList<String>();
+      ArrayList<String> times = new ArrayList<String>();
+
+      while(rs.next()){
+        //ids.add(String.valueOf(rs.getString("id")));
+        titles.add(String.valueOf(rs.getString("title")));
+        // recipients.add(String.valueOf(rs.getString("recipient")));
+        senders.add(String.valueOf(rs.getString("sender")));
+        bodies.add(String.valueOf(rs.getString("body")));
+        times.add(String.valueOf(rs.getTimestamp("time")));
+      }
+
+      //model.put("ids", ids);
+      model.put("titles", titles);
+      // model.put("recipients", recipients);
+      model.put("senders", senders);
+      model.put("bodies", bodies);
+      model.put("times", times);
+
+
+      //For sending notifications
+      Notification notification = new Notification();
+      model.put("notification", notification);
+
+      model.put("user", request.getSession().getAttribute("USER"));
+
+
+      return "notifications";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @PostMapping(
+    path = "/notifications",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleNotifications(Map<String, Object> model, Notification n, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+      //Create table (if it doesn't exist)
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(20), recipient varchar(20), sender varchar(20), body varchar(1000), time timestamp);");
+      //add new notification to table
+      String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ('" + n.getTitle() + "', '" + n.getRecipient() + "', '" + request.getSession().getAttribute("USER") + "', '" + n.getBody() + "', now())";
+      System.out.println(sql);
+      stmt.executeUpdate(sql);
+      model.put("message", "Notification successfully created");
+      return "notifications";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
       return "error";
     }
   }

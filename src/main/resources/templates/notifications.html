@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/stylesheets/main.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <title>Notifications</title>
+</head>
+<body>
+    <!-- navbar header -->
+    <div th:replace="fragments/nav :: navbar"></div>
+
+    <h2>Send Notification (FOR TESTING)</h2>
+    <form action="#" method="post" id="sending" th:action="@{notifications}" th:object="${notification}">
+        <span>Recipient: </span>
+        <input type="text" placeholder="Recipient" th:field=*{recipient} required> <span>(required) </span> <br> <br>
+        <span>Title: </span>
+        <input type="text" placeholder="Title" th:field=*{title} required> <span>(required) </span> <br> <br>
+        <span>Body: </span>
+        <input type="text" placeholder="Body" th:field=*{body} required> <span>(required) </span> <br> <br>
+
+        <input type="submit" value="SEND">
+    </form>
+
+    <h1>Notifications</h1>
+    <ul th:each="title,iter : ${titles}" style="list-style-type:none;">
+        <li th:text=${title}></li>
+        <li th:text=${senders[iter.index]}></li>
+        <li th:text=${bodies[iter.index]}></li>
+        <li th:text=${times[iter.index]}></li>
+    </ul>
+</body>
+</html>
