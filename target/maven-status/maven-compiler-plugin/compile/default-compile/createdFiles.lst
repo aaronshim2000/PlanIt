@@ -1,4 +1,5 @@
-com\example\Main.class
-com\example\AdminMessage.class
-com\example\Post.class
-com\Account.class
+com/Account.class
+com/Notification.class
+com/example/Main.class
+com/example/AdminMessage.class
+com/example/Post.class
