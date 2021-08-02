@@ -28,6 +28,13 @@ li{
  font-weight: bold;
 }
 
+#filter{
+max-width:150px;
+height:30px;
+margin-top:12px;
+padding:0 10px;
+}
+
 #plan_post{
  height: 700px;
  display: inline-block;
