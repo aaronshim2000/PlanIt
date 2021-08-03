@@ -30,7 +30,15 @@
 			<input type = "text" th:field=*{title} maxlength="49">
 			<p></p>
 			<textarea th:field=*{description} maxlength="2000" placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea><p></p>
-			<button id="upload_widgetImage" type="button" class="cloudinary-button">Upload files</button>
+			<label><input type="radio" id="selectImgs" name="filetype" checked>Photos</label>
+			<label><input type="radio" id="selectVid" name="filetype">Video</label>
+			<p><button id="upload_widgetImage" type="button" class="cloudinary-button">Upload Images</button><p>
+			<video
+			  id="demo-player"
+			  controls
+			  class="cld-video-player HiddenPlayer"
+			  width="500px">
+			</video>
 			<table>
 			<tbody>
 			  <tr>
@@ -39,6 +47,11 @@
 				<td id="viewImg02" class="imageCell" style=""><input type="text" th:field=*{image02} id="imageRes02" class="imageResult" value="empty" disabled></td>
 				<td id="viewImg03" class="imageCell" style=""><input type="text" th:field=*{image03} id="imageRes03" class="imageResult" value="empty" disabled></td>
 				<td id="viewImg04" class="imageCell" style=""><input type="text" th:field=*{image04} id="imageRes04" class="imageResult" value="empty" disabled></td>
+			  </tr>
+			  <tr>
+				<td class="imageCell" style=""><input type="text" id="videoID" class="imageResult" value="empty" disabled></td>
+				<td class="imageCell" style=""><input type="text" id="numFiles" class="imageResult" value="0" disabled></td>
+				<td class="imageCell" style=""><input type="text" id="fileType" class="imageResult" value="none" disabled></td>
 			  </tr>
 			  <tr>
 				<td id="viewImg05" class="imageCell" style=""><input type="text" th:field=*{image05} id="imageRes05" class="imageResult" value="empty" disabled></td>

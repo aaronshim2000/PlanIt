@@ -21,8 +21,23 @@ var imgRes08 = document.getElementById("imageRes08");
 var imgRes09 = document.getElementById("imageRes09");
 
 var imageCounter = 0;
+var uploadBtn = document.getElementById("upload_widgetImage");
+var vidRes00 = document.getElementById("videoID");
+var fileCount = document.getElementById("numFiles");
+var mediaType = document.getElementById("fileType");
+var playerOnPage = document.getElementById("demo-player");
 
-function uploadImages(){
+var cld = cloudinary.Cloudinary.new({ cloud_name: "hq73wefct", secure: true});
+
+var demoplayer = cld.videoPlayer('demo-player', {
+	bigPlayButton: 'init',
+	controls: true,
+	showLogo: false,
+	loop: true,
+	preload: 'auto'
+});
+
+function clearFiles(){
 	imageCounter = 0;
 	imgCell00.style = "";
 	imgCell01.style = "";
@@ -44,7 +59,6 @@ function uploadImages(){
 	imgCell07.innerHTML = '<input type="text" th:field=*{image07} id="imageRes07" class="imageResult" value="empty" disabled>';
 	imgCell08.innerHTML = '<input type="text" th:field=*{image08} id="imageRes08" class="imageResult" value="empty" disabled>';
 	imgCell09.innerHTML = '<input type="text" th:field=*{image09} id="imageRes09" class="imageResult" value="empty" disabled>';
-	imgWidget.open();
 	imgRes00 = document.getElementById("imageRes00");
 	imgRes01 = document.getElementById("imageRes01");
 	imgRes02 = document.getElementById("imageRes02");
@@ -55,10 +69,47 @@ function uploadImages(){
 	imgRes07 = document.getElementById("imageRes07");
 	imgRes08 = document.getElementById("imageRes08");
 	imgRes09 = document.getElementById("imageRes09");
+	vidRes00.value = "empty";
+	fileCount.value = "0";
+	mediaType.value = "none";
+	playerOnPage.class = "cld-video-player HiddenPlayer";
+	demoplayer.source('');
+}
+
+function callUploader(){
+	clearFiles();
+	if ( uploadBtn.innerHTML = "Upload Video" ){
+		videoWidget.open();
+		playerOnPage.class = "cld-video-player VisisblePlayer";
+		mediaType.value = "video";
+		fileCount.value = "1";
+	}
+	else{
+		imgWidget.open();
+		imgRes00 = document.getElementById("imageRes00");
+		imgRes01 = document.getElementById("imageRes01");
+		imgRes02 = document.getElementById("imageRes02");
+		imgRes03 = document.getElementById("imageRes03");
+		imgRes04 = document.getElementById("imageRes04");
+		imgRes05 = document.getElementById("imageRes05");
+		imgRes06 = document.getElementById("imageRes06");
+		imgRes07 = document.getElementById("imageRes07");
+		imgRes08 = document.getElementById("imageRes08");
+		imgRes09 = document.getElementById("imageRes09");
+		mediaType.value = "images";
+		fileCount.value = '"' + imageCounter '"';
+	}
+}
+
+function switchTo( newFileType ){
+	clearFiles();
+	uploadBtn.innerHTML = "Upload " + newFileType;
 }
 
 function removeImageNo( index ){
 	imageCounter--;
+	fileCount.value = '"' + imageCounter '"';
+	if (imageCounter == 0){ mediaType.value = "none"; }
 	while (index < imageCounter){
 		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url(' + document.getElementById("imageRes0" + (index+1)).value + ')';
 		document.getElementById("viewImg0" + index).innerHTML = '<button type="button" id="removeImg0' + index + '" onclick="removeImageNo(' + index + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + index + '} id="imageRes0' + index + '" class="imageResult" value="' + document.getElementById("imageRes0" + (index+1)).value + '" disabled>';
@@ -103,4 +154,29 @@ var imgWidget = cloudinary.createUploadWidget({
   }
 )
 
-document.getElementById("upload_widgetImage").addEventListener("click", function(){uploadImages()});
+var videoWidget = cloudinary.createUploadWidget({
+  cloudName: 'hq73wefct', 
+  uploadPreset: 't4vy5bss',
+  sources: [ 'local', 'url', 'camera', 'google_drive'],
+  searchBySites: ["all"],
+  searchByRights: true,
+  multiple: false,
+  resourceType: 'video',
+  maxFileSize: 50000000,
+  maxImageWidth: 5000,
+  maxImageHeight: 5000,
+  singleUploadAutoClose: false},
+  (error, result) => { 
+    if (!error && result && result.event === "success") {
+	  var newRes = result.info;
+	  console.log(newRes.public_id);
+	  demoplayer.source(newRes.public_id);
+	  vidRes00.value = newRes.public_id;
+    }
+  }
+)
+
+uploadBtn.addEventListener("click", function(){callUploader()});
+
+document.getElementById("selectImgs").addEventListener("click", function(){ switchTo( "Images" ) });
+document.getElementById("selectVid").addEventListener("click", function(){ switchTo( "Video" ) });

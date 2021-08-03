@@ -16,7 +16,7 @@ function uploadImages(){
 	imgWidget.open();
 }
 
-var imgWidget = cloudinary.createUploadWidget({
+var videoWidget = cloudinary.createUploadWidget({
   cloudName: 'hq73wefct', 
   uploadPreset: 't4vy5bss',
   sources: [ 'local', 'url', 'camera', 'google_drive'],
@@ -24,7 +24,7 @@ var imgWidget = cloudinary.createUploadWidget({
   searchByRights: true,
   multiple: false,
   resourceType: 'video',
-  maxFileSize: 20000000,
+  maxFileSize: 25000000,
   maxImageWidth: 5000,
   maxImageHeight: 5000,
   singleUploadAutoClose: false},
