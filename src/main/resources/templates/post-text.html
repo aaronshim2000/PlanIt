@@ -8,7 +8,9 @@
 	<link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
 	<title>Create a Post</title>
 	<script type="text/javascript" src="/js/post.js" defer=""></script>
-	<script src="https://kit.fontawesome.com/860ecee8df.js" crossorigin="anonymous"></script>
+	<link href="https://unpkg.com/cloudinary-video-player@1.5.4/dist/cld-video-player.min.css" rel="stylesheet">
+	<script src="https://unpkg.com/cloudinary-core@latest/cloudinary-core-shrinkwrap.min.js" type="text/javascript"></script>
+	<script src="https://unpkg.com/cloudinary-video-player@1.5.4/dist/cld-video-player.min.js" type="text/javascript"></script>
 	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 	<script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
 	<script type="text/javascript" src="/js/fileupload.js" defer=""></script>
@@ -30,7 +32,10 @@
 			<input type = "text" th:field=*{title} maxlength="49">
 			<p></p>
 			<textarea th:field=*{description} maxlength="2000" placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea><p></p>
-			<button id="upload_widgetImage" type="button" class="cloudinary-button">Upload files</button>
+			<label><input type="radio" id="selectImgs" name="filetype" checked>Photos</label>
+			<label><input type="radio" id="selectVid" name="filetype">Video</label>
+			<p><button id="upload_widgetImage" type="button" class="cloudinary-button">Upload Images</button></p>
+			<p id="containerForVid"></p>
 			<table>
 			<tbody>
 			  <tr>
@@ -39,6 +44,11 @@
 				<td id="viewImg02" class="imageCell" style=""><input type="text" th:field=*{image02} id="imageRes02" class="imageResult" value="empty" disabled></td>
 				<td id="viewImg03" class="imageCell" style=""><input type="text" th:field=*{image03} id="imageRes03" class="imageResult" value="empty" disabled></td>
 				<td id="viewImg04" class="imageCell" style=""><input type="text" th:field=*{image04} id="imageRes04" class="imageResult" value="empty" disabled></td>
+			  </tr>
+			  <tr>
+				<td class="imageCell" style=""><input type="text" id="videoID" class="imageResult" value="empty" disabled></td>
+				<td class="imageCell" style=""><input type="text" id="numFiles" class="imageResult" value="0" disabled></td>
+				<td class="imageCell" style=""><input type="text" id="fileType" class="imageResult" value="none" disabled></td>
 			  </tr>
 			  <tr>
 				<td id="viewImg05" class="imageCell" style=""><input type="text" th:field=*{image05} id="imageRes05" class="imageResult" value="empty" disabled></td>

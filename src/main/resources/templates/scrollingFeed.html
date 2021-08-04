@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet" href="./stylesheets/scrollingFeed.css">
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+    <script type="text/javascript" src="/js/scrollingFeed.js" defer=""></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Personalized Scrolling Feed</title>
 </head>
@@ -18,12 +19,16 @@
         <li class="tab"><a href ="#plan_post">Plan Posts</a></li>
         <li class="tab"><a href ="#review_post">Review Posts</a></li>
         <li class="tab"><a href ="#text_post">Text Posts</a></li>
+        <div>
+            <input type="text" id="filter" placeholder="Search posts/users here" onkeyup="searchPost()">
+        </div>
     </ul>
+
 </nav>
 
 <div id="plan_post">
     <h1>Plan Posts</h1>
-    <div class="post" th:each="title,iter : ${plan_titles}">
+    <div class="post Record-Plan-post" th:each="title,iter : ${plan_titles}">
         <p class="title" th:text="${title}"/>
         <p th:text="${plan_descriptions[iter.index]}"/>
         <p class="Infor" th:text="'post by : '+ ${plan_creators[iter.index]}"/>
@@ -34,7 +39,7 @@
 
 <div id="review_post">
     <h1>Review Posts</h1>
-    <div class="post" th:each="title,iter : ${review_titles}">
+    <div class="post Record-Review-post" th:each="title,iter : ${review_titles}">
         <p class="title" th:text="${title}"/>
         <p class="rating" th:text="${review_ratings[iter.index]}+' / 5'"/>
         <p th:text="${review_descriptions[iter.index]}"/>
@@ -47,7 +52,7 @@
 <div id="text_post">
     <h1>Text Posts</h1>
 
-    <div class="post" th:each="title,iter : ${text_titles}">
+    <div class="post Record-Text-post" th:each="title,iter : ${text_titles}">
         <p class="title" th:text="${title}"/>
         <p th:text="${text_descriptions[iter.index]}"/>
         <p class="Infor" th:text="'post by : '+ ${text_creators[iter.index]}"/>
