@@ -9,22 +9,22 @@ var imgCell07 = document.getElementById("viewImg07");
 var imgCell08 = document.getElementById("viewImg08");
 var imgCell09 = document.getElementById("viewImg09");
 
-var imgRes00 = document.getElementById("imageRes00");
-var imgRes01 = document.getElementById("imageRes01");
-var imgRes02 = document.getElementById("imageRes02");
-var imgRes03 = document.getElementById("imageRes03");
-var imgRes04 = document.getElementById("imageRes04");
-var imgRes05 = document.getElementById("imageRes05");
-var imgRes06 = document.getElementById("imageRes06");
-var imgRes07 = document.getElementById("imageRes07");
-var imgRes08 = document.getElementById("imageRes08");
-var imgRes09 = document.getElementById("imageRes09");
+var imgRes00 = document.getElementById("imageRes00"); imgRes00.value = "empty";
+var imgRes01 = document.getElementById("imageRes01"); imgRes01.value = "empty";
+var imgRes02 = document.getElementById("imageRes02"); imgRes02.value = "empty";
+var imgRes03 = document.getElementById("imageRes03"); imgRes03.value = "empty";
+var imgRes04 = document.getElementById("imageRes04"); imgRes04.value = "empty";
+var imgRes05 = document.getElementById("imageRes05"); imgRes05.value = "empty";
+var imgRes06 = document.getElementById("imageRes06"); imgRes06.value = "empty";
+var imgRes07 = document.getElementById("imageRes07"); imgRes07.value = "empty";
+var imgRes08 = document.getElementById("imageRes08"); imgRes08.value = "empty";
+var imgRes09 = document.getElementById("imageRes09"); imgRes09.value = "empty";
 
 var imageCounter = 0;
 var uploadBtn = document.getElementById("upload_widgetImage");
-var vidRes00 = document.getElementById("videoID");
-var fileCount = document.getElementById("numFiles");
-var mediaType = document.getElementById("fileType");
+var vidRes00 = document.getElementById("videoID"); vidRes00.value = "empty";
+var fileCount = document.getElementById("numFiles");  fileCount.value = 0;
+var mediaType = document.getElementById("fileType"); mediaType.value = "none";
 var playerOnPage = document.getElementById("containerForVid");
 
 var cld = cloudinary.Cloudinary.new({ cloud_name: "hq73wefct", secure: true});
@@ -53,28 +53,28 @@ function clearFiles(){
 	imgCell07.style = "";
 	imgCell08.style = "";
 	imgCell09.style = "";
-	imgCell00.innerHTML = '<input type="text" th:field=*{image00} id="imageRes00" class="imageResult" value="empty" disabled>';
-	imgCell01.innerHTML = '<input type="text" th:field=*{image01} id="imageRes01" class="imageResult" value="empty" disabled>';
-	imgCell02.innerHTML = '<input type="text" th:field=*{image02} id="imageRes02" class="imageResult" value="empty" disabled>';
-	imgCell03.innerHTML = '<input type="text" th:field=*{image03} id="imageRes03" class="imageResult" value="empty" disabled>';
-	imgCell04.innerHTML = '<input type="text" th:field=*{image04} id="imageRes04" class="imageResult" value="empty" disabled>';
-	imgCell05.innerHTML = '<input type="text" th:field=*{image05} id="imageRes05" class="imageResult" value="empty" disabled>';
-	imgCell06.innerHTML = '<input type="text" th:field=*{image06} id="imageRes06" class="imageResult" value="empty" disabled>';
-	imgCell07.innerHTML = '<input type="text" th:field=*{image07} id="imageRes07" class="imageResult" value="empty" disabled>';
-	imgCell08.innerHTML = '<input type="text" th:field=*{image08} id="imageRes08" class="imageResult" value="empty" disabled>';
-	imgCell09.innerHTML = '<input type="text" th:field=*{image09} id="imageRes09" class="imageResult" value="empty" disabled>';
-	imgRes00 = document.getElementById("imageRes00");
-	imgRes01 = document.getElementById("imageRes01");
-	imgRes02 = document.getElementById("imageRes02");
-	imgRes03 = document.getElementById("imageRes03");
-	imgRes04 = document.getElementById("imageRes04");
-	imgRes05 = document.getElementById("imageRes05");
-	imgRes06 = document.getElementById("imageRes06");
-	imgRes07 = document.getElementById("imageRes07");
-	imgRes08 = document.getElementById("imageRes08");
-	imgRes09 = document.getElementById("imageRes09");
+	imgCell00.innerHTML = '<input type="text" th:field=*{image00} id="imageRes00" class="imageResult" disabled>';
+	imgCell01.innerHTML = '<input type="text" th:field=*{image01} id="imageRes01" class="imageResult" disabled>';
+	imgCell02.innerHTML = '<input type="text" th:field=*{image02} id="imageRes02" class="imageResult" disabled>';
+	imgCell03.innerHTML = '<input type="text" th:field=*{image03} id="imageRes03" class="imageResult" disabled>';
+	imgCell04.innerHTML = '<input type="text" th:field=*{image04} id="imageRes04" class="imageResult" disabled>';
+	imgCell05.innerHTML = '<input type="text" th:field=*{image05} id="imageRes05" class="imageResult" disabled>';
+	imgCell06.innerHTML = '<input type="text" th:field=*{image06} id="imageRes06" class="imageResult" disabled>';
+	imgCell07.innerHTML = '<input type="text" th:field=*{image07} id="imageRes07" class="imageResult" disabled>';
+	imgCell08.innerHTML = '<input type="text" th:field=*{image08} id="imageRes08" class="imageResult" disabled>';
+	imgCell09.innerHTML = '<input type="text" th:field=*{image09} id="imageRes09" class="imageResult" disabled>';
+	imgRes00 = document.getElementById("imageRes00"); imgRes00.value = "empty";
+	imgRes01 = document.getElementById("imageRes01"); imgRes01.value = "empty";
+	imgRes02 = document.getElementById("imageRes02"); imgRes02.value = "empty";
+	imgRes03 = document.getElementById("imageRes03"); imgRes03.value = "empty";
+	imgRes04 = document.getElementById("imageRes04"); imgRes04.value = "empty";
+	imgRes05 = document.getElementById("imageRes05"); imgRes05.value = "empty";
+	imgRes06 = document.getElementById("imageRes06"); imgRes06.value = "empty";
+	imgRes07 = document.getElementById("imageRes07"); imgRes07.value = "empty";
+	imgRes08 = document.getElementById("imageRes08"); imgRes08.value = "empty";
+	imgRes09 = document.getElementById("imageRes09"); imgRes09.value = "empty";
 	vidRes00.value = "empty";
-	fileCount.value = "0";
+	fileCount.value = 0;
 	mediaType.value = "none";
 	playerOnPage.innerHTML = '';
 }
@@ -84,7 +84,7 @@ function callUploader(){
 	if ( uploadBtn.innerHTML == "Upload Video" ){
 		videoWidget.open();
 		mediaType.value = "video";
-		fileCount.value = "1";
+		fileCount.value = 0;
 	}
 	else{
 		imgWidget.open();
@@ -99,7 +99,7 @@ function callUploader(){
 		imgRes08 = document.getElementById("imageRes08");
 		imgRes09 = document.getElementById("imageRes09");
 		mediaType.value = "images";
-		fileCount.value = '"' + imageCounter + '"';
+		fileCount.value = imageCounter;
 	}
 }
 
@@ -110,7 +110,7 @@ function switchTo( newFileType ){
 
 function removeImageNo( index ){
 	imageCounter--;
-	fileCount.value = '"' + imageCounter + '"';
+	fileCount.value = imageCounter;
 	if (imageCounter == 0){ mediaType.value = "none"; }
 	while (index < imageCounter){
 		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url(' + document.getElementById("imageRes0" + (index+1)).value + ')';
@@ -118,7 +118,7 @@ function removeImageNo( index ){
 		index++;
 	}
 	document.getElementById("viewImg0" + imageCounter).style = "";
-	document.getElementById("viewImg0" + imageCounter).innerHTML = '<input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" value="empty" disabled>';
+	document.getElementById("viewImg0" + imageCounter).innerHTML = '<input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" disabled>';
 	imgRes00 = document.getElementById("imageRes00");
 	imgRes01 = document.getElementById("imageRes01");
 	imgRes02 = document.getElementById("imageRes02");

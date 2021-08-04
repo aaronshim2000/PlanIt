@@ -4,13 +4,14 @@ var imgCell02 = document.getElementById("viewImg02");
 var imgCell03 = document.getElementById("viewImg03");
 var imgCell04 = document.getElementById("viewImg04");
 
-var imgRes00 = document.getElementById("imageRes00");
-var imgRes01 = document.getElementById("imageRes01");
-var imgRes02 = document.getElementById("imageRes02");
-var imgRes03 = document.getElementById("imageRes03");
-var imgRes04 = document.getElementById("imageRes04");
+var imgRes00 = document.getElementById("imageRes00"); imgRes00.value = "empty";
+var imgRes01 = document.getElementById("imageRes01"); imgRes01.value = "empty";
+var imgRes02 = document.getElementById("imageRes02"); imgRes02.value = "empty";
+var imgRes03 = document.getElementById("imageRes03"); imgRes03.value = "empty";
+var imgRes04 = document.getElementById("imageRes04"); imgRes04.value = "empty";
 
 var imageCounter = 0;
+var fileCount = document.getElementById("numFiles"); fileCount.value = 0;
 
 function uploadImages(){
 	imageCounter = 0;
@@ -19,17 +20,18 @@ function uploadImages(){
 	imgCell02.style = "";
 	imgCell03.style = "";
 	imgCell04.style = "";
-	imgCell00.innerHTML = '<input type="text" th:field=*{image00} id="imageRes00" class="imageResult" value="empty" disabled>';
-	imgCell01.innerHTML = '<input type="text" th:field=*{image01} id="imageRes01" class="imageResult" value="empty" disabled>';
-	imgCell02.innerHTML = '<input type="text" th:field=*{image02} id="imageRes02" class="imageResult" value="empty" disabled>';
-	imgCell03.innerHTML = '<input type="text" th:field=*{image03} id="imageRes03" class="imageResult" value="empty" disabled>';
-	imgCell04.innerHTML = '<input type="text" th:field=*{image04} id="imageRes04" class="imageResult" value="empty" disabled>';
+	imgCell00.innerHTML = '<input type="text" th:field=*{image00} id="imageRes00" class="imageResult" disabled>';
+	imgCell01.innerHTML = '<input type="text" th:field=*{image01} id="imageRes01" class="imageResult" disabled>';
+	imgCell02.innerHTML = '<input type="text" th:field=*{image02} id="imageRes02" class="imageResult" disabled>';
+	imgCell03.innerHTML = '<input type="text" th:field=*{image03} id="imageRes03" class="imageResult" disabled>';
+	imgCell04.innerHTML = '<input type="text" th:field=*{image04} id="imageRes04" class="imageResult" disabled>';
 	imgWidget.open();
-	imgRes00 = document.getElementById("imageRes00");
-	imgRes01 = document.getElementById("imageRes01");
-	imgRes02 = document.getElementById("imageRes02");
-	imgRes03 = document.getElementById("imageRes03");
-	imgRes04 = document.getElementById("imageRes04");
+	imgRes00 = document.getElementById("imageRes00"); imgRes00.value = "empty";
+	imgRes01 = document.getElementById("imageRes01"); imgRes01.value = "empty";
+	imgRes02 = document.getElementById("imageRes02"); imgRes02.value = "empty";
+	imgRes03 = document.getElementById("imageRes03"); imgRes03.value = "empty";
+	imgRes04 = document.getElementById("imageRes04"); imgRes04.value = "empty";
+	fileCount.value = imageCounter;
 }
 
 function removeImageNo( index ){
@@ -40,12 +42,12 @@ function removeImageNo( index ){
 		index++;
 	}
 	document.getElementById("viewImg0" + imageCounter).style = "";
-	document.getElementById("viewImg0" + imageCounter).innerHTML = '<input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" value="empty" disabled>';
-	imgRes00 = document.getElementById("imageRes00");
-	imgRes01 = document.getElementById("imageRes01");
-	imgRes02 = document.getElementById("imageRes02");
-	imgRes03 = document.getElementById("imageRes03");
-	imgRes04 = document.getElementById("imageRes04");
+	document.getElementById("viewImg0" + imageCounter).innerHTML = '<input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" disabled>';
+	imgRes00 = document.getElementById("imageRes00"); imgRes00.value = "empty";
+	imgRes01 = document.getElementById("imageRes01"); imgRes01.value = "empty";
+	imgRes02 = document.getElementById("imageRes02"); imgRes02.value = "empty";
+	imgRes03 = document.getElementById("imageRes03"); imgRes03.value = "empty";
+	imgRes04 = document.getElementById("imageRes04"); imgRes04.value = "empty";
 }
 
 var imgWidget = cloudinary.createUploadWidget({
