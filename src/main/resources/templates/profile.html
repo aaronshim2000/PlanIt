@@ -15,12 +15,18 @@
     <div th:replace="fragments/nav :: navbar"></div>
 
     <h1>Profile</h1>
-    <form action="#" method="post" id="update" th:action="@{/updateProfile}" th:object="${account}" th:if="${edit}">
+    <form action="#" method="post" id="update" th:action="@{/profile}" th:object="${account}" th:if="${edit}">
         <table>
             <tr>
                 <td>Username: </td>
                 <td>
-                    <input type="text" th:placeholder="${username}" th:field="*{username}">
+                    <input type="text" th:placeholder="${username}" th:field="*{username}"> </span> <span style="color:maroon" th:text="${taken}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Password: </td>
+                <td>
+                    <input type="password" th:field="*{password}">
                 </td>
             </tr>
             <tr>
@@ -69,4 +75,5 @@
 
         </tr>
     </table>
+    <span style="color:maroon" th:text="${message}"></span> <br> <br>
 </body>

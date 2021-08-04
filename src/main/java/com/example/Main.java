@@ -375,6 +375,11 @@ public class Main {
       request.getSession().setAttribute("USER", u.getUsername()); //put username into session
       request.getSession().setAttribute("PASSWORD", u.getPassword()); //put password into session
 
+      rs = stmt.executeQuery("SELECT id FROM accounts WHERE username = '" + u.getUsername() + "'"); //find id from database
+      rs.next();
+      String id = rs.getString("id");
+      request.getSession().setAttribute("ID", id); //put id into session
+
       rs = stmt.executeQuery("SELECT email FROM accounts WHERE username = '" + u.getUsername() + "'"); //find email from database
       rs.next();
       String email = rs.getString("email");
@@ -718,35 +723,27 @@ public class Main {
     }
     try(Connection connection = dataSource.getConnection()){
       Statement statement = connection.createStatement();
-
+      
+      String user = tag;
       //default to current user profile
-      if(tag == null){
-        tag = request.getSession().getAttribute("USER");
+      if(tag == null || tag == ""){
+        user = request.getSession().getAttribute("USER").toString();
       }
-      ResultSet rs = statement.executeQuery("SELECT * FROM accounts WHERE username='"+tag+"'");
+      System.out.println("user="+user);
+      ResultSet rs = statement.executeQuery("SELECT * FROM accounts WHERE username='"+user+"'");
+      System.out.println("SELECT * FROM accounts WHERE username='"+user+"'");
+      rs.next();
 
-      ArrayList<String> username = new ArrayList<String>();
-      ArrayList<String> email = new ArrayList<String>();
-      ArrayList<String> fname = new ArrayList<String>();
-      ArrayList<String> lname = new ArrayList<String>();
-
-      while(rs.next()){
-        titles.add(String.valueOf(rs.getString("username")));
-        senders.add(String.valueOf(rs.getString("email")));
-        bodies.add(String.valueOf(rs.getString("fname")));
-        times.add(String.valueOf(rs.getTimestamp("lname")));
-      }
-
-      model.put("username", username);
-      model.put("email", email);
-      model.put("fname", fname);
-      model.put("lname", lname);
+      model.put("username", rs.getString("username"));
+      model.put("email", rs.getString("email"));
+      model.put("fname", rs.getString("fname"));
+      model.put("lname", rs.getString("lname"));
 
 
       //Form to update account
-      if(tag == request.getSession().getAttribute("USER")){
+      if(user == request.getSession().getAttribute("USER").toString()){
         model.put("edit", true);
-        Account account = new account();
+        Account account = new Account();
         model.put("account", account);
       }
 
@@ -764,15 +761,67 @@ public class Main {
     path = "/profile",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleEdit(Map<String, Object> model, Account u) throws Exception{
+  public String handleEdit(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
-      //add new account to table
-      sql = "UPDATE accounts (username, password, email, fname, lname, role) VALUES ('" + u.getUsername() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "', 'default') WHERE id='"+u.getId()+"'";
-      stmt.executeUpdate(sql);
-      //System.out.println(u.getUsername() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
-      model.put("message", "Account successfully created");
-      return "login";
+
+      ResultSet rs;
+      //update account to table
+      //sql = "UPDATE accounts SET username='" + u.getUsername() + "', password='" + u.getPassword() + "', email='" + u.getEmail() + "', fname='" + u.getFname() + "', lname='" + u.getLname() + "' WHERE id='"+request.getSession().getAttribute("ID")+"'";
+      //if any username was inputted
+      if(!u.getUsername().isEmpty()){
+        //get number of accounts with the same username from accounts table
+        String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUsername() + "'";
+        System.out.println(sql);
+        //get number of accounts from resultset
+        rs = stmt.executeQuery(sql);
+        rs.next();
+        int x = rs.getInt("count");
+        if(x != 0){ //check if there are is at least 1 account in table
+          System.out.println("username taken");
+          model.put("taken", "This username has been taken");
+          model.put("edit", true);
+          Account account = new Account();
+          model.put("account", account);
+
+          model.put("username", request.getSession().getAttribute("USER"));
+          model.put("email", request.getSession().getAttribute("EMAIL"));
+          model.put("fname", request.getSession().getAttribute("FNAME"));
+          model.put("lname", request.getSession().getAttribute("LNAME"));
+          return "profile"; //if one exists
+        }
+        stmt.executeUpdate("UPDATE accounts SET username='"+u.getUsername()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
+        request.getSession().setAttribute("USER", u.getUsername()); //put id into session
+      }
+      //if any password was inputted
+      if(!u.getPassword().isEmpty()){
+        stmt.executeUpdate("UPDATE accounts SET password='"+u.getPassword()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
+      }
+      
+      //if any email was inputted
+      if(!u.getEmail().isEmpty()){
+        stmt.executeUpdate("UPDATE accounts SET email='"+u.getEmail()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
+        request.getSession().setAttribute("EMAIL", u.getEmail()); //put email into session
+      }
+      //always change fnames and lnames (since they can be blank)
+      stmt.executeUpdate("UPDATE accounts SET fname='"+u.getFname()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
+      stmt.executeUpdate("UPDATE accounts SET lname='"+u.getLname()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
+
+      rs = stmt.executeQuery("SELECT fname FROM accounts WHERE username = '" + u.getUsername() + "'");
+      request.getSession().setAttribute("FNAME", u.getFname()); //put firstname into session
+
+      rs = stmt.executeQuery("SELECT lname FROM accounts WHERE username = '" + u.getUsername() + "'");
+      request.getSession().setAttribute("LNAME", u.getLname()); //put lastname into session
+
+
+      //stmt.executeUpdate(sql);
+      model.put("message", "Account successfully updated");
+      // model.put("")
+      // model.put("edit", true);
+      // Account account = new Account();
+      // model.put("account", account);
+      
+      return "homepage";
     }
     catch(Exception e){
       model.put("Error", e.getMessage());
