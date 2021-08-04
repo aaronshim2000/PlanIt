@@ -40,3 +40,13 @@ input[name="postselect"]{
 	font-size: 14px;
 	margin: 0;
 }
+
+.HiddenPlayer{
+	visibility: hidden;
+	width: 0px;
+}
+
+.VisisblePlayer{
+	width: 500px;
+	visibility: visible;
+}

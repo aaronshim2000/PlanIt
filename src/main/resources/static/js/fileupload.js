@@ -97,7 +97,7 @@ function callUploader(){
 		imgRes08 = document.getElementById("imageRes08");
 		imgRes09 = document.getElementById("imageRes09");
 		mediaType.value = "images";
-		fileCount.value = '"' + imageCounter '"';
+		fileCount.value = '"' + imageCounter + '"';
 	}
 }
 
@@ -108,7 +108,7 @@ function switchTo( newFileType ){
 
 function removeImageNo( index ){
 	imageCounter--;
-	fileCount.value = '"' + imageCounter '"';
+	fileCount.value = '"' + imageCounter + '"';
 	if (imageCounter == 0){ mediaType.value = "none"; }
 	while (index < imageCounter){
 		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url(' + document.getElementById("imageRes0" + (index+1)).value + ')';
