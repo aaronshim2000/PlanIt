@@ -25,17 +25,21 @@ var uploadBtn = document.getElementById("upload_widgetImage");
 var vidRes00 = document.getElementById("videoID");
 var fileCount = document.getElementById("numFiles");
 var mediaType = document.getElementById("fileType");
-var playerOnPage = document.getElementById("demo-player");
+var playerOnPage = document.getElementById("containerForVid");
 
 var cld = cloudinary.Cloudinary.new({ cloud_name: "hq73wefct", secure: true});
 
-var demoplayer = cld.videoPlayer('demo-player', {
-	bigPlayButton: 'init',
-	controls: true,
-	showLogo: false,
-	loop: true,
-	preload: 'auto'
-});
+var demoplayer;
+
+function enablePlayer(){
+	demoplayer = cld.videoPlayer('demo-player', {
+		bigPlayButton: 'init',
+		controls: true,
+		showLogo: false,
+		loop: true,
+		preload: 'auto'
+	});
+}
 
 function clearFiles(){
 	imageCounter = 0;
@@ -72,15 +76,13 @@ function clearFiles(){
 	vidRes00.value = "empty";
 	fileCount.value = "0";
 	mediaType.value = "none";
-	playerOnPage.class = "cld-video-player HiddenPlayer";
-	demoplayer.source('');
+	playerOnPage.innerHTML = '';
 }
 
 function callUploader(){
 	clearFiles();
 	if ( uploadBtn.innerHTML = "Upload Video" ){
 		videoWidget.open();
-		playerOnPage.class = "cld-video-player VisisblePlayer";
 		mediaType.value = "video";
 		fileCount.value = "1";
 	}
@@ -169,7 +171,8 @@ var videoWidget = cloudinary.createUploadWidget({
   (error, result) => { 
     if (!error && result && result.event === "success") {
 	  var newRes = result.info;
-	  console.log(newRes.public_id);
+	  playerOnPage.innerHTML = '<video id="demo-player" controls class="cld-video-player HiddenPlayer"></video>';
+	  enablePlayer();
 	  demoplayer.source(newRes.public_id);
 	  vidRes00.value = newRes.public_id;
     }
