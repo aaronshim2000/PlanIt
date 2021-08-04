@@ -97,7 +97,7 @@ public class Main {
       post.setCategory("text-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,image00,image01,image02,image03,image04,image05,image06,image07,image08,image09,imagesNum,video00,mediaType) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() + "','" + post.getImage06() + "','" + post.getImage07() + "','" + post.getImage08() + "','" + post.getImage09() + "','" + post.getImagesNum() + "','" + post.getVideo00() + "','" + post.getMediaType() + "')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,image00,image01,image02,image03,image04,image05,image06,image07,image08,image09,imagesNum,video00,mediaType) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() + "','" + post.getImage06() + "','" + post.getImage07() + "','" + post.getImage08() + "','" + post.getImage09() + "','" + post.getImagesNum() + "','" + post.getVideo00() + "','" + post.getMediaType() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -125,7 +125,7 @@ public class Main {
       post.setCategory("review-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04,imagesNum) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImagesNum() + "')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04,imagesNum) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImagesNum() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -153,7 +153,7 @@ public class Main {
       post.setCategory("plan-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),'" + username + "','" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),$$" + username + "$$,$$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -407,7 +407,7 @@ public class Main {
         return "register"; //if one exists
       }
       //add new account to table
-      sql = "INSERT INTO accounts (username, password, email, fname, lname, role) VALUES ('" + u.getUsername() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "', 'default')";
+      sql = "INSERT INTO accounts (username, password, email, fname, lname, role) VALUES ($$" + u.getUsername() + "$$, $$" + u.getPassword() + "$$, $$" + u.getEmail() + "$$, $$" + u.getFname() + "$$, $$" + u.getLname() + "$$, 'default')";
       stmt.executeUpdate(sql);
       //System.out.println(u.getUsername() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
       model.put("message", "Account successfully created");
@@ -542,9 +542,9 @@ public class Main {
       adminMessage.setCategory("contact");
 
       statement.executeUpdate(
-          "INSERT INTO adminMessages(username, email, message, category) VALUES ('" 
-          + adminMessage.getUsername() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', '" 
-          + adminMessage.getCategory() + "');");
+          "INSERT INTO adminMessages(username, email, message, category) VALUES ($$" 
+          + adminMessage.getUsername() + "$$, $$" + adminMessage.getEmail() + "$$, $$" + adminMessage.getMessage() + "$$, $$" 
+          + adminMessage.getCategory() + "$$);");
 
       return "redirect:/viewAdminMessages";
     } 
@@ -831,7 +831,7 @@ public class Main {
       //Create table (if it doesn't exist)
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(20), recipient varchar(20), sender varchar(20), body varchar(1000), time timestamp);");
       //add new notification to table
-      String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ('" + n.getTitle() + "', '" + n.getRecipient() + "', '" + request.getSession().getAttribute("USER") + "', '" + n.getBody() + "', now())";
+      String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + n.getTitle() + "$$, $$" + n.getRecipient() + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$" + n.getBody() + "$$, now())";
       stmt.executeUpdate(sql);
       model.put("message", "Notification successfully created");
       return "notifications";
@@ -849,32 +849,67 @@ public class Main {
       return "redirect:/login";
     }
     try(Connection connection = dataSource.getConnection()){
-      Statement statement = connection.createStatement();
+      Statement stmt = connection.createStatement();
       
+      //user who's profile is being viewed
       String user = tag;
       //default to current user profile
       if(tag == null || tag == ""){
         user = request.getSession().getAttribute("USER").toString();
       }
       System.out.println("user="+user);
-      ResultSet rs = statement.executeQuery("SELECT * FROM accounts WHERE username='"+user+"'");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE username='"+user+"'");
       System.out.println("SELECT * FROM accounts WHERE username='"+user+"'");
       rs.next();
 
+      //send information to page
       model.put("username", rs.getString("username"));
       model.put("email", rs.getString("email"));
       model.put("fname", rs.getString("fname"));
       model.put("lname", rs.getString("lname"));
 
-
-      //Form to update account
+      model.put("user", request.getSession().getAttribute("USER"));
+      //check if viewer is the owner of the profile
       if(user == request.getSession().getAttribute("USER").toString()){
         model.put("edit", true);
         Account account = new Account();
         model.put("account", account);
+        
+        rs = stmt.executeQuery("SELECT * FROM posts WHERE (creator='"+user+"') ORDER BY id DESC");
       }
-
-      model.put("user", request.getSession().getAttribute("USER"));
+      else{
+        //if viewing someone else's profile
+        rs = stmt.executeQuery("SELECT * FROM posts WHERE (creator='"+user+"' AND visibility='PUBLIC') ORDER BY id DESC");
+      }
+      ArrayList<String> titles = new ArrayList<String>();
+      ArrayList<String> descriptions = new ArrayList<String>();
+      ArrayList<String> postDates= new ArrayList<String>();
+      ArrayList<String> visibilities=new ArrayList<String>();
+      ArrayList<String> creators=new ArrayList<String>();
+      ArrayList<String> categories=new ArrayList<String>();
+      //ArrayList<String[]> likes = new ArrayList<String[]>();
+      //ArrayList<String> likesCount = new ArrayList<String>();
+      while (rs.next())
+      {
+        titles.add(rs.getString("title"));
+        descriptions.add(rs.getString("content"));
+        postDates.add(rs.getString("post_date"));
+        visibilities.add(rs.getString("visibility"));
+        creators.add(rs.getString("creator"));
+        categories.add(rs.getString("category"));
+        // Array sqlLikes = rs.getArray("likes");
+        // String[] arr = (String[])sqlLikes.getArray();
+        //likes.add(arr);
+        //likesCount.add(Integer.toString(arr.length));
+      }
+      model.put("titles", titles);
+      model.put("descriptions", descriptions);
+      model.put("postDates",postDates);
+      model.put("visibilities",visibilities);
+      model.put("creators",creators);
+      model.put("categories", categories);
+      //model.put("likes", likes);
+      //model.put("likesCount", likesCount);
 
       return "profile";
     }

@@ -34,21 +34,18 @@
                 <td>
                     <input type="email" th:placeholder="${email}" th:field="*{email}">
                 </td>
-                <!-- <td><input type="checkbox" th:field="*{privateEmail}"></td> -->
             </tr>
             <tr>
                 <td>First Name: </td>
                 <td>
                     <input type="text" th:placeholder="${fname}" th:field="*{fname}">
                 </td>
-                <!-- <td><input type="checkbox" th:field="*{privateFname}"></td> -->
             </tr>
             <tr>
                 <td>Last Name: </td>
                 <td>
                     <input type="text" th:placeholder="${lname}" th:field="*{lname}">
                 </td>
-                <!-- <td><input type="checkbox" th:field="*{privateLname}"></td> -->
             </tr>
         </table>
         <input type="submit" value="Update Info">
@@ -62,18 +59,29 @@
         <tr>
             <td>Email: </td>
             <td th:text="${email}"></td>
-
         </tr>
         <tr>
             <td>First Name: </td>
             <td th:text="${fname}"></td>
-
         </tr>
         <tr>
             <td>Last Name: </td>
             <td th:text="${lname}"></td>
-
         </tr>
     </table>
     <span style="color:maroon" th:text="${message}"></span> <br> <br>
+
+    <div id="post">
+        <h1>User's Posts</h1>
+
+        <div class="post Record-Text-post" th:each="title,iter : ${titles}">
+            <h2 class="title" th:text="${title}"></h2>
+            <p th:text="${descriptions[iter.index]}">
+            <p class="Infor" th:text="'post by : '+ ${creators[iter.index]}">
+            <p class="Infor" th:text="'post type : '+${categories[iter.index]}">
+            <p class="Infor" th:text="${postDates[iter.index]}">
+            <!-- <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}">
+            <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a> -->
+        </div>
+    </div>
 </body>
