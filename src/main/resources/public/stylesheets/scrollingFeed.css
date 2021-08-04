@@ -92,7 +92,7 @@ h1{
  padding:20px;
 }
 
-/* .container#blur.active
+.container#blur.active
 {
   filter: blur(20px);
   pointer-events: none;
@@ -120,4 +120,4 @@ h1{
   visibility: visible;
   opacity: 1;
   transition: 0.5s;
-} */
+}

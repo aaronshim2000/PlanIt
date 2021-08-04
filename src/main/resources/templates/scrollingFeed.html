@@ -37,8 +37,8 @@
                 <p class="Infor" th:text="'post by : '+ ${plan_creators[iter.index]}"/>
                 <p class="Infor" th:text="'post type : '+${plan_visibilities[iter.index]}+' post'"/>
                 <p class="Infor" th:text="${plan_postDates[iter.index]}"/>
-                <!-- <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}"/>
-                <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a> -->
+                <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}"/>
+                <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a>
             </div>
         </div>
 
@@ -51,8 +51,8 @@
                 <p class="Infor" th:text="'post by : '+ ${review_creators[iter.index]}"/>
                 <p class="Infor" th:text="'post type : '+${review_visibilities[iter.index]}"/>
                 <p class="Infor" th:text="${review_postDates[iter.index]}"/>
-                <!-- <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}"/>
-                <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a> -->
+                <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}"/>
+                <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a>
             </div>
         </div>
 
@@ -65,8 +65,8 @@
                 <p class="Infor" th:text="'post by : '+ ${text_creators[iter.index]}"/>
                 <p class="Infor" th:text="'post type : '+${text_visibilities[iter.index]}+' post'"/>
                 <p class="Infor" th:text="${text_postDates[iter.index]}"/>
-                <!-- <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}"/>
-                <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a> -->
+                <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}"/>
+                <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a>
             </div>
         </div>
 
@@ -82,7 +82,7 @@
     </div>
 </div>
 
-<!-- <div id="popup">
+<div id="popup">
     <table class=content-table>
         <thead>
             <tr>
@@ -94,7 +94,7 @@
         </tbody>
     </table>
     <a href="#" onclick="toggle([])"></a>
-</div> -->
+</div>
 
 </body>
 </html>
