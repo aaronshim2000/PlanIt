@@ -81,7 +81,7 @@ function clearFiles(){
 
 function callUploader(){
 	clearFiles();
-	if ( uploadBtn.innerHTML = "Upload Video" ){
+	if ( uploadBtn.innerHTML == "Upload Video" ){
 		videoWidget.open();
 		mediaType.value = "video";
 		fileCount.value = "1";

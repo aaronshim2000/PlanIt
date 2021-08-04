@@ -42,11 +42,7 @@ input[name="postselect"]{
 }
 
 .HiddenPlayer{
-	visibility: hidden;
-	width: 0px;
-}
-
-.VisisblePlayer{
-	width: 500px;
 	visibility: visible;
+	width: 500px;
+	height: 300px;
 }
