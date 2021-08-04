@@ -673,7 +673,7 @@ public class Main {
       model.put("times", times);
 
 
-      //For sending notifications
+      //Form to send notifications
       Notification notification = new Notification();
       model.put("notification", notification);
 
@@ -688,6 +688,7 @@ public class Main {
     }
   }
 
+  //Sending Notifications
   @PostMapping(
     path = "/notifications",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
@@ -699,10 +700,79 @@ public class Main {
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(20), recipient varchar(20), sender varchar(20), body varchar(1000), time timestamp);");
       //add new notification to table
       String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ('" + n.getTitle() + "', '" + n.getRecipient() + "', '" + request.getSession().getAttribute("USER") + "', '" + n.getBody() + "', now())";
-      System.out.println(sql);
       stmt.executeUpdate(sql);
       model.put("message", "Notification successfully created");
       return "notifications";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
+      return "error";
+    }
+  }
+
+  //Profile
+  @RequestMapping("/profile")
+  String getProfile(@RequestParam(value = "username", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
+    if(request.getSession().getAttribute("USER") == null){
+      return "redirect:/login";
+    }
+    try(Connection connection = dataSource.getConnection()){
+      Statement statement = connection.createStatement();
+
+      //default to current user profile
+      if(tag == null){
+        tag = request.getSession().getAttribute("USER");
+      }
+      ResultSet rs = statement.executeQuery("SELECT * FROM accounts WHERE username='"+tag+"'");
+
+      ArrayList<String> username = new ArrayList<String>();
+      ArrayList<String> email = new ArrayList<String>();
+      ArrayList<String> fname = new ArrayList<String>();
+      ArrayList<String> lname = new ArrayList<String>();
+
+      while(rs.next()){
+        titles.add(String.valueOf(rs.getString("username")));
+        senders.add(String.valueOf(rs.getString("email")));
+        bodies.add(String.valueOf(rs.getString("fname")));
+        times.add(String.valueOf(rs.getTimestamp("lname")));
+      }
+
+      model.put("username", username);
+      model.put("email", email);
+      model.put("fname", fname);
+      model.put("lname", lname);
+
+
+      //Form to update account
+      if(tag == request.getSession().getAttribute("USER")){
+        model.put("edit", true);
+        Account account = new account();
+        model.put("account", account);
+      }
+
+      model.put("user", request.getSession().getAttribute("USER"));
+
+      return "profile";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @PostMapping(
+    path = "/profile",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleEdit(Map<String, Object> model, Account u) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+      //add new account to table
+      sql = "UPDATE accounts (username, password, email, fname, lname, role) VALUES ('" + u.getUsername() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "', 'default') WHERE id='"+u.getId()+"'";
+      stmt.executeUpdate(sql);
+      //System.out.println(u.getUsername() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
+      model.put("message", "Account successfully created");
+      return "login";
     }
     catch(Exception e){
       model.put("Error", e.getMessage());
