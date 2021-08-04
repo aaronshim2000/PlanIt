@@ -658,6 +658,46 @@ public class Main {
     }
   }
 
+   // Prompt for deleting all messages
+   @RequestMapping("/deleteAllPosts") 
+   String attemptDeletePosts(Map<String, Object> model) {
+ 
+     String message = "Do you wish to delete all posts?";
+ 
+     model.put("message", message);
+ 
+     // Notify users of this when notifications are done in the future
+ 
+     return "deleteAllPosts";
+   }
+ 
+   // Clicked on delete all stored messages
+   @PostMapping(path = "/deleteAllPosts", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
+   public String deleteAllPosts(Map<String, Object> model, HttpServletRequest request) throws Exception {
+ 
+     try (Connection connection = dataSource.getConnection()) 
+     {
+           Statement statement = connection.createStatement();
+           statement.executeUpdate("DROP TABLE posts;");
+ 
+           String message = "Succesfully deleted all posts"; 
+           model.put("message", message);
+           model.put("user", request.getSession().getAttribute("USER"));
+           return "redirect:/";
+     } 
+     catch (Exception e) 
+     {
+       return "error";
+     }
+   }
+ 
+   // Cancel and go back to the table
+   @PostMapping(path = "/deleteAllPosts", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
+   public String cancelDeletePosts(AdminMessage adminMessage) {
+ 
+     return "redirect:/";
+   }
+
   // Cancel and go back to the table
   @PostMapping(path = "/deleteAllMessages", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
   public String cancelDeleteAll(AdminMessage adminMessage) {
