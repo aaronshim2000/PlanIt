@@ -16,7 +16,6 @@
     <div th:replace="fragments/nav :: navbar"></div>
 
     <div class="container">
-        <a class="title" th:href="@{/}">Back to Homepage</a>
         <div class="title">Contact Us</div>
         <form id="contactForm" action="#" method="post" th:action="@{/contact}" th:object="${adminMessage}">
             <div class="contact-details">

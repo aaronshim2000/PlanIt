@@ -37,6 +37,7 @@ import javax.sql.DataSource;
 import java.lang.reflect.MalformedParameterizedTypeException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Map;
 
 import java.io.*;
@@ -92,7 +93,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200), likes text[])");
       post.setCategory("text-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
@@ -120,7 +121,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200), likes text[])");
       post.setCategory("review-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
@@ -148,7 +149,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5), likes text[])");
       post.setCategory("plan-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
@@ -193,6 +194,8 @@ public class Main {
       ArrayList<String> text_postDates= new ArrayList<String>();
       ArrayList<String> text_visibilities=new ArrayList<String>();
       ArrayList<String> text_creators=new ArrayList<String>();
+      ArrayList<String[]> likes = new ArrayList<String[]>();
+      ArrayList<String> likesCount = new ArrayList<String>();
       while (rs_text.next())
       {
         text_titles.add(rs_text.getString("title"));
@@ -200,12 +203,18 @@ public class Main {
         text_postDates.add(rs_text.getString("post_date"));
         text_visibilities.add(rs_text.getString("visibility"));
         text_creators.add(rs_text.getString("creator"));
+        Array sqlLikes = rs_text.getArray("likes");
+        String[] arr = (String[])sqlLikes.getArray();
+        likes.add(arr);
+        likesCount.add(Integer.toString(arr.length));
       }
       model.put("text_titles", text_titles);
       model.put("text_descriptions", text_descriptions);
       model.put("text_postDates",text_postDates);
       model.put("text_visibilities",text_visibilities);
       model.put("text_creators",text_creators);
+      model.put("likes", likes);
+      model.put("likesCount", likesCount);
 
       //return "scrollingFeed";
     } catch (Exception e) {
@@ -223,6 +232,8 @@ public class Main {
       ArrayList<String> review_postDates=new ArrayList<String>();
       ArrayList<String> review_visibilities=new ArrayList<String>();
       ArrayList<String> review_creators=new ArrayList<String>();
+      ArrayList<String[]> likes = new ArrayList<String[]>();
+      ArrayList<String> likesCount = new ArrayList<String>();
       while (rs_review.next())
       {
         review_titles.add(rs_review.getString("title"));
@@ -231,6 +242,10 @@ public class Main {
         review_postDates.add(rs_review.getString("post_date"));
         review_visibilities.add(rs_review.getString("visibility"));
         review_creators.add(rs_review.getString("creator"));
+        Array sqlLikes = rs_review.getArray("likes");
+        String[] arr = (String[])sqlLikes.getArray();
+        likes.add(arr);
+        likesCount.add(Integer.toString(arr.length));
       }
       model.put("review_titles", review_titles);
       model.put("review_descriptions", review_descriptions);
@@ -238,6 +253,8 @@ public class Main {
       model.put("review_postDates",review_postDates);
       model.put("review_visibilities",review_visibilities);
       model.put("review_creators",review_creators);
+      model.put("likes", likes);
+      model.put("likesCount", likesCount);
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -252,6 +269,8 @@ public class Main {
       ArrayList<String> plan_postDates = new ArrayList<String>();
       ArrayList<String> plan_visibilities = new ArrayList<String>();
       ArrayList<String> plan_creators = new ArrayList<String>();
+      ArrayList<String[]> likes = new ArrayList<String[]>();
+      ArrayList<String> likesCount = new ArrayList<String>();
       while (rs_plan.next())
       {
         plan_titles.add(rs_plan.getString("title"));
@@ -259,12 +278,18 @@ public class Main {
         plan_postDates.add(rs_plan.getString("post_date"));
         plan_visibilities.add(rs_plan.getString("visibility"));
         plan_creators.add(rs_plan.getString("creator"));
+        Array sqlLikes = rs_plan.getArray("likes");
+        String[] arr = (String[])sqlLikes.getArray();
+        likes.add(arr);
+        likesCount.add(Integer.toString(arr.length));
       }
       model.put("plan_titles", plan_titles);
       model.put("plan_descriptions", plan_descriptions);
       model.put("plan_postDates",plan_postDates);
       model.put("plan_visibilities",plan_visibilities);
       model.put("plan_creators",plan_creators);
+      model.put("likes", likes);
+      model.put("likesCount", likesCount);
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -282,6 +307,51 @@ public class Main {
     }
     catch (Exception e)
     {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
+    model.put("user", request.getSession().getAttribute("USER"));
+    return "scrollingFeed";
+  }
+
+  @RequestMapping("/likePost")
+  String likePost(@RequestParam("id") int id, Map<String, Object> model, HttpServletRequest request) {
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement(); 
+      String username= (String) request.getSession().getAttribute("USER");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE id = " + id + ";");
+
+      while(rs.next())
+      {
+        Array likes = rs.getArray("likes");
+        // Turn sql array into string array
+        String[] likesArray = (String[])likes.getArray();
+        // Iterate through array to check for name
+        boolean alreadyLiked = Arrays.asList(likesArray).contains(username);
+        ArrayList<String> likesList = new ArrayList<String>();
+        if (!alreadyLiked)
+        {
+          for (String s : likesArray)
+            likesList.add(s);
+          likesList.add(username);
+        }
+        else
+        {
+          for (String s : likesArray)
+            if (s != username)
+              likesList.add(s);
+        }
+        likesArray = (String[])likesList.toArray();
+        likes = connection.createArrayOf("text", likesArray);
+        String sql = "UPDATE posts SET likes = ? WHERE id = " + id + ";";
+        PreparedStatement pstmt = connection.prepareStatement(sql);
+        pstmt.setArray(1, likes);
+        pstmt.executeUpdate();
+        connection.commit();
+      }
+
+    } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
     }

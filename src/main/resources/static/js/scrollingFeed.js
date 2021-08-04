@@ -97,3 +97,25 @@ function searchUser(){
      }
   }
 }
+
+function toggle(likes)
+{
+  var blur = document.getElementById('blur');
+  blur.classList.toggle('active');
+
+  var popup = document.getElementById('popup');
+  popup.classList.toggle('active');
+
+  var tableBody = document.getElementById('tableBody');
+
+  var row = "";
+
+  for(like in likes)
+  {
+    row += `<tr>
+              <td>${like}</td>
+            </tr>`;
+  }
+
+  tableBody.innerHTML = row;
+}

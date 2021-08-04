@@ -5,6 +5,7 @@
     <meta http-equiv="x-ua-compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="stylesheet" href="./stylesheets/scrollingFeed.css">
+    <link rel="stylesheet" th:href="@{/stylesheets/table.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <script type="text/javascript" src="/js/scrollingFeed.js" defer=""></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -15,7 +16,7 @@
 <!-- navbar header -->
 <div th:replace="fragments/nav :: navbar"></div>
 
-<div class="container">
+<div class="container" id="blur">
     <div class="sidebar">
         <ul class="tabs">
             <li class="tab"><a href ="#plan_post">Plan Posts</a></li>
@@ -36,6 +37,8 @@
                 <p class="Infor" th:text="'post by : '+ ${plan_creators[iter.index]}"/>
                 <p class="Infor" th:text="'post type : '+${plan_visibilities[iter.index]}+' post'"/>
                 <p class="Infor" th:text="${plan_postDates[iter.index]}"/>
+                <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}"/>
+                <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a>
             </div>
         </div>
 
@@ -48,6 +51,8 @@
                 <p class="Infor" th:text="'post by : '+ ${review_creators[iter.index]}"/>
                 <p class="Infor" th:text="'post type : '+${review_visibilities[iter.index]}"/>
                 <p class="Infor" th:text="${review_postDates[iter.index]}"/>
+                <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}"/>
+                <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a>
             </div>
         </div>
 
@@ -60,6 +65,8 @@
                 <p class="Infor" th:text="'post by : '+ ${text_creators[iter.index]}"/>
                 <p class="Infor" th:text="'post type : '+${text_visibilities[iter.index]}+' post'"/>
                 <p class="Infor" th:text="${text_postDates[iter.index]}"/>
+                <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}"/>
+                <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a>
             </div>
         </div>
 
@@ -73,6 +80,20 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="popup">
+    <table class=content-table>
+        <thead>
+            <tr>
+                <th class="column">Username</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+
+        </tbody>
+    </table>
+    <a href="#" onclick="toggle([])"></a>
 </div>
 
 </body>
