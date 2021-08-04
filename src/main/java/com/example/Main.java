@@ -185,7 +185,7 @@ public class Main {
 
     //dealing with text posts
     try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement(); 
+      Statement stmt = connection.createStatement();
       String username= (String) request.getSession().getAttribute("USER");
       ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE (category='text-post' AND visibility='PUBLIC') OR (category='text-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
       ArrayList<String> text_titles = new ArrayList<String>();
@@ -206,7 +206,7 @@ public class Main {
       model.put("text_postDates",text_postDates);
       model.put("text_visibilities",text_visibilities);
       model.put("text_creators",text_creators);
-      
+
       //return "scrollingFeed";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -214,7 +214,7 @@ public class Main {
     }
     //dealing with review posts
     try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement(); 
+      Statement stmt = connection.createStatement();
       String username= (String) request.getSession().getAttribute("USER");
       ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE (category='review-post' AND visibility='PUBLIC') OR (category='review-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
       ArrayList<String> review_titles = new ArrayList<String>();
@@ -269,6 +269,23 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
     }
+
+    //dealing with users
+    try (Connection connection = dataSource.getConnection())
+    {
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery("SELECT * FROM accounts where role='default'");
+      ArrayList<String> usernames = new ArrayList<String>();
+      while (rs.next())
+        usernames.add(String.valueOf(rs.getString("username")));
+      model.put("usernames", usernames);
+    }
+    catch (Exception e)
+    {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
     model.put("user", request.getSession().getAttribute("USER"));
     return "scrollingFeed";
   }
