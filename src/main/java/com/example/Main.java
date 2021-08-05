@@ -154,6 +154,8 @@ public class Main {
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
       statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,likes) VALUES (now(),$$" + username + "$$,$$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','{" + username + "}')");
+      //send notification to friends
+      //statement.executeupdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$New Post from" + post.getCreator() + "$$, $$FRIENDS$$, $$" + request.getSession().getAttribute("USER") + "$$, $$View Post$$, now())");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -546,7 +548,7 @@ public class Main {
           + adminMessage.getUsername() + "$$, $$" + adminMessage.getEmail() + "$$, $$" + adminMessage.getMessage() + "$$, $$" 
           + adminMessage.getCategory() + "$$);");
 
-      return "redirect:/viewAdminMessages";
+      return "redirect:/contact";
     } 
     catch (Exception e) 
     {
@@ -663,7 +665,7 @@ public class Main {
    String attemptDeletePosts(Map<String, Object> model) {
  
      String message = "Do you wish to delete all posts?";
- 
+    
      model.put("message", message);
  
      // Notify users of this when notifications are done in the future
@@ -694,14 +696,12 @@ public class Main {
    // Cancel and go back to the table
    @PostMapping(path = "/deleteAllPosts", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
    public String cancelDeletePosts(AdminMessage adminMessage) {
- 
      return "redirect:/";
    }
 
   // Cancel and go back to the table
   @PostMapping(path = "/deleteAllMessages", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
   public String cancelDeleteAll(AdminMessage adminMessage) {
-
     return "redirect:/viewAdminMessages";
   }
 
@@ -843,6 +843,63 @@ public class Main {
 
       model.put("user", request.getSession().getAttribute("USER"));
       return "viewAccount";
+    } 
+    catch (Exception e) 
+    {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/viewPost")
+  String viewPost(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+      Statement statement = connection.createStatement();
+
+      ResultSet rs = statement.executeQuery("SELECT * FROM posts WHERE id=" + tag);
+      rs.next();
+      //check if user should have access when private
+      if(rs.getString("visibility") == "PRIVATE"){
+        //get id of post creator
+        ResultSet rsAccount = statement.executeQuery("SELECT * FROM accounts WHERE username=$$"+ rs.getString("creator") +"$$");
+        rsAccount.next();
+        String creatorId = String.valueOf(rsAccount.getInt("id"));
+
+        //if id of user is the same as its creator  AND  role is admin OR  *******************************************************************************user is a friend, Deny access, go to homepage
+        if((creatorId != request.getSession().getAttribute("ID")) && request.getSession().getAttribute("ROLE") == "admin"){
+          model.put("message", "You do not have access to that post");
+          model.put("user", request.getSession().getAttribute("USER"));
+          return "homepage";
+        }
+      }
+
+      model.put("id", String.valueOf(rs.getInt("id")));
+      model.put("title", rs.getString("title"));
+      model.put("post_date", rs.getString("post_date"));
+      model.put("content", rs.getString("content"));
+      model.put("category", rs.getString("category"));
+      model.put("visibility", rs.getString("visibility"));
+      model.put("rating", rs.getString("rating"));
+      model.put("creator", rs.getString("creator"));
+      model.put("mediaType", rs.getString("mediaType"));
+      model.put("imagesNum", rs.getString("imagesNum"));
+      model.put("image00", rs.getString("image00"));
+      model.put("image01", rs.getString("image01"));
+      model.put("image02", rs.getString("image02"));
+      model.put("image03", rs.getString("image03"));
+      model.put("image04", rs.getString("image04"));
+      model.put("image05", rs.getString("image05"));
+      model.put("image06", rs.getString("image06"));
+      model.put("image07", rs.getString("image07"));
+      model.put("image08", rs.getString("image08"));
+      model.put("image09", rs.getString("image09"));
+      model.put("video00", rs.getString("video00"));
+      
+
+      model.put("user", request.getSession().getAttribute("USER"));
+      return "viewPost";
     } 
     catch (Exception e) 
     {
@@ -992,7 +1049,7 @@ public class Main {
       model.put("categories", categories);
       //model.put("likes", likes);
       //model.put("likesCount", likesCount);
-
+      model.put("user", request.getSession().getAttribute("USER"));
       return "profile";
     }
     catch(Exception e){
@@ -1032,6 +1089,8 @@ public class Main {
           model.put("email", request.getSession().getAttribute("EMAIL"));
           model.put("fname", request.getSession().getAttribute("FNAME"));
           model.put("lname", request.getSession().getAttribute("LNAME"));
+
+          model.put("user", request.getSession().getAttribute("USER"));
           return "profile"; //if one exists
         }
         stmt.executeUpdate("UPDATE accounts SET username='"+u.getUsername()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
@@ -1064,7 +1123,7 @@ public class Main {
       // model.put("edit", true);
       // Account account = new Account();
       // model.put("account", account);
-      
+      model.put("user", request.getSession().getAttribute("USER"));
       return "homepage";
     }
     catch(Exception e){

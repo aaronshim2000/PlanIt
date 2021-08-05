@@ -37,7 +37,7 @@
             </thead>
             <tbody>
                 <tr th:each="id,iter : ${ids}">
-					<td th:text="${id}"></td>
+					<td><a th:text="${id}" th:href="@{/viewPost(id=${id})}"></a></td>
 					<td th:text="${titles[iter.index]}"></td>
 					<td th:text="${post_dates[iter.index]}"></td>
 					<td th:text="${contents[iter.index]}"></td>
