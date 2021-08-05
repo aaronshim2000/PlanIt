@@ -20,11 +20,11 @@ function uploadImages(){
 	imgCell02.style = "";
 	imgCell03.style = "";
 	imgCell04.style = "";
-	imgCell00.innerHTML = '<input type="text" th:field=*{image00} id="imageRes00" class="imageResult" disabled>';
-	imgCell01.innerHTML = '<input type="text" th:field=*{image01} id="imageRes01" class="imageResult" disabled>';
-	imgCell02.innerHTML = '<input type="text" th:field=*{image02} id="imageRes02" class="imageResult" disabled>';
-	imgCell03.innerHTML = '<input type="text" th:field=*{image03} id="imageRes03" class="imageResult" disabled>';
-	imgCell04.innerHTML = '<input type="text" th:field=*{image04} id="imageRes04" class="imageResult" disabled>';
+	imgCell00.innerHTML = '<input type="text" th:field=*{image00} id="imageRes00" class="imageResult">';
+	imgCell01.innerHTML = '<input type="text" th:field=*{image01} id="imageRes01" class="imageResult">';
+	imgCell02.innerHTML = '<input type="text" th:field=*{image02} id="imageRes02" class="imageResult">';
+	imgCell03.innerHTML = '<input type="text" th:field=*{image03} id="imageRes03" class="imageResult">';
+	imgCell04.innerHTML = '<input type="text" th:field=*{image04} id="imageRes04" class="imageResult">';
 	imgWidget.open();
 	imgRes00 = document.getElementById("imageRes00"); imgRes00.value = "empty";
 	imgRes01 = document.getElementById("imageRes01"); imgRes01.value = "empty";
@@ -38,11 +38,11 @@ function removeImageNo( index ){
 	imageCounter--;
 	while (index < imageCounter){
 		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url(' + document.getElementById("imageRes0" + (index+1)).value + ')';
-		document.getElementById("viewImg0" + index).innerHTML = '<button type="button" id="removeImg0' + index + '" onclick="removeImageNo(' + index + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + index + '} id="imageRes0' + index + '" class="imageResult" value="' + document.getElementById("imageRes0" + (index+1)).value + '" disabled>';
+		document.getElementById("viewImg0" + index).innerHTML = '<button type="button" id="removeImg0' + index + '" onclick="removeImageNo(' + index + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + index + '} id="imageRes0' + index + '" class="imageResult" value="' + document.getElementById("imageRes0" + (index+1)).value + '">';
 		index++;
 	}
 	document.getElementById("viewImg0" + imageCounter).style = "";
-	document.getElementById("viewImg0" + imageCounter).innerHTML = '<input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" disabled>';
+	document.getElementById("viewImg0" + imageCounter).innerHTML = '<input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult">';
 	imgRes00 = document.getElementById("imageRes00"); imgRes00.value = "empty";
 	imgRes01 = document.getElementById("imageRes01"); imgRes01.value = "empty";
 	imgRes02 = document.getElementById("imageRes02"); imgRes02.value = "empty";
@@ -69,8 +69,9 @@ var imgWidget = cloudinary.createUploadWidget({
 	  var newRes = result.info;
 	  var currCell = document.getElementById("viewImg0" + imageCounter);
 	  currCell.style = 'width: 250px; height: 250px; background-image: url("' + newRes.url + '"';
-	  currCell.innerHTML = '<button type="button" id="removeImg0' + imageCounter + '" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" value="' + newRes.url + '" disabled>';
+	  currCell.innerHTML = '<button type="button" id="removeImg0' + imageCounter + '" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" value="' + newRes.url + '">';
 	  imageCounter++;
+	  fileCount.value = imageCounter;
     }
   }
 )
