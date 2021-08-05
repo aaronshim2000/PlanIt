@@ -37,6 +37,7 @@ import javax.sql.DataSource;
 import java.lang.reflect.MalformedParameterizedTypeException;
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Arrays;
 import java.util.Map;
 
@@ -491,6 +492,11 @@ public class Main {
     model.put("user", request.getSession().getAttribute("USER"));
     return "flightCalculator";
   }
+  
+  @RequestMapping("/map")
+  String postMap() {
+    return "map";
+  }
 
   @RequestMapping("/register")
   String register(Map<String, Object> model, HttpServletRequest request){
@@ -498,11 +504,6 @@ public class Main {
     model.put("account", account);
     model.put("user", request.getSession().getAttribute("USER"));
     return "register";
-  }
-
-  @RequestMapping("/map")
-  String postMap() {
-    return "map";
   }
   
   @PostMapping(
@@ -1101,18 +1102,100 @@ public class Main {
       return "notifications";
     }
     catch(Exception e){
-      model.put("Error", e.getMessage());
+      model.put("Error", e.getMessage())
       return "error";
     }
   }
 
-  //Profile
-  @RequestMapping("/profile")
-  String getProfile(@RequestParam(value = "username", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
+  @RequestMapping("/friend")
+  String getFriendList(Map<String, Object> model, HttpServletRequest request){
     if(request.getSession().getAttribute("USER") == null){
       return "redirect:/login";
     }
     try(Connection connection = dataSource.getConnection()){
+      
+      Statement stmt = connection.createStatement();
+      //Create table (if it doesn't exist)
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friends (id serial PRIMARY KEY, username1 varchar(20), username2 varchar(20), isFriend boolean, time timestamp, CONSTRAINT constraint_name UNIQUE(username1, username2));");
+      
+      ResultSet rs = stmt.executeQuery("SELECT * FROM friends WHERE username1='"+request.getSession().getAttribute("USER")+"' AND isFriend=TRUE");
+     
+    
+      ArrayList<HashMap> output = new ArrayList<HashMap>();
+      while (rs.next()) {
+        HashMap<String, String> friendsList = new HashMap<String, String>();
+        String friendUsername = rs.getString("username2");
+        Timestamp ts1 = rs.getTimestamp("time");
+        String timestamp  = ts1.toString();
+        friendsList.put("friendUsername", friendUsername);
+        friendsList.put("timestamp", timestamp);
+
+        output.add(friendsList);
+
+      }
+      model.put("records", output);
+      model.put("user", request.getSession().getAttribute("USER"));
+      return "friend";
+
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
+      return "error";
+    }
+
+  }
+  
+  @PostMapping(
+    path = "/viewAccount/addFriend",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleAddFriend(@RequestParam(value = "friendUsername", required = false) String user2, Map<String, Object> model, Friends f, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+      //Create table (if it doesn't exist)
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friends (id serial PRIMARY KEY, username1 varchar(20), username2 varchar(20), isFriend boolean, time timestamp, CONSTRAINT constraint_name UNIQUE(username1, username2));");
+      String sql = "INSERT INTO friends (username1, username2, isFriend, time) VALUES ('" + request.getSession().getAttribute("USER") + "', '" + user2 + "', TRUE , now()) ON CONFLICT ON CONSTRAINT constraint_name DO UPDATE SET isFriend = TRUE, time = now();";
+      
+      System.out.println(sql);
+      stmt.executeUpdate(sql);
+      sql = "INSERT INTO friends (username1, username2, isFriend, time) VALUES ('" + user2 + "', '" + request.getSession().getAttribute("USER") + "', TRUE , now())ON CONFLICT ON CONSTRAINT constraint_name DO UPDATE SET isFriend = TRUE, time = now();";
+      System.out.println(sql);
+      stmt.executeUpdate(sql);
+      model.put("message", "Friend successfully added");
+      return "redirect:/viewAccountsTable";
+    }
+    catch(SQLException e){
+      e.printStackTrace();
+      model.put("Error", e.getMessage());
+      return "error";
+    }
+  }
+  
+  @PostMapping(
+    path = "/viewAccount/removeFriend",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleRemoveFriend(@RequestParam(value = "friendUsername", required = false) String user2, Map<String, Object> model, Friends f, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+      //Create table (if it doesn't exist)
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friends (id serial PRIMARY KEY, username1 varchar(20), username2 varchar(20), isFriend boolean, time timestamp, CONSTRAINT constraint_name UNIQUE(username1, username2));");
+      String sql = "UPDATE friends SET isFriend=FALSE, time=now() WHERE username1='" + request.getSession().getAttribute("USER") +"' AND username2='" + user2 +"';";
+      
+      System.out.println(sql);
+      stmt.executeUpdate(sql);
+      sql = "UPDATE friends SET isFriend=FALSE, time=now() WHERE username1='" + user2 +"' AND username2='" + request.getSession().getAttribute("USER") +"';";
+      System.out.println(sql);
+      stmt.executeUpdate(sql);
+      model.put("message", "Friend successfully added");
+      return "redirect:/viewAccountsTable";
+    }
+    catch(SQLException e){
+      e.printStackTrace();
+
+  //Profile
+  @RequestMapping("/profile")
+  String getProfile(@RequestParam(value = "username", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
       Statement stmt = connection.createStatement();
       
       //user who's profile is being viewed
