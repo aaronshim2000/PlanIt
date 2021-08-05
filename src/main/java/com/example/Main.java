@@ -779,16 +779,16 @@ public class Main {
         creators.add(String.valueOf(rs.getString("creator")));
         mediaTypes.add(String.valueOf(rs.getString("mediaType")));
         imagesNums.add(String.valueOf(rs.getString("imagesNum")));
-        images00s.add(String.valueOf(rs.getString("image00")));
-        images01s.add(String.valueOf(rs.getString("image01")));
-        images02s.add(String.valueOf(rs.getString("image02")));
-        images03s.add(String.valueOf(rs.getString("image03")));
-        images04s.add(String.valueOf(rs.getString("image04")));
-        images05s.add(String.valueOf(rs.getString("image05")));
-        images06s.add(String.valueOf(rs.getString("image06")));
-        images07s.add(String.valueOf(rs.getString("image07")));
-        images08s.add(String.valueOf(rs.getString("image08")));
-        images09s.add(String.valueOf(rs.getString("image09")));
+        image00s.add(String.valueOf(rs.getString("image00")));
+        image01s.add(String.valueOf(rs.getString("image01")));
+        image02s.add(String.valueOf(rs.getString("image02")));
+        image03s.add(String.valueOf(rs.getString("image03")));
+        image04s.add(String.valueOf(rs.getString("image04")));
+        image05s.add(String.valueOf(rs.getString("image05")));
+        image06s.add(String.valueOf(rs.getString("image06")));
+        image07s.add(String.valueOf(rs.getString("image07")));
+        image08s.add(String.valueOf(rs.getString("image08")));
+        image09s.add(String.valueOf(rs.getString("image09")));
         video00s.add(String.valueOf(rs.getString("video00")));
       }
       model.put("ids", ids);
