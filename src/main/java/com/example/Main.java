@@ -741,7 +741,7 @@ public class Main {
 
 	//get a list of posts for viewPostsTable.html
   @RequestMapping("/viewPostsTable")
-  String viewAccountsTable(Map<String, Object> model, HttpServletRequest request){
+  String viewPostsTable(Map<String, Object> model, HttpServletRequest request){
     try(Connection connection = dataSource.getConnection()){
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery("SELECT * FROM posts");
