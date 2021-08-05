@@ -7,6 +7,7 @@ public class AdminMessage
     private String email;
     private String message;
     private String category;
+    private String postId;
 
     public String getId()
     {
@@ -33,6 +34,11 @@ public class AdminMessage
         return this.category;
     }
 
+    public String getPostId()
+    {
+        return this.postId;
+    }
+
     public void setId(String s)
     {
         id = s;
@@ -56,5 +62,10 @@ public class AdminMessage
     public void setCategory(String s)
     {
         category = s;
+    }
+
+    public void setPostId(String s)
+    {
+        postId = s;
     }
 }

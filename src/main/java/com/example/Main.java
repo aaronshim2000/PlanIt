@@ -441,6 +441,45 @@ public class Main {
     return "redirect:/scrollingFeed";
   }
 
+  @RequestMapping("/report") 
+  String report(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
+    AdminMessage adminMessage = new AdminMessage();
+    adminMessage.setPostId(tag);
+    model.put("adminMessage", adminMessage);
+    model.put("user", request.getSession().getAttribute("USER"));
+    model.put("email", request.getSession().getAttribute("EMAIL"));
+    return "report";
+  }
+
+  // Submits the report post form
+  @PostMapping(path = "/report", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String reportSent(AdminMessage adminMessage, Map<String, Object> model) throws Exception {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+      Statement statement = connection.createStatement();
+
+      statement.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
+              + "message varchar(1000), category varchar(20), postId varchar(10));");
+
+      adminMessage.setCategory("report");
+
+      statement.executeUpdate(
+          "INSERT INTO adminMessages(username, email, message, category, postId) VALUES ($$" 
+          + adminMessage.getUsername() + "$$, $$" + adminMessage.getEmail() + "$$, $$" + adminMessage.getMessage() + "$$, $$" 
+          + adminMessage.getCategory() + "$$, $$" + adminMessage.getPostId() + "$$);");
+
+      model.put("message", "Thank you for reporting.");
+
+      return "redirect:/";
+    } 
+    catch (Exception e) 
+    {
+      return "error";
+    }
+  }
+
   @RequestMapping("/costCalculator")
   String costCalculator(Map<String, Object> model, HttpServletRequest request) {
     model.put("user", request.getSession().getAttribute("USER"));
@@ -605,27 +644,30 @@ public class Main {
     AdminMessage adminMessage = new AdminMessage();
     model.put("adminMessage", adminMessage);
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("email", request.getSession().getAttribute("EMAIL"));
     return "contact";
   }
 
   // Submits the contact us form
   @PostMapping(path = "/contact", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String contactSent(AdminMessage adminMessage) throws Exception {
+  public String contactSent(AdminMessage adminMessage, Map<String, Object> model) throws Exception {
 
     try (Connection connection = dataSource.getConnection()) 
     {
       Statement statement = connection.createStatement();
 
       statement.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
-              + "message varchar(1000), category varchar(20));");
+        "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
+            + "message varchar(1000), category varchar(20), postId varchar(10));");
 
       adminMessage.setCategory("contact");
 
       statement.executeUpdate(
-          "INSERT INTO adminMessages(username, email, message, category) VALUES ($$" 
+          "INSERT INTO adminMessages(username, email, message, category, postId) VALUES ($$" 
           + adminMessage.getUsername() + "$$, $$" + adminMessage.getEmail() + "$$, $$" + adminMessage.getMessage() + "$$, $$" 
           + adminMessage.getCategory() + "$$);");
+
+      model.put("message", "Contact sent.");
 
       return "redirect:/contact";
     } 
@@ -645,7 +687,7 @@ public class Main {
 
       statement.executeUpdate(
           "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
-              + "message varchar(1000), category varchar(20));");
+              + "message varchar(1000), category varchar(20), postId varchar(10));");
 
       ResultSet rs = statement.executeQuery("SELECT * FROM adminMessages");
 
@@ -653,6 +695,7 @@ public class Main {
       ArrayList<String> usernames = new ArrayList<String>();
       ArrayList<String> emails = new ArrayList<String>();
       ArrayList<String> categories = new ArrayList<String>();
+      ArrayList<String> postIds = new ArrayList<String>();
 
       while (rs.next()) 
       {
@@ -660,12 +703,14 @@ public class Main {
         usernames.add(rs.getString("username"));
         emails.add(rs.getString("email"));
         categories.add(rs.getString("category"));
+        postIds.add(rs.getString("postId"));
       }
 
       model.put("ids", ids);
       model.put("usernames", usernames);
       model.put("emails", emails);
       model.put("categories", categories);
+      model.put("postIds", postIds);
       model.put("user", request.getSession().getAttribute("USER"));
 
       return "adminMessageTable";
@@ -694,6 +739,7 @@ public class Main {
         model.put("email", rs.getString("email"));
         model.put("message", rs.getString("message"));
         model.put("category", rs.getString("category"));
+        model.put("postId", rs.getString("postId"));
       }
       model.put("user", request.getSession().getAttribute("USER"));
 
