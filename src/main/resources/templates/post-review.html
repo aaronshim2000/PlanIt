@@ -58,14 +58,15 @@
 			<table>
 			<tbody>
 			  <tr>
-				<td id="viewImg00" class="imageCell" style=""><input type="text" th:field=*{image00} id="imageRes00" class="imageResult"></td>
-				<td id="viewImg01" class="imageCell" style=""><input type="text" th:field=*{image01} id="imageRes01" class="imageResult"></td>
-				<td id="viewImg02" class="imageCell" style=""><input type="text" th:field=*{image02} id="imageRes02" class="imageResult"></td>
-				<td id="viewImg03" class="imageCell" style=""><input type="text" th:field=*{image03} id="imageRes03" class="imageResult"></td>
-				<td id="viewImg04" class="imageCell" style=""><input type="text" th:field=*{image04} id="imageRes04" class="imageResult"></td>
+				<td id="viewImg00" class="imageCell" style=""><p id="remButton00"></p><input type="text" th:field=*{image00} id="imageRes00" class="imageResult" readonly></td>
+				<td id="viewImg01" class="imageCell" style=""><p id="remButton01"></p><input type="text" th:field=*{image01} id="imageRes01" class="imageResult" readonly></td>
+				<td id="viewImg02" class="imageCell" style=""><p id="remButton02"></p><input type="text" th:field=*{image02} id="imageRes02" class="imageResult" readonly></td>
+				<td id="viewImg03" class="imageCell" style=""><p id="remButton03"></p><input type="text" th:field=*{image03} id="imageRes03" class="imageResult" readonly></td>
+				<td id="viewImg04" class="imageCell" style=""><p id="remButton04"></p><input type="text" th:field=*{image04} id="imageRes04" class="imageResult" readonly></td>
 			  </tr>
 			  <tr>
-				<td class="imageCell" style=""><input type="text" th:field=*{imagesNum} id="numFiles" class="imageResult"></td>
+				<td class="imageCell" style=""><input type="text" th:field=*{imagesNum} id="numFiles" class="imageResult" readonly></td>
+				<td class="imageCell" style=""><input type="text" id="fileType" class="imageResult" readonly></td><!--th:field=*{mediaType}-->
 			  </tr>
 			</tbody>
 			</table>
