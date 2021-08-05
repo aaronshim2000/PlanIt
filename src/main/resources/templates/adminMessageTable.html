@@ -26,6 +26,7 @@
                     <th class="column">Username</th>
                     <th class="column">Email</th>
                     <th class="column">Category</th>
+                    <th class="column">Post Id</th>
                 </tr>
             </thead>
             <tbody>
@@ -37,6 +38,7 @@
 
                     <td th:text="${emails[iter.index]}"></td>
                     <td th:text="${categories[iter.index]}"></td>
+                    <td th:text="${postIds[iter.index]}"></td>
                 </tr>
             </tbody>
         </table>

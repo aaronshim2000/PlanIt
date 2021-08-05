@@ -33,7 +33,8 @@
             <h1>Plan Posts</h1>
             <div class="post Record-Plan-post" th:each="id,iter : ${ids}">
                 <a th:href="@{/editPlanPost(id=${id})}">Edit Post</a>
-                <a th:href="@{/deletePost(id=${id})}"></a>
+                <a th:href="@{/deletePost(id=${id})}">Delete Post</a>
+                <a th:href="@{/reportPost(id=${id})}">Report Post</a>
                 <p class="title" th:text="${plan_titles[iter.index]}"/>
                 <p th:text="${plan_descriptions[iter.index]}"/>
                 <p class="Infor" th:text="'post by : '+ ${plan_creators[iter.index]}"/>
@@ -46,7 +47,8 @@
             <h1>Review Posts</h1>
             <div class="post Record-Review-post" th:each="id,iter : ${ids}">
                 <a th:href="@{/editReviewPost(id=${id})}">Edit Post</a>
-                <a th:href="@{/deletePost(id=${id})}"></a>
+                <a th:href="@{/deletePost(id=${id})}">Delete Post</a>
+                <a th:href="@{/reportPost(id=${id})}">Report Post</a>
                 <p class="title" th:text="${review_titles[iter.index]}"/>
                 <p class="rating" th:text="${review_ratings[iter.index]}+' / 5'"/>
                 <p th:text="${review_descriptions[iter.index]}"/>
@@ -61,7 +63,8 @@
 
             <div class="post Record-Text-post" th:each="id,iter : ${ids}">
                 <a th:href="@{/editTextPost(id=${id})}">Edit Post</a>
-                <a th:href="@{/deletePost(id=${id})}"></a>
+                <a th:href="@{/deletePost(id=${id})}">Delete Post</a>
+                <a th:href="@{/reportPost(id=${id})}">Report Post</a>
                 <p class="title" th:text="${text_titles[iter.index]}"/>
                 <p th:text="${text_descriptions[iter.index]}"/>
                 <p class="Infor" th:text="'post by : '+ ${text_creators[iter.index]}"/>
