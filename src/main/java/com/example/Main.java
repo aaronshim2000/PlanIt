@@ -741,6 +741,88 @@ public class Main {
     }
   }
 
+	//get a list of posts for viewPostsTable.html
+  @RequestMapping("/viewPostsTable")
+  String viewAccountsTable(Map<String, Object> model, HttpServletRequest request){
+    try(Connection connection = dataSource.getConnection()){
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery("SELECT * FROM posts");
+
+      ArrayList<String> ids = new ArrayList<String>();
+      ArrayList<String> titles = new ArrayList<String>();
+      ArrayList<String> post_dates = new ArrayList<String>();
+      ArrayList<String> contents = new ArrayList<String>();
+      ArrayList<String> categories = new ArrayList<String>();
+      ArrayList<String> visibilities = new ArrayList<String>();
+      ArrayList<String> ratings = new ArrayList<String>();
+      ArrayList<String> creators = new ArrayList<String>();
+      ArrayList<String> mediaTypes = new ArrayList<String>();
+      ArrayList<String> imagesNums = new ArrayList<String>();
+      ArrayList<String> image00s = new ArrayList<String>();
+      ArrayList<String> image01s = new ArrayList<String>();
+      ArrayList<String> image02s = new ArrayList<String>();
+      ArrayList<String> image03s = new ArrayList<String>();
+      ArrayList<String> image04s = new ArrayList<String>();
+      ArrayList<String> image05s = new ArrayList<String>();
+      ArrayList<String> image06s = new ArrayList<String>();
+      ArrayList<String> image07s = new ArrayList<String>();
+      ArrayList<String> image08s = new ArrayList<String>();
+      ArrayList<String> image09s = new ArrayList<String>();
+      ArrayList<String> video00s = new ArrayList<String>();
+
+      while(rs.next()){
+        ids.add(String.valueOf(rs.getString("id")));
+        titles.add(String.valueOf(rs.getString("title")));
+        post_dates.add(String.valueOf(rs.getString("post_date")));
+        contents.add(String.valueOf(rs.getString("content")));
+        categories.add(String.valueOf(rs.getString("category")));
+        visibilities.add(String.valueOf(rs.getString("visibility")));
+        ratings.add(String.valueOf(rs.getString("rating")));
+        creators.add(String.valueOf(rs.getString("creator")));
+        mediaTypes.add(String.valueOf(rs.getString("mediaType")));
+        imagesNums.add(String.valueOf(rs.getString("imagesNum")));
+        images00s.add(String.valueOf(rs.getString("image00")));
+        images01s.add(String.valueOf(rs.getString("image01")));
+        images02s.add(String.valueOf(rs.getString("image02")));
+        images03s.add(String.valueOf(rs.getString("image03")));
+        images04s.add(String.valueOf(rs.getString("image04")));
+        images05s.add(String.valueOf(rs.getString("image05")));
+        images06s.add(String.valueOf(rs.getString("image06")));
+        images07s.add(String.valueOf(rs.getString("image07")));
+        images08s.add(String.valueOf(rs.getString("image08")));
+        images09s.add(String.valueOf(rs.getString("image09")));
+        video00s.add(String.valueOf(rs.getString("video00")));
+      }
+      model.put("ids", ids);
+      model.put("titles", titles);
+      model.put("post_dates", post_dates);
+      model.put("contents", contents);
+      model.put("categories", categories);
+      model.put("visibilities", visibilities);
+      model.put("ratings", ratings);
+      model.put("creators", creators);
+      model.put("mediaTypes", mediaTypes);
+      model.put("imagesNums", imagesNums);
+      model.put("image00s", image00s);
+      model.put("image01s", image01s);
+      model.put("image02s", image02s);
+      model.put("image03s", image03s);
+      model.put("image04s", image04s);
+      model.put("image05s", image05s);
+      model.put("image06s", image06s);
+      model.put("image07s", image07s);
+      model.put("image08s", image08s);
+      model.put("image09s", image09s);
+      model.put("video00s", video00s);
+      model.put("user", request.getSession().getAttribute("USER"));
+      return "viewPostsTable";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   //get a specific account for viewAccounts
   @RequestMapping("/viewAccount")
   String viewAccount(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
