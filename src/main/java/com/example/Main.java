@@ -1201,7 +1201,9 @@ public class Main {
   String getProfile(@RequestParam(value = "username", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
-      
+      if(request.getSession().getAttribute("USER") == null){
+        return "redirect:/login";
+      }
       //user who's profile is being viewed
       String user = tag;
       //default to current user profile
