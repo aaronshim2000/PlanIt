@@ -46,12 +46,12 @@ function removeImageNo( index ){
 	if (imageCounter == 0){ mediaType.value = "none"; }
 	while (index < imageCounter){
 		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url(' + document.getElementById("imageRes0" + (index+1)).value + ')';
-		document.getElementById("imgRes0" + index).value = document.getElementById("imageRes0" + (index+1)).value;
+		document.getElementById("imageRes0" + index).value = document.getElementById("imageRes0" + (index+1)).value;
 		index++;
 	}
 	document.getElementById("viewImg0" + imageCounter).style = "";
-	document.getElementById("butContainer0" + imageCounter).innerHTML = '';
-	document.getElementById("imgRes0" + imageCounter).value = "empty";
+	document.getElementById("remButton0" + imageCounter).innerHTML = '';
+	document.getElementById("imageRes0" + imageCounter).value = "empty";
 }
 
 var imgWidget = cloudinary.createUploadWidget({
@@ -72,8 +72,8 @@ var imgWidget = cloudinary.createUploadWidget({
     if (!error && result && result.event === "success") {
 	  var newRes = result.info;
 	  document.getElementById("viewImg0" + imageCounter).style = 'width: 250px; height: 250px; background-image: url("' + newRes.url + '"';
-	  document.getElementById("butContainer0" + imageCounter).innerHTML = '<button type="button" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button>';
-	  document.getElementById("imgRes0" + imageCounter).value = newRes.url;
+	  document.getElementById("remButton0" + imageCounter).innerHTML = '<button type="button" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button>';
+	  document.getElementById("imageRes0" + imageCounter).value = newRes.url;
 	  imageCounter++;
 	  fileCount.value = imageCounter;
     }

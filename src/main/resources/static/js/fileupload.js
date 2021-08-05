@@ -94,15 +94,13 @@ function callUploader(){
 	clearFiles();
 	if ( uploadBtn.innerHTML == "Upload Video" ){
 		videoWidget.open();
-		if (imageCounter > 0){
-			fileCount.value = 0;
-			mediaType.value = "video"
-		}
+		fileCount.value = 0;
+		if (imageCounter > 0){ mediaType.value = "video"; }
 	}
 	else{
 		imgWidget.open();
-		mediaType.value = "images";
 		fileCount.value = imageCounter;
+		if (imageCounter > 0){ mediaType.value = "images"; }
 	}
 }
 
@@ -118,12 +116,12 @@ function removeImageNo( index ){
 	while (index < imageCounter){
 		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url(' + document.getElementById("imageRes0" + (index+1)).value + ')';
 		//document.getElementById("butContainer0" + index).innerHTML = '<button type="button" id="removeImg0' + index + '" onclick="removeImageNo(' + index + ')" class="removeButton">X</button>';
-		document.getElementById("imgRes0" + index).value = document.getElementById("imageRes0" + (index+1)).value;
+		document.getElementById("imageRes0" + index).value = document.getElementById("imageRes0" + (index+1)).value;
 		index++;
 	}
 	document.getElementById("viewImg0" + imageCounter).style = "";
-	document.getElementById("butContainer0" + imageCounter).innerHTML = '';
-	document.getElementById("imgRes0" + imageCounter).value = "empty";
+	document.getElementById("remButton0" + imageCounter).innerHTML = '';
+	document.getElementById("imageRes0" + imageCounter).value = "empty";
 	/*<input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" readonly>';
 	imgRes00 = document.getElementById("imageRes00");
 	imgRes01 = document.getElementById("imageRes01");
@@ -157,8 +155,8 @@ var imgWidget = cloudinary.createUploadWidget({
 	  //var currCell = document.getElementById("viewImg0" + imageCounter);
 	  //currCell.style = 'width: 250px; height: 250px; background-image: url("' + newRes.url + '"';
 	  document.getElementById("viewImg0" + imageCounter).style = 'width: 250px; height: 250px; background-image: url("' + newRes.url + '"';
-	  document.getElementById("butContainer0" + imageCounter).innerHTML = '<button type="button" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button>';
-	  document.getElementById("imgRes0" + imageCounter).value = newRes.url;
+	  document.getElementById("remButton0" + imageCounter).innerHTML = '<button type="button" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button>';
+	  document.getElementById("imageRes0" + imageCounter).value = newRes.url;
 	  //currCell.innerHTML = '<button type="button" id="removeImg0' + imageCounter + '" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" value="' + newRes.url + '" readonly>';
 	  imageCounter++;
 	  fileCount.value = imageCounter;
