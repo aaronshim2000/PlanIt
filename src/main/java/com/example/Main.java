@@ -27,7 +27,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import org.springframework.http.MediaType;
 
 import javax.net.ssl.HandshakeCompletedEvent;
@@ -94,7 +93,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200)");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200))");
       post.setCategory("text-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
@@ -150,7 +149,7 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200)");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200))");
       post.setCategory("plan-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
@@ -304,7 +303,6 @@ public class Main {
       Statement stmt = connection.createStatement();
 
       
-
       return "editTextPost";
     }
     catch(Exception e){
@@ -730,7 +728,6 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) 
     {
       Statement statement = connection.createStatement();
-
       ResultSet rs = statement.executeQuery("SELECT * FROM adminMessages where id=" + tag);
 
       while (rs.next()) 
@@ -758,7 +755,6 @@ public class Main {
   String attemptDeleteAll(Map<String, Object> model) {
 
     String message = "Do you wish to delete all messages?";
-
     model.put("message", message);
 
     // Notify users of this when notifications are done in the future
@@ -791,7 +787,6 @@ public class Main {
    String attemptDeletePosts(Map<String, Object> model) {
  
      String message = "Do you wish to delete all posts?";
-    
      model.put("message", message);
  
      // Notify users of this when notifications are done in the future
@@ -1034,7 +1029,6 @@ public class Main {
     }
   }
   
-
   //Get notifications for logged in user
   @RequestMapping("/notifications")
   String getNotifications(Map<String, Object> model, HttpServletRequest request){
@@ -1068,7 +1062,6 @@ public class Main {
       model.put("senders", senders);
       model.put("bodies", bodies);
       model.put("times", times);
-
 
       //Form to send notifications
       Notification notification = new Notification();
@@ -1120,7 +1113,6 @@ public class Main {
       
       ResultSet rs = stmt.executeQuery("SELECT * FROM friends WHERE username1='"+request.getSession().getAttribute("USER")+"' AND isFriend=TRUE");
      
-    
       ArrayList<HashMap> output = new ArrayList<HashMap>();
       while (rs.next()) {
         HashMap<String, String> friendsList = new HashMap<String, String>();
@@ -1367,19 +1359,5 @@ public class Main {
       return new HikariDataSource(config);
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 }
