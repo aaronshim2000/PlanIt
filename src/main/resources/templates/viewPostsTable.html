@@ -15,7 +15,6 @@
     <!-- navbar header -->
     <div th:replace="fragments/nav :: navbar"></div>
     
-    <a th:href="@{/contact}">Back to Contact Us</a> <br>
     <h1>Posts List</h1>
     <form id="messageTableForm" action="#" method="post" th:action="@{/viewAccount}" th:object="${viewAccount}">
         <table class=content-table>

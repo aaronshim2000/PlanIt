@@ -93,11 +93,11 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200), likes text[])");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200)");
       post.setCategory("text-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,image00,image01,image02,image03,image04,image05,image06,image07,image08,image09,imagesNum,video00,mediaType,likes) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() + "','" + post.getImage06() + "','" + post.getImage07() + "','" + post.getImage08() + "','" + post.getImage09() + "','" + post.getImagesNum() + "','" + post.getVideo00() + "','" + post.getMediaType() + "','{" + username + "}')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,image00,image01,image02,image03,image04,image05,image06,image07,image08,image09,imagesNum,video00,mediaType) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() + "','" + post.getImage06() + "','" + post.getImage07() + "','" + post.getImage08() + "','" + post.getImage09() + "','" + post.getImagesNum() + "','" + post.getVideo00() + "','" + post.getMediaType() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -121,11 +121,11 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200), likes text[])");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200))");
       post.setCategory("review-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04,imagesNum,likes) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImagesNum() + "','{" + username + "}')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04,imagesNum) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImagesNum() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -149,11 +149,11 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200), likes text[])");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200)");
       post.setCategory("plan-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,likes) VALUES (now(),$$" + username + "$$,$$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','{" + username + "}')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),$$" + username + "$$,$$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','{" + username + "}')");
       //send notification to friends
       //statement.executeupdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$New Post from" + post.getCreator() + "$$, $$FRIENDS$$, $$" + request.getSession().getAttribute("USER") + "$$, $$View Post$$, now())");
       model.put("user", request.getSession().getAttribute("USER"));
@@ -196,8 +196,6 @@ public class Main {
       ArrayList<String> text_postDates= new ArrayList<String>();
       ArrayList<String> text_visibilities=new ArrayList<String>();
       ArrayList<String> text_creators=new ArrayList<String>();
-      ArrayList<String[]> likes = new ArrayList<String[]>();
-      ArrayList<String> likesCount = new ArrayList<String>();
       while (rs_text.next())
       {
         text_titles.add(rs_text.getString("title"));
@@ -205,18 +203,12 @@ public class Main {
         text_postDates.add(rs_text.getString("post_date"));
         text_visibilities.add(rs_text.getString("visibility"));
         text_creators.add(rs_text.getString("creator"));
-        Array sqlLikes = rs_text.getArray("likes");
-        String[] arr = (String[])sqlLikes.getArray();
-        likes.add(arr);
-        likesCount.add(Integer.toString(arr.length));
       }
       model.put("text_titles", text_titles);
       model.put("text_descriptions", text_descriptions);
       model.put("text_postDates",text_postDates);
       model.put("text_visibilities",text_visibilities);
       model.put("text_creators",text_creators);
-      model.put("likes", likes);
-      model.put("likesCount", likesCount);
 
       //return "scrollingFeed";
     } catch (Exception e) {
@@ -234,8 +226,6 @@ public class Main {
       ArrayList<String> review_postDates=new ArrayList<String>();
       ArrayList<String> review_visibilities=new ArrayList<String>();
       ArrayList<String> review_creators=new ArrayList<String>();
-      ArrayList<String[]> likes = new ArrayList<String[]>();
-      ArrayList<String> likesCount = new ArrayList<String>();
       while (rs_review.next())
       {
         review_titles.add(rs_review.getString("title"));
@@ -244,10 +234,6 @@ public class Main {
         review_postDates.add(rs_review.getString("post_date"));
         review_visibilities.add(rs_review.getString("visibility"));
         review_creators.add(rs_review.getString("creator"));
-        Array sqlLikes = rs_review.getArray("likes");
-        String[] arr = (String[])sqlLikes.getArray();
-        likes.add(arr);
-        likesCount.add(Integer.toString(arr.length));
       }
       model.put("review_titles", review_titles);
       model.put("review_descriptions", review_descriptions);
@@ -255,8 +241,6 @@ public class Main {
       model.put("review_postDates",review_postDates);
       model.put("review_visibilities",review_visibilities);
       model.put("review_creators",review_creators);
-      model.put("likes", likes);
-      model.put("likesCount", likesCount);
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -271,8 +255,6 @@ public class Main {
       ArrayList<String> plan_postDates = new ArrayList<String>();
       ArrayList<String> plan_visibilities = new ArrayList<String>();
       ArrayList<String> plan_creators = new ArrayList<String>();
-      ArrayList<String[]> likes = new ArrayList<String[]>();
-      ArrayList<String> likesCount = new ArrayList<String>();
       while (rs_plan.next())
       {
         plan_titles.add(rs_plan.getString("title"));
@@ -280,18 +262,12 @@ public class Main {
         plan_postDates.add(rs_plan.getString("post_date"));
         plan_visibilities.add(rs_plan.getString("visibility"));
         plan_creators.add(rs_plan.getString("creator"));
-        Array sqlLikes = rs_plan.getArray("likes");
-        String[] arr = (String[])sqlLikes.getArray();
-        likes.add(arr);
-        likesCount.add(Integer.toString(arr.length));
       }
       model.put("plan_titles", plan_titles);
       model.put("plan_descriptions", plan_descriptions);
       model.put("plan_postDates",plan_postDates);
       model.put("plan_visibilities",plan_visibilities);
       model.put("plan_creators",plan_creators);
-      model.put("likes", likes);
-      model.put("likesCount", likesCount);
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
@@ -317,49 +293,152 @@ public class Main {
     return "scrollingFeed";
   }
 
-  @RequestMapping("/likePost")
-  String likePost(@RequestParam("id") int id, Map<String, Object> model, HttpServletRequest request) {
-    try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement(); 
-      String username= (String) request.getSession().getAttribute("USER");
-      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE id = " + id + ";");
+  // Editing text post
+  @RequestMapping("/editTextPost")
+  String editTextPost(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
+    if(request.getSession().getAttribute("USER") == null){
+      return "redirect:/login";
+    }
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
 
-      while(rs.next())
-      {
-        Array likes = rs.getArray("likes");
-        // Turn sql array into string array
-        String[] likesArray = (String[])likes.getArray();
-        // Iterate through array to check for name
-        boolean alreadyLiked = Arrays.asList(likesArray).contains(username);
-        ArrayList<String> likesList = new ArrayList<String>();
-        if (!alreadyLiked)
-        {
-          for (String s : likesArray)
-            likesList.add(s);
-          likesList.add(username);
-        }
-        else
-        {
-          for (String s : likesArray)
-            if (s != username)
-              likesList.add(s);
-        }
-        likesArray = (String[])likesList.toArray();
-        likes = connection.createArrayOf("text", likesArray);
-        String sql = "UPDATE posts SET likes = ? WHERE id = " + id + ";";
-        PreparedStatement pstmt = connection.prepareStatement(sql);
-        pstmt.setArray(1, likes);
-        pstmt.executeUpdate();
-        connection.commit();
-      }
+      
 
-    } catch (Exception e) {
+      return "editTextPost";
+    }
+    catch(Exception e){
       model.put("message", e.getMessage());
       return "error";
     }
+  }
 
-    model.put("user", request.getSession().getAttribute("USER"));
-    return "scrollingFeed";
+  @PostMapping(
+    path = "/editTextPost",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleEditTextPost(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      ResultSet rs;
+
+      
+      return "redirect:/scrollingFeed";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
+      return "error";
+    }
+  }
+
+  // Editing review post
+  @RequestMapping("/editReviewPost")
+  String editReviewPost(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
+    if(request.getSession().getAttribute("USER") == null){
+      return "redirect:/login";
+    }
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      return "editReviewPost";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @PostMapping(
+    path = "/editReviewPost",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleEditReviewPost(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      ResultSet rs;
+
+      
+      return "redirect:/scrollingFeed";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
+      return "error";
+    }
+  }
+
+  // Editing planning post
+  @RequestMapping("/editPlanPost")
+  String editPlanPost(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
+    if(request.getSession().getAttribute("USER") == null){
+      return "redirect:/login";
+    }
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      return "editPlanPost";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @PostMapping(
+    path = "/editPlanPost",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleEditPlanPost(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      ResultSet rs;
+
+      
+      return "redirect:/scrollingFeed";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/deletePost") 
+  String deletePost(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model) {
+    String message = "Do you wish to delete your post?";
+
+    Post post = new Post();
+    model.put("post", post);
+    model.put("message", message);
+    model.put("tag", tag);
+
+    return "deletePost";
+  }
+
+  @PostMapping(path = "/deletePost", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
+  public String confirmedDeletePost(Map<String, Object> model, Post post, @RequestParam("id") int id) throws Exception {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+          Statement statement = connection.createStatement();
+          statement.executeUpdate("DELETE FROM posts WHERE id = " + id + ";");
+
+          String message = "Succesfully deleted post"; 
+          model.put("message", message);
+
+          model.put("tag", Integer.toString(id));
+          return "redirect:/scrollingFeed";
+    } 
+    catch (Exception e) 
+    {
+      return "error";
+    }
+  }
+
+  @PostMapping(path = "/deletePost", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
+  public String cancelDeletePost(Post post) {
+
+    return "redirect:/scrollingFeed";
   }
 
   @RequestMapping("/costCalculator")
@@ -1026,8 +1105,6 @@ public class Main {
       ArrayList<String> visibilities=new ArrayList<String>();
       ArrayList<String> creators=new ArrayList<String>();
       ArrayList<String> categories=new ArrayList<String>();
-      //ArrayList<String[]> likes = new ArrayList<String[]>();
-      //ArrayList<String> likesCount = new ArrayList<String>();
       while (rs.next())
       {
         titles.add(rs.getString("title"));
@@ -1036,10 +1113,6 @@ public class Main {
         visibilities.add(rs.getString("visibility"));
         creators.add(rs.getString("creator"));
         categories.add(rs.getString("category"));
-        // Array sqlLikes = rs.getArray("likes");
-        // String[] arr = (String[])sqlLikes.getArray();
-        //likes.add(arr);
-        //likesCount.add(Integer.toString(arr.length));
       }
       model.put("titles", titles);
       model.put("descriptions", descriptions);
@@ -1047,8 +1120,6 @@ public class Main {
       model.put("visibilities",visibilities);
       model.put("creators",creators);
       model.put("categories", categories);
-      //model.put("likes", likes);
-      //model.put("likesCount", likesCount);
       model.put("user", request.getSession().getAttribute("USER"));
       return "profile";
     }
