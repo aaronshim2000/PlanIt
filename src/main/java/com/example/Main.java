@@ -38,6 +38,7 @@ import java.lang.reflect.MalformedParameterizedTypeException;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Map;
 
 import java.io.*;
@@ -93,11 +94,11 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200)");
       post.setCategory("text-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,image00,image01,image02,image03,image04,image05,image06,image07,image08,image09) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() + "','" + post.getImage06() + "','" + post.getImage07() + "','" + post.getImage08() + "','" + post.getImage09() + "')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,image00,image01,image02,image03,image04,image05,image06,image07,image08,image09,imagesNum,video00,mediaType) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() + "','" + post.getImage06() + "','" + post.getImage07() + "','" + post.getImage08() + "','" + post.getImage09() + "','" + post.getImagesNum() + "','" + post.getVideo00() + "','" + post.getMediaType() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -121,11 +122,11 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200))");
       post.setCategory("review-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04) VALUES (now(),'" + username + "', '" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04,imagesNum) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImagesNum() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -149,11 +150,13 @@ public class Main {
     try (Connection connection = dataSource.getConnection())
     {
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5))");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS posts (id serial, post_date DATE, creator varchar(20), title varchar(50), content varchar(1600),category varchar(20),visibility varchar(10),rating varchar(5),imagesNum varchar(2), mediaType varchar(7), image00 varchar(200),image01 varchar(200),image02 varchar(200),image03 varchar(200),image04 varchar(200),image05 varchar(200),image06 varchar(200),image07 varchar(200),image08 varchar(200),image09 varchar(200),video00 varchar(200)");
       post.setCategory("plan-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),'" + username + "','" + post.getTitle() + "', '" + post.getDescription() + "', '" + post.getCategory() + "','" + post.getVisibility() + "')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),$$" + username + "$$,$$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','{" + username + "}')");
+      //send notification to friends
+      //statement.executeupdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$New Post from" + post.getCreator() + "$$, $$FRIENDS$$, $$" + request.getSession().getAttribute("USER") + "$$, $$View Post$$, now())");
       model.put("user", request.getSession().getAttribute("USER"));
       return "redirect:/scrollingFeed";
     }
@@ -186,7 +189,7 @@ public class Main {
 
     //dealing with text posts
     try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement(); 
+      Statement stmt = connection.createStatement();
       String username= (String) request.getSession().getAttribute("USER");
       ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE (category='text-post' AND visibility='PUBLIC') OR (category='text-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
       ArrayList<String> text_titles = new ArrayList<String>();
@@ -207,7 +210,7 @@ public class Main {
       model.put("text_postDates",text_postDates);
       model.put("text_visibilities",text_visibilities);
       model.put("text_creators",text_creators);
-      
+
       //return "scrollingFeed";
     } catch (Exception e) {
       model.put("message", e.getMessage());
@@ -215,7 +218,7 @@ public class Main {
     }
     //dealing with review posts
     try (Connection connection = dataSource.getConnection()) {
-      Statement stmt = connection.createStatement(); 
+      Statement stmt = connection.createStatement();
       String username= (String) request.getSession().getAttribute("USER");
       ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE (category='review-post' AND visibility='PUBLIC') OR (category='review-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
       ArrayList<String> review_titles = new ArrayList<String>();
@@ -270,8 +273,212 @@ public class Main {
       model.put("message", e.getMessage());
       return "error";
     }
+
+    //dealing with users
+    try (Connection connection = dataSource.getConnection())
+    {
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery("SELECT * FROM accounts where role='default'");
+      ArrayList<String> usernames = new ArrayList<String>();
+      while (rs.next())
+        usernames.add(String.valueOf(rs.getString("username")));
+      model.put("usernames", usernames);
+    }
+    catch (Exception e)
+    {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
     model.put("user", request.getSession().getAttribute("USER"));
     return "scrollingFeed";
+  }
+
+  // Editing text post
+  @RequestMapping("/editTextPost")
+  String editTextPost(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
+    if(request.getSession().getAttribute("USER") == null){
+      return "redirect:/login";
+    }
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      
+
+      return "editTextPost";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @PostMapping(
+    path = "/editTextPost",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleEditTextPost(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      ResultSet rs;
+
+      
+      return "redirect:/scrollingFeed";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
+      return "error";
+    }
+  }
+
+  // Editing review post
+  @RequestMapping("/editReviewPost")
+  String editReviewPost(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
+    if(request.getSession().getAttribute("USER") == null){
+      return "redirect:/login";
+    }
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      return "editReviewPost";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @PostMapping(
+    path = "/editReviewPost",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleEditReviewPost(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      ResultSet rs;
+
+      
+      return "redirect:/scrollingFeed";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
+      return "error";
+    }
+  }
+
+  // Editing planning post
+  @RequestMapping("/editPlanPost")
+  String editPlanPost(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
+    if(request.getSession().getAttribute("USER") == null){
+      return "redirect:/login";
+    }
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      return "editPlanPost";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @PostMapping(
+    path = "/editPlanPost",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleEditPlanPost(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      ResultSet rs;
+
+      
+      return "redirect:/scrollingFeed";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/deletePost") 
+  String deletePost(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model) {
+    String message = "Do you wish to delete your post?";
+
+    Post post = new Post();
+    model.put("post", post);
+    model.put("message", message);
+    model.put("tag", tag);
+
+    return "deletePost";
+  }
+
+  @PostMapping(path = "/deletePost", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
+  public String confirmedDeletePost(Map<String, Object> model, Post post, @RequestParam("id") int id) throws Exception {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+          Statement statement = connection.createStatement();
+          statement.executeUpdate("DELETE FROM posts WHERE id = " + id + ";");
+
+          String message = "Succesfully deleted post"; 
+          model.put("message", message);
+
+          model.put("tag", Integer.toString(id));
+          return "redirect:/scrollingFeed";
+    } 
+    catch (Exception e) 
+    {
+      return "error";
+    }
+  }
+
+  @PostMapping(path = "/deletePost", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
+  public String cancelDeletePost(Post post) {
+
+    return "redirect:/scrollingFeed";
+  }
+
+  @RequestMapping("/report") 
+  String report(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
+    AdminMessage adminMessage = new AdminMessage();
+    adminMessage.setPostId(tag);
+    model.put("adminMessage", adminMessage);
+    model.put("user", request.getSession().getAttribute("USER"));
+    model.put("email", request.getSession().getAttribute("EMAIL"));
+    return "report";
+  }
+
+  // Submits the report post form
+  @PostMapping(path = "/report", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String reportSent(AdminMessage adminMessage, Map<String, Object> model) throws Exception {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+      Statement statement = connection.createStatement();
+
+      statement.executeUpdate(
+          "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
+              + "message varchar(1000), category varchar(20), postId varchar(10));");
+
+      adminMessage.setCategory("report");
+
+      statement.executeUpdate(
+          "INSERT INTO adminMessages(username, email, message, category, postId) VALUES ($$" 
+          + adminMessage.getUsername() + "$$, $$" + adminMessage.getEmail() + "$$, $$" + adminMessage.getMessage() + "$$, $$" 
+          + adminMessage.getCategory() + "$$, $$" + adminMessage.getPostId() + "$$);");
+
+      model.put("message", "Thank you for reporting.");
+
+      return "redirect:/";
+    } 
+    catch (Exception e) 
+    {
+      return "error";
+    }
   }
 
   @RequestMapping("/costCalculator")
@@ -321,7 +528,7 @@ public class Main {
         return "register"; //if one exists
       }
       //add new account to table
-      sql = "INSERT INTO accounts (username, password, email, fname, lname, role) VALUES ('" + u.getUsername() + "', '" + u.getPassword() + "', '" + u.getEmail() + "', '" + u.getFname() + "', '" + u.getLname() + "', 'default')";
+      sql = "INSERT INTO accounts (username, password, email, fname, lname, role) VALUES ($$" + u.getUsername() + "$$, $$" + u.getPassword() + "$$, $$" + u.getEmail() + "$$, $$" + u.getFname() + "$$, $$" + u.getLname() + "$$, 'default')";
       stmt.executeUpdate(sql);
       //System.out.println(u.getUsername() + " " +u.getPassword() + " " + u.getEmail() + " " + u.getFname() + " " + u.getLname());
       model.put("message", "Account successfully created");
@@ -375,6 +582,11 @@ public class Main {
       //GIVE USER INFORMATION TO SESSION *************************************************************************
       request.getSession().setAttribute("USER", u.getUsername()); //put username into session
       request.getSession().setAttribute("PASSWORD", u.getPassword()); //put password into session
+
+      rs = stmt.executeQuery("SELECT id FROM accounts WHERE username = '" + u.getUsername() + "'"); //find id from database
+      rs.next();
+      String id = rs.getString("id");
+      request.getSession().setAttribute("ID", id); //put id into session
 
       rs = stmt.executeQuery("SELECT email FROM accounts WHERE username = '" + u.getUsername() + "'"); //find email from database
       rs.next();
@@ -433,29 +645,32 @@ public class Main {
     AdminMessage adminMessage = new AdminMessage();
     model.put("adminMessage", adminMessage);
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("email", request.getSession().getAttribute("EMAIL"));
     return "contact";
   }
 
   // Submits the contact us form
   @PostMapping(path = "/contact", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String contactSent(AdminMessage adminMessage) throws Exception {
+  public String contactSent(AdminMessage adminMessage, Map<String, Object> model) throws Exception {
 
     try (Connection connection = dataSource.getConnection()) 
     {
       Statement statement = connection.createStatement();
 
       statement.executeUpdate(
-          "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
-              + "message varchar(1000), category varchar(20));");
+        "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
+            + "message varchar(1000), category varchar(20), postId varchar(10));");
 
       adminMessage.setCategory("contact");
 
       statement.executeUpdate(
-          "INSERT INTO adminMessages(username, email, message, category) VALUES ('" 
-          + adminMessage.getUsername() + "', '" + adminMessage.getEmail() + "', '" + adminMessage.getMessage() + "', '" 
-          + adminMessage.getCategory() + "');");
+          "INSERT INTO adminMessages(username, email, message, category, postId) VALUES ($$" 
+          + adminMessage.getUsername() + "$$, $$" + adminMessage.getEmail() + "$$, $$" + adminMessage.getMessage() + "$$, $$" 
+          + adminMessage.getCategory() + "$$);");
 
-      return "redirect:/viewAdminMessages";
+      model.put("message", "Contact sent.");
+
+      return "redirect:/contact";
     } 
     catch (Exception e) 
     {
@@ -473,7 +688,7 @@ public class Main {
 
       statement.executeUpdate(
           "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
-              + "message varchar(1000), category varchar(20));");
+              + "message varchar(1000), category varchar(20), postId varchar(10));");
 
       ResultSet rs = statement.executeQuery("SELECT * FROM adminMessages");
 
@@ -481,6 +696,7 @@ public class Main {
       ArrayList<String> usernames = new ArrayList<String>();
       ArrayList<String> emails = new ArrayList<String>();
       ArrayList<String> categories = new ArrayList<String>();
+      ArrayList<String> postIds = new ArrayList<String>();
 
       while (rs.next()) 
       {
@@ -488,12 +704,14 @@ public class Main {
         usernames.add(rs.getString("username"));
         emails.add(rs.getString("email"));
         categories.add(rs.getString("category"));
+        postIds.add(rs.getString("postId"));
       }
 
       model.put("ids", ids);
       model.put("usernames", usernames);
       model.put("emails", emails);
       model.put("categories", categories);
+      model.put("postIds", postIds);
       model.put("user", request.getSession().getAttribute("USER"));
 
       return "adminMessageTable";
@@ -522,6 +740,7 @@ public class Main {
         model.put("email", rs.getString("email"));
         model.put("message", rs.getString("message"));
         model.put("category", rs.getString("category"));
+        model.put("postId", rs.getString("postId"));
       }
       model.put("user", request.getSession().getAttribute("USER"));
 
@@ -567,10 +786,48 @@ public class Main {
     }
   }
 
+   // Prompt for deleting all messages
+   @RequestMapping("/deleteAllPosts") 
+   String attemptDeletePosts(Map<String, Object> model) {
+ 
+     String message = "Do you wish to delete all posts?";
+    
+     model.put("message", message);
+ 
+     // Notify users of this when notifications are done in the future
+ 
+     return "deleteAllPosts";
+   }
+ 
+   // Clicked on delete all stored messages
+   @PostMapping(path = "/deleteAllPosts", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
+   public String deleteAllPosts(Map<String, Object> model, HttpServletRequest request) throws Exception {
+ 
+     try (Connection connection = dataSource.getConnection()) 
+     {
+           Statement statement = connection.createStatement();
+           statement.executeUpdate("DROP TABLE posts;");
+ 
+           String message = "Succesfully deleted all posts"; 
+           model.put("message", message);
+           model.put("user", request.getSession().getAttribute("USER"));
+           return "redirect:/";
+     } 
+     catch (Exception e) 
+     {
+       return "error";
+     }
+   }
+ 
+   // Cancel and go back to the table
+   @PostMapping(path = "/deleteAllPosts", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
+   public String cancelDeletePosts(AdminMessage adminMessage) {
+     return "redirect:/";
+   }
+
   // Cancel and go back to the table
   @PostMapping(path = "/deleteAllMessages", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=cancel")
   public String cancelDeleteAll(AdminMessage adminMessage) {
-
     return "redirect:/viewAdminMessages";
   }
 
@@ -608,6 +865,88 @@ public class Main {
     }
   }
 
+	//get a list of posts for viewPostsTable.html
+  @RequestMapping("/viewPostsTable")
+  String viewPostsTable(Map<String, Object> model, HttpServletRequest request){
+    try(Connection connection = dataSource.getConnection()){
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery("SELECT * FROM posts");
+
+      ArrayList<String> ids = new ArrayList<String>();
+      ArrayList<String> titles = new ArrayList<String>();
+      ArrayList<String> post_dates = new ArrayList<String>();
+      ArrayList<String> contents = new ArrayList<String>();
+      ArrayList<String> categories = new ArrayList<String>();
+      ArrayList<String> visibilities = new ArrayList<String>();
+      ArrayList<String> ratings = new ArrayList<String>();
+      ArrayList<String> creators = new ArrayList<String>();
+      ArrayList<String> mediaTypes = new ArrayList<String>();
+      ArrayList<String> imagesNums = new ArrayList<String>();
+      ArrayList<String> image00s = new ArrayList<String>();
+      ArrayList<String> image01s = new ArrayList<String>();
+      ArrayList<String> image02s = new ArrayList<String>();
+      ArrayList<String> image03s = new ArrayList<String>();
+      ArrayList<String> image04s = new ArrayList<String>();
+      ArrayList<String> image05s = new ArrayList<String>();
+      ArrayList<String> image06s = new ArrayList<String>();
+      ArrayList<String> image07s = new ArrayList<String>();
+      ArrayList<String> image08s = new ArrayList<String>();
+      ArrayList<String> image09s = new ArrayList<String>();
+      ArrayList<String> video00s = new ArrayList<String>();
+
+      while(rs.next()){
+        ids.add(String.valueOf(rs.getString("id")));
+        titles.add(String.valueOf(rs.getString("title")));
+        post_dates.add(String.valueOf(rs.getString("post_date")));
+        contents.add(String.valueOf(rs.getString("content")));
+        categories.add(String.valueOf(rs.getString("category")));
+        visibilities.add(String.valueOf(rs.getString("visibility")));
+        ratings.add(String.valueOf(rs.getString("rating")));
+        creators.add(String.valueOf(rs.getString("creator")));
+        mediaTypes.add(String.valueOf(rs.getString("mediaType")));
+        imagesNums.add(String.valueOf(rs.getString("imagesNum")));
+        image00s.add(String.valueOf(rs.getString("image00")));
+        image01s.add(String.valueOf(rs.getString("image01")));
+        image02s.add(String.valueOf(rs.getString("image02")));
+        image03s.add(String.valueOf(rs.getString("image03")));
+        image04s.add(String.valueOf(rs.getString("image04")));
+        image05s.add(String.valueOf(rs.getString("image05")));
+        image06s.add(String.valueOf(rs.getString("image06")));
+        image07s.add(String.valueOf(rs.getString("image07")));
+        image08s.add(String.valueOf(rs.getString("image08")));
+        image09s.add(String.valueOf(rs.getString("image09")));
+        video00s.add(String.valueOf(rs.getString("video00")));
+      }
+      model.put("ids", ids);
+      model.put("titles", titles);
+      model.put("post_dates", post_dates);
+      model.put("contents", contents);
+      model.put("categories", categories);
+      model.put("visibilities", visibilities);
+      model.put("ratings", ratings);
+      model.put("creators", creators);
+      model.put("mediaTypes", mediaTypes);
+      model.put("imagesNums", imagesNums);
+      model.put("image00s", image00s);
+      model.put("image01s", image01s);
+      model.put("image02s", image02s);
+      model.put("image03s", image03s);
+      model.put("image04s", image04s);
+      model.put("image05s", image05s);
+      model.put("image06s", image06s);
+      model.put("image07s", image07s);
+      model.put("image08s", image08s);
+      model.put("image09s", image09s);
+      model.put("video00s", video00s);
+      model.put("user", request.getSession().getAttribute("USER"));
+      return "viewPostsTable";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
   //get a specific account for viewAccounts
   @RequestMapping("/viewAccount")
   String viewAccount(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
@@ -630,6 +969,63 @@ public class Main {
 
       model.put("user", request.getSession().getAttribute("USER"));
       return "viewAccount";
+    } 
+    catch (Exception e) 
+    {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @RequestMapping("/viewPost")
+  String viewPost(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
+
+    try (Connection connection = dataSource.getConnection()) 
+    {
+      Statement statement = connection.createStatement();
+
+      ResultSet rs = statement.executeQuery("SELECT * FROM posts WHERE id=" + tag);
+      rs.next();
+      //check if user should have access when private
+      if(rs.getString("visibility") == "PRIVATE"){
+        //get id of post creator
+        ResultSet rsAccount = statement.executeQuery("SELECT * FROM accounts WHERE username=$$"+ rs.getString("creator") +"$$");
+        rsAccount.next();
+        String creatorId = String.valueOf(rsAccount.getInt("id"));
+
+        //if id of user is the same as its creator  AND  role is admin OR  *******************************************************************************user is a friend, Deny access, go to homepage
+        if((creatorId != request.getSession().getAttribute("ID")) && request.getSession().getAttribute("ROLE") == "admin"){
+          model.put("message", "You do not have access to that post");
+          model.put("user", request.getSession().getAttribute("USER"));
+          return "homepage";
+        }
+      }
+
+      model.put("id", String.valueOf(rs.getInt("id")));
+      model.put("title", rs.getString("title"));
+      model.put("post_date", rs.getString("post_date"));
+      model.put("content", rs.getString("content"));
+      model.put("category", rs.getString("category"));
+      model.put("visibility", rs.getString("visibility"));
+      model.put("rating", rs.getString("rating"));
+      model.put("creator", rs.getString("creator"));
+      model.put("mediaType", rs.getString("mediaType"));
+      model.put("imagesNum", rs.getString("imagesNum"));
+      model.put("image00", rs.getString("image00"));
+      model.put("image01", rs.getString("image01"));
+      model.put("image02", rs.getString("image02"));
+      model.put("image03", rs.getString("image03"));
+      model.put("image04", rs.getString("image04"));
+      model.put("image05", rs.getString("image05"));
+      model.put("image06", rs.getString("image06"));
+      model.put("image07", rs.getString("image07"));
+      model.put("image08", rs.getString("image08"));
+      model.put("image09", rs.getString("image09"));
+      model.put("video00", rs.getString("video00"));
+      
+
+      model.put("user", request.getSession().getAttribute("USER"));
+      return "viewPost";
     } 
     catch (Exception e) 
     {
@@ -674,7 +1070,7 @@ public class Main {
       model.put("times", times);
 
 
-      //For sending notifications
+      //Form to send notifications
       Notification notification = new Notification();
       model.put("notification", notification);
 
@@ -689,6 +1085,7 @@ public class Main {
     }
   }
 
+  //Sending Notifications
   @PostMapping(
     path = "/notifications",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
@@ -699,14 +1096,13 @@ public class Main {
       //Create table (if it doesn't exist)
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(20), recipient varchar(20), sender varchar(20), body varchar(1000), time timestamp);");
       //add new notification to table
-      String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ('" + n.getTitle() + "', '" + n.getRecipient() + "', '" + request.getSession().getAttribute("USER") + "', '" + n.getBody() + "', now())";
-      System.out.println(sql);
+      String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + n.getTitle() + "$$, $$" + n.getRecipient() + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$" + n.getBody() + "$$, now())";
       stmt.executeUpdate(sql);
       model.put("message", "Notification successfully created");
       return "notifications";
     }
     catch(Exception e){
-      model.put("Error", e.getMessage());
+      model.put("Error", e.getMessage())
       return "error";
     }
   }
@@ -796,6 +1192,141 @@ public class Main {
     }
     catch(SQLException e){
       e.printStackTrace();
+
+  //Profile
+  @RequestMapping("/profile")
+  String getProfile(@RequestParam(value = "username", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
+      Statement stmt = connection.createStatement();
+      
+      //user who's profile is being viewed
+      String user = tag;
+      //default to current user profile
+      if(tag == null || tag == ""){
+        user = request.getSession().getAttribute("USER").toString();
+      }
+      System.out.println("user="+user);
+      ResultSet rs = stmt.executeQuery("SELECT * FROM accounts WHERE username='"+user+"'");
+      System.out.println("SELECT * FROM accounts WHERE username='"+user+"'");
+      rs.next();
+
+      //send information to page
+      model.put("username", rs.getString("username"));
+      model.put("email", rs.getString("email"));
+      model.put("fname", rs.getString("fname"));
+      model.put("lname", rs.getString("lname"));
+
+      model.put("user", request.getSession().getAttribute("USER"));
+      //check if viewer is the owner of the profile
+      if(user == request.getSession().getAttribute("USER").toString()){
+        model.put("edit", true);
+        Account account = new Account();
+        model.put("account", account);
+        
+        rs = stmt.executeQuery("SELECT * FROM posts WHERE (creator='"+user+"') ORDER BY id DESC");
+      }
+      else{
+        //if viewing someone else's profile
+        rs = stmt.executeQuery("SELECT * FROM posts WHERE (creator='"+user+"' AND visibility='PUBLIC') ORDER BY id DESC");
+      }
+      ArrayList<String> titles = new ArrayList<String>();
+      ArrayList<String> descriptions = new ArrayList<String>();
+      ArrayList<String> postDates= new ArrayList<String>();
+      ArrayList<String> visibilities=new ArrayList<String>();
+      ArrayList<String> creators=new ArrayList<String>();
+      ArrayList<String> categories=new ArrayList<String>();
+      while (rs.next())
+      {
+        titles.add(rs.getString("title"));
+        descriptions.add(rs.getString("content"));
+        postDates.add(rs.getString("post_date"));
+        visibilities.add(rs.getString("visibility"));
+        creators.add(rs.getString("creator"));
+        categories.add(rs.getString("category"));
+      }
+      model.put("titles", titles);
+      model.put("descriptions", descriptions);
+      model.put("postDates",postDates);
+      model.put("visibilities",visibilities);
+      model.put("creators",creators);
+      model.put("categories", categories);
+      model.put("user", request.getSession().getAttribute("USER"));
+      return "profile";
+    }
+    catch(Exception e){
+      model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+
+  @PostMapping(
+    path = "/profile",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleEdit(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+
+      ResultSet rs;
+      //update account to table
+      //sql = "UPDATE accounts SET username='" + u.getUsername() + "', password='" + u.getPassword() + "', email='" + u.getEmail() + "', fname='" + u.getFname() + "', lname='" + u.getLname() + "' WHERE id='"+request.getSession().getAttribute("ID")+"'";
+      //if any username was inputted
+      if(!u.getUsername().isEmpty()){
+        //get number of accounts with the same username from accounts table
+        String sql = "SELECT COUNT (*) FROM accounts WHERE username = '" + u.getUsername() + "'";
+        System.out.println(sql);
+        //get number of accounts from resultset
+        rs = stmt.executeQuery(sql);
+        rs.next();
+        int x = rs.getInt("count");
+        if(x != 0){ //check if there are is at least 1 account in table
+          System.out.println("username taken");
+          model.put("taken", "This username has been taken");
+          model.put("edit", true);
+          Account account = new Account();
+          model.put("account", account);
+
+          model.put("username", request.getSession().getAttribute("USER"));
+          model.put("email", request.getSession().getAttribute("EMAIL"));
+          model.put("fname", request.getSession().getAttribute("FNAME"));
+          model.put("lname", request.getSession().getAttribute("LNAME"));
+
+          model.put("user", request.getSession().getAttribute("USER"));
+          return "profile"; //if one exists
+        }
+        stmt.executeUpdate("UPDATE accounts SET username='"+u.getUsername()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
+        request.getSession().setAttribute("USER", u.getUsername()); //put id into session
+      }
+      //if any password was inputted
+      if(!u.getPassword().isEmpty()){
+        stmt.executeUpdate("UPDATE accounts SET password='"+u.getPassword()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
+      }
+      
+      //if any email was inputted
+      if(!u.getEmail().isEmpty()){
+        stmt.executeUpdate("UPDATE accounts SET email='"+u.getEmail()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
+        request.getSession().setAttribute("EMAIL", u.getEmail()); //put email into session
+      }
+      //always change fnames and lnames (since they can be blank)
+      stmt.executeUpdate("UPDATE accounts SET fname='"+u.getFname()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
+      stmt.executeUpdate("UPDATE accounts SET lname='"+u.getLname()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
+
+      rs = stmt.executeQuery("SELECT fname FROM accounts WHERE username = '" + u.getUsername() + "'");
+      request.getSession().setAttribute("FNAME", u.getFname()); //put firstname into session
+
+      rs = stmt.executeQuery("SELECT lname FROM accounts WHERE username = '" + u.getUsername() + "'");
+      request.getSession().setAttribute("LNAME", u.getLname()); //put lastname into session
+
+
+      //stmt.executeUpdate(sql);
+      model.put("message", "Account successfully updated");
+      // model.put("")
+      // model.put("edit", true);
+      // Account account = new Account();
+      // model.put("account", account);
+      model.put("user", request.getSession().getAttribute("USER"));
+      return "homepage";
+    }
+    catch(Exception e){
       model.put("Error", e.getMessage());
       return "error";
     }

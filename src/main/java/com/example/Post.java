@@ -12,7 +12,9 @@ public class Post
     private String rating;
     private String creator;
 	
+	private String mediaType;
 	private int imagesNum;
+	
 	private String image00;
 	private String image01;
 	private String image02;
@@ -24,7 +26,8 @@ public class Post
 	private String image08;
 	private String image09;
 	private String video00;
-
+	
+	
     public String getTitle()
     {
         return this.title;
@@ -74,6 +77,10 @@ public class Post
     public void setCreator(String s){
         creator=s;
     }
+	
+	public String getMediaType(){
+		return this.mediaType;
+	}
 	
 	public int getImagesNum()
 	{
@@ -133,6 +140,11 @@ public class Post
 	public String getVideo00()
     {
         return this.video00;
+    }
+	
+	public void setMediaType(String s)
+    {
+        mediaType = s;
     }
 	
 	public void setImagesNum(int n)

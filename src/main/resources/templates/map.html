@@ -8,8 +8,11 @@
     <script type="text/javascript" th:src="@{https://polyfill.io/v3/polyfill.min.js?features=default}" defer></script>
     <link rel="stylesheet" type="text/css" th:href="@{/stylesheets/map.css}" />
     <script type="text/javascript" th:src="@{/js/map.js}" defer></script>
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 </head>
 <body>
+    <div th:replace="fragments/nav :: navbar"></div>
     <div id="map"></div>
 
     <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
@@ -17,15 +20,5 @@
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyChrwfB43vmuu6kPEsALuEcW_MihZ7nIO4&callback=initMap&libraries=&v=weekly"
       async
     ></script>
-
-    <footer id="footer">
-      <a class="footer-text" th:href="@{/login}">Login </a>
-      <a class="footer-text" th:href="@{/register}">Register </a>
-      <a class="footer-text" th:href="@{/forgot}">Forgot password </a>
-      <a class="footer-text" th:href="@{/post/text}">Create Post</a>
-      <a class="footer-text" th:href="@{/costCalculator}">Travel Cost Calculator</a>
-      <a class="footer-text" th:href="@{/contact}">Contact</a>
-      <a class="footer-text" th:href="@{/map}">Map</a>
-    </footer>
 </body>
 </html>

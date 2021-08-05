@@ -14,7 +14,7 @@
     <!-- navbar header -->
     <div th:replace="fragments/nav :: navbar"></div>
 
-    <h2>Send Notification (FOR TESTING)</h2>
+    <h2>Send Notification</h2>
     <form action="#" method="post" id="sending" th:action="@{notifications}" th:object="${notification}">
         <span>Recipient: </span>
         <input type="text" placeholder="Recipient" th:field=*{recipient} required> <span>(required) </span> <br> <br>

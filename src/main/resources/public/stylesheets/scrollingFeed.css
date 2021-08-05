@@ -2,30 +2,39 @@ html{
   scroll-behavior: smooth;
 }
 
-body{
-  margin: 0;
-  padding: 0;
+.container {
+  display: flex;
+  align-items: flex-start;
 }
 
-nav{
- width: 100%;
- background: #D3D3D3;
- overflow: hidden;
- position: fixed;
- top: 0;
+.sidebar {
+  width: 20%;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 20px;
 }
-
 li{
  float: left;
 }
 
 .tab{
  padding: 25px;
- width: 200px;
+ width: 180px;
  display: block;
  text-decoration: none;
  color:black;
  font-weight: bold;
+}
+
+#main {
+  width: 80%;
+}
+
+#filter{
+max-width:150px;
+height:30px;
+margin-top:12px;
+padding:0 10px;
 }
 
 #plan_post{
@@ -48,7 +57,7 @@ li{
 }
 
 h1{
- margin:100px;
+ margin:80px;
  text-align: center;
 }
 
@@ -74,4 +83,41 @@ h1{
 .Infor{
  text-align: right;
  font-size:0.8em;
-}]
+}
+
+.userInfor{
+ border: 1px solid black;
+ width:300px;
+ margin:20px 100px;
+ padding:20px;
+}
+
+.container#blur.active
+{
+  filter: blur(20px);
+  pointer-events: none;
+  user-select: none;
+}
+
+#popup
+{
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  padding: 50px;
+  box-shadow: 0 5px 30px rgba(0, 0, 0, 0.30);
+  background: #fff;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+#popup.active
+{
+  top: 40%;
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s;
+}

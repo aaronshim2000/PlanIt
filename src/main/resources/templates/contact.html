@@ -16,17 +16,17 @@
     <div th:replace="fragments/nav :: navbar"></div>
 
     <div class="container">
-        <a class="title" th:href="@{/}">Back to Homepage</a>
+        <p th:text="${message}"></p>
         <div class="title">Contact Us</div>
         <form id="contactForm" action="#" method="post" th:action="@{/contact}" th:object="${adminMessage}">
             <div class="contact-details">
                 <div class="input-box">
                     <span class="details">Username</span>
-                    <input type="text" class="input" th:field=*{username} placeholder="Username" required>
+                    <input type="text" class="input" th:field=*{username} th:value=${username} placeholder="Username" required>
                 </div>
                 <div class="input-box">
                     <span class="details">Email</span>
-                    <input type="text" class="input" th:field=*{email} placeholder="Email" required>
+                    <input type="text" class="input" th:field=*{email} th:value=${email} placeholder="Email" required>
                 </div>
                 <div class="input-box-large">
                     <span class="details">Message</span>
@@ -37,8 +37,6 @@
                 <input type="submit" value="Submit"></input>
             </div>
         </form>
-        <!-- <a th:href="@{/viewAdminMessages}">View Admin Messages</a> -->
-        <!-- <a th:href="@{/viewAccountsTable}">View Accounts List</a> -->
     </div>
 </body> 
 

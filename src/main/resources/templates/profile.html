@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/stylesheets/main.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <title>Profile</title>
+</head>
+<body>
+    <!-- navbar header -->
+    <div th:replace="fragments/nav :: navbar"></div>
+
+    <h1>Profile</h1>
+    <form action="#" method="post" id="update" th:action="@{/profile}" th:object="${account}" th:if="${edit}">
+        <table>
+            <tr>
+                <td>Username: </td>
+                <td>
+                    <input type="text" th:placeholder="${username}" th:field="*{username}"> </span> <span style="color:maroon" th:text="${taken}"></span>
+                </td>
+            </tr>
+            <tr>
+                <td>Password: </td>
+                <td>
+                    <input type="password" th:field="*{password}">
+                </td>
+            </tr>
+            <tr>
+                <td>Email: </td>
+                <td>
+                    <input type="email" th:placeholder="${email}" th:field="*{email}">
+                </td>
+            </tr>
+            <tr>
+                <td>First Name: </td>
+                <td>
+                    <input type="text" th:placeholder="${fname}" th:field="*{fname}">
+                </td>
+            </tr>
+            <tr>
+                <td>Last Name: </td>
+                <td>
+                    <input type="text" th:placeholder="${lname}" th:field="*{lname}">
+                </td>
+            </tr>
+        </table>
+        <input type="submit" value="Update Info">
+    </form>
+
+    <table id="display" th:if="!${edit}">
+        <tr>
+            <td>Username: </td>
+            <td th:text="${username}"></td>
+        </tr>
+        <tr>
+            <td>Email: </td>
+            <td th:text="${email}"></td>
+        </tr>
+        <tr>
+            <td>First Name: </td>
+            <td th:text="${fname}"></td>
+        </tr>
+        <tr>
+            <td>Last Name: </td>
+            <td th:text="${lname}"></td>
+        </tr>
+    </table>
+    <span style="color:maroon" th:text="${message}"></span> <br> <br>
+
+    <div id="post">
+        <h1>User's Posts</h1>
+
+        <div class="post Record-Text-post" th:each="title,iter : ${titles}">
+            <h2 class="title" th:text="${title}"></h2>
+            <p th:text="${descriptions[iter.index]}">
+            <p class="Infor" th:text="'post by : '+ ${creators[iter.index]}">
+            <p class="Infor" th:text="'post type : '+${categories[iter.index]}">
+            <p class="Infor" th:text="${postDates[iter.index]}">
+            <!-- <button class="LikeCounter" th:likes="${likes[iter.index]}" onclick="toggle(this.getAttribute('likes'))" th:text="Likes: ${likesCount[iter.index]}">
+            <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a> -->
+        </div>
+    </div>
+</body>

@@ -9,6 +9,8 @@
             <li class="navButton"><a class="navLink" href="/notifications">Notifications</a></li>
             <li class="navButton"><a class="navLink" href="/contact">Contact Us</a></li>
             <li class="navButton"><a class="navLink" href="/friend">Friends List</a></li>
+            <li class="navButton"><a class="navLink" href="/profile">Profile</a></li>
+
             <li class="rightSide" th:if="!${user}"><a class="navLink" href="/login">Login</a></li>
             <li class="rightSide" th:if="${user}"><a class="navLink" href="/logout">Logout</a></li>
         </ul>
