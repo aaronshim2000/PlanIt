@@ -10,6 +10,12 @@ var imgRes02 = document.getElementById("imageRes02"); imgRes02.value = "empty";
 var imgRes03 = document.getElementById("imageRes03"); imgRes03.value = "empty";
 var imgRes04 = document.getElementById("imageRes04"); imgRes04.value = "empty";
 
+var butContainer00 = document.getElementById("remButton00");
+var butContainer01 = document.getElementById("remButton01");
+var butContainer02 = document.getElementById("remButton02");
+var butContainer03 = document.getElementById("remButton03");
+var butContainer04 = document.getElementById("remButton04");
+
 var imageCounter = 0;
 var fileCount = document.getElementById("numFiles"); fileCount.value = 0;
 
@@ -20,11 +26,11 @@ function uploadImages(){
 	imgCell02.style = "";
 	imgCell03.style = "";
 	imgCell04.style = "";
-	imgCell00.innerHTML = '<input type="text" th:field=*{image00} id="imageRes00" class="imageResult">';
-	imgCell01.innerHTML = '<input type="text" th:field=*{image01} id="imageRes01" class="imageResult">';
-	imgCell02.innerHTML = '<input type="text" th:field=*{image02} id="imageRes02" class="imageResult">';
-	imgCell03.innerHTML = '<input type="text" th:field=*{image03} id="imageRes03" class="imageResult">';
-	imgCell04.innerHTML = '<input type="text" th:field=*{image04} id="imageRes04" class="imageResult">';
+	butContainer00.innerHTML = '';
+	butContainer01.innerHTML = '';
+	butContainer02.innerHTML = '';
+	butContainer03.innerHTML = '';
+	butContainer04.innerHTML = '';
 	imgWidget.open();
 	imgRes00 = document.getElementById("imageRes00"); imgRes00.value = "empty";
 	imgRes01 = document.getElementById("imageRes01"); imgRes01.value = "empty";
@@ -32,22 +38,20 @@ function uploadImages(){
 	imgRes03 = document.getElementById("imageRes03"); imgRes03.value = "empty";
 	imgRes04 = document.getElementById("imageRes04"); imgRes04.value = "empty";
 	fileCount.value = imageCounter;
+	if (imageCounter > 0){  }
 }
 
 function removeImageNo( index ){
 	imageCounter--;
+	if (imageCounter == 0){ mediaType.value = "none"; }
 	while (index < imageCounter){
 		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url(' + document.getElementById("imageRes0" + (index+1)).value + ')';
-		document.getElementById("viewImg0" + index).innerHTML = '<button type="button" id="removeImg0' + index + '" onclick="removeImageNo(' + index + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + index + '} id="imageRes0' + index + '" class="imageResult" value="' + document.getElementById("imageRes0" + (index+1)).value + '">';
+		document.getElementById("imgRes0" + index).value = document.getElementById("imageRes0" + (index+1)).value;
 		index++;
 	}
 	document.getElementById("viewImg0" + imageCounter).style = "";
-	document.getElementById("viewImg0" + imageCounter).innerHTML = '<input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult">';
-	imgRes00 = document.getElementById("imageRes00"); imgRes00.value = "empty";
-	imgRes01 = document.getElementById("imageRes01"); imgRes01.value = "empty";
-	imgRes02 = document.getElementById("imageRes02"); imgRes02.value = "empty";
-	imgRes03 = document.getElementById("imageRes03"); imgRes03.value = "empty";
-	imgRes04 = document.getElementById("imageRes04"); imgRes04.value = "empty";
+	document.getElementById("butContainer0" + imageCounter).innerHTML = '';
+	document.getElementById("imgRes0" + imageCounter).value = "empty";
 }
 
 var imgWidget = cloudinary.createUploadWidget({
@@ -67,9 +71,9 @@ var imgWidget = cloudinary.createUploadWidget({
   (error, result) => { 
     if (!error && result && result.event === "success") {
 	  var newRes = result.info;
-	  var currCell = document.getElementById("viewImg0" + imageCounter);
-	  currCell.style = 'width: 250px; height: 250px; background-image: url("' + newRes.url + '"';
-	  currCell.innerHTML = '<button type="button" id="removeImg0' + imageCounter + '" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button><input type="text" th:field=*{image0' + imageCounter + '} id="imageRes0' + imageCounter + '" class="imageResult" value="' + newRes.url + '">';
+	  document.getElementById("viewImg0" + imageCounter).style = 'width: 250px; height: 250px; background-image: url("' + newRes.url + '"';
+	  document.getElementById("butContainer0" + imageCounter).innerHTML = '<button type="button" onclick="removeImageNo(' + imageCounter + ')" class="removeButton">X</button>';
+	  document.getElementById("imgRes0" + imageCounter).value = newRes.url;
 	  imageCounter++;
 	  fileCount.value = imageCounter;
     }
