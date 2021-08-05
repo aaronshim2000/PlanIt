@@ -1193,12 +1193,13 @@ public class Main {
     catch(SQLException e){
       e.printStackTrace();
     }
+    return "error";
   }
 
   //Profile
   @RequestMapping("/profile")
   String getProfile(@RequestParam(value = "username", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
-    try{
+    try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
       
       //user who's profile is being viewed
