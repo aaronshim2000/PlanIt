@@ -38,11 +38,12 @@ function uploadImages(){
 	imgRes03 = document.getElementById("imageRes03"); imgRes03.value = "empty";
 	imgRes04 = document.getElementById("imageRes04"); imgRes04.value = "empty";
 	fileCount.value = imageCounter;
-	if (imageCounter > 0){  }
+	//if (imageCounter == 0){ mediaType.value = "none"; }
 }
 
 function removeImageNo( index ){
 	imageCounter--;
+	fileCount.value = imageCounter;
 	if (imageCounter == 0){ mediaType.value = "none"; }
 	while (index < imageCounter){
 		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url(' + document.getElementById("imageRes0" + (index+1)).value + ')';
@@ -76,6 +77,7 @@ var imgWidget = cloudinary.createUploadWidget({
 	  document.getElementById("imageRes0" + imageCounter).value = newRes.url;
 	  imageCounter++;
 	  fileCount.value = imageCounter;
+	  //mediaType.value = "images";
     }
   }
 )
