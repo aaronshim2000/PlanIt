@@ -154,7 +154,7 @@ public class Main {
       post.setCategory("plan-post");
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
-      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),$$" + username + "$$,$$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','{" + username + "}')");
+      statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),$$" + username + "$$,$$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "')");
       //send notification to friends
       //statement.executeupdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$New Post from" + post.getCreator() + "$$, $$FRIENDS$$, $$" + request.getSession().getAttribute("USER") + "$$, $$View Post$$, now())");
       model.put("user", request.getSession().getAttribute("USER"));
@@ -1102,7 +1102,7 @@ public class Main {
       return "notifications";
     }
     catch(Exception e){
-      model.put("Error", e.getMessage())
+      model.put("Error", e.getMessage());
       return "error";
     }
   }
@@ -1192,10 +1192,13 @@ public class Main {
     }
     catch(SQLException e){
       e.printStackTrace();
+    }
+  }
 
   //Profile
   @RequestMapping("/profile")
   String getProfile(@RequestParam(value = "username", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
+    try{
       Statement stmt = connection.createStatement();
       
       //user who's profile is being viewed
