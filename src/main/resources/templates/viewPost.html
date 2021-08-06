@@ -19,6 +19,10 @@
 			background-repeat: no-repeat;
 			background-position: center;
 		}
+		.demo-player{
+			width: 450px;
+			height: 450px;
+		}
 	</style>
     <title>View Post</title>
 </head>
@@ -38,7 +42,7 @@
 		<p id="containerForVid"></p>
 		<table id="images">
 		<tbody>
-		  <tr id="imNumContain" visibility="hidden"><td>
+		  <tr id="imNumContain" visibility="visible"><td>
 			<input type="text" th:value="${imagesNum}" id="imagesNum" class="imageResult" disabled>
 			<input type="text" th:value="${category}" id="imagesMax" class="imageResult" disabled>
 			<input type="text" th:value="${mediaType}" id="fileType" class="imageResult" disabled>
