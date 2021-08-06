@@ -21,12 +21,6 @@
     <div th:replace="fragments/nav :: navbar"></div>
 	
 	<div class="centerdiv" onload="reviewFixFunc()">
-		<p class="rp"><input type="radio" id="p1" name="postselect"/>
-			<label for="p1">Text Post</label</p>
-		<p class="rp"><input type="radio" id="p2" name="postselect" checked/>
-			<label for="p2">Review</label</p>
-		<p class="rp"><input type="radio" id="p3" name="postselect"/>
-			<label for="p3">Plan</label</p>
 		<h1 class="titlelabel">Title</h1>
 		<form action="#" method="post" th:action="@{/editReviewPost}" th:object="${post}">
 			<input name="id" type="hidden" th:value="${tag}">
@@ -62,10 +56,10 @@
 			<tbody>
 			  <tr>
 				<td id="viewImg00" class="imageCell" style=""><p id="remButton00"></p><input type="text" th:value="${image00}" th:id="image00" th:name="image00" class="imageResult imageRes00" readonly></td>
-				<td id="viewImg01" class="imageCell" style=""><p id="remButton00"></p><input type="text" th:value="${image01}" th:id="image01" th:name="image01" class="imageResult imageRes01" readonly></td>
-				<td id="viewImg02" class="imageCell" style=""><p id="remButton00"></p><input type="text" th:value="${image02}" th:id="image02" th:name="image02" class="imageResult imageRes02" readonly></td>
-				<td id="viewImg03" class="imageCell" style=""><p id="remButton00"></p><input type="text" th:value="${image03}" th:id="image03" th:name="image03" class="imageResult imageRes03" readonly></td>
-				<td id="viewImg04" class="imageCell" style=""><p id="remButton00"></p><input type="text" th:value="${image04}" th:id="image04" th:name="image04" class="imageResult imageRes04" readonly></td>
+				<td id="viewImg01" class="imageCell" style=""><p id="remButton01"></p><input type="text" th:value="${image01}" th:id="image01" th:name="image01" class="imageResult imageRes01" readonly></td>
+				<td id="viewImg02" class="imageCell" style=""><p id="remButton02"></p><input type="text" th:value="${image02}" th:id="image02" th:name="image02" class="imageResult imageRes02" readonly></td>
+				<td id="viewImg03" class="imageCell" style=""><p id="remButton03"></p><input type="text" th:value="${image03}" th:id="image03" th:name="image03" class="imageResult imageRes03" readonly></td>
+				<td id="viewImg04" class="imageCell" style=""><p id="remButton04"></p><input type="text" th:value="${image04}" th:id="image04" th:name="image04" class="imageResult imageRes04" readonly></td>
 			  </tr>
 			  <tr>
 				<td class="imageCell" style=""><input type="text" th:value="${imagesNum}" th:id="imagesNum" th:name="imagesNum" class="imageResult numFiles" readonly></td>
