@@ -1,0 +1,202 @@
+main copy
+
+  @RequestMapping("/fileViewingTest")
+  public String getPosts(Map<String, Object> model, HttpServletRequest request, HttpServletResponse response) throws IOException {
+    // check if user already login
+    HttpSession session = request.getSession(false);
+    String target = request.getRequestURI();
+    if (session == null)  {
+      // if not yet
+      session = request.getSession(true);
+      session.setAttribute("target", target);
+      response.sendRedirect("/login");
+    }
+    else{
+      Object loginCheck = session.getAttribute("login");
+      if (loginCheck == null){
+        //if not yet
+        session.setAttribute("target", target);
+        response.sendRedirect("/login");
+      }
+    }
+
+    //dealing with text posts
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String username= (String) request.getSession().getAttribute("USER");
+      ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE (category='text-post' AND visibility='PUBLIC') OR (category='text-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
+      ArrayList<String> text_ids = new ArrayList<String>();
+      ArrayList<String> text_titles = new ArrayList<String>();
+      ArrayList<String> text_descriptions = new ArrayList<String>();
+      ArrayList<String> text_postDates= new ArrayList<String>();
+      ArrayList<String> text_visibilities=new ArrayList<String>();
+      ArrayList<String> text_creators=new ArrayList<String>();
+	  ArrayList<String> text_mediaTypes = new ArrayList<String>();
+      ArrayList<String> text_imagesNums = new ArrayList<String>();
+      ArrayList<String> text_image00s = new ArrayList<String>();
+      ArrayList<String> text_image01s = new ArrayList<String>();
+      ArrayList<String> text_image02s = new ArrayList<String>();
+      ArrayList<String> text_image03s = new ArrayList<String>();
+      ArrayList<String> text_image04s = new ArrayList<String>();
+      ArrayList<String> text_image05s = new ArrayList<String>();
+      ArrayList<String> text_image06s = new ArrayList<String>();
+      ArrayList<String> text_image07s = new ArrayList<String>();
+      ArrayList<String> text_image08s = new ArrayList<String>();
+      ArrayList<String> text_image09s = new ArrayList<String>();
+      ArrayList<String> text_video00s = new ArrayList<String>();
+      while (rs_text.next())
+      {
+        text_ids.add(rs_text.getString("id"));
+        text_titles.add(rs_text.getString("title"));
+        text_descriptions.add(rs_text.getString("content"));
+        text_postDates.add(rs_text.getString("post_date"));
+        text_visibilities.add(rs_text.getString("visibility"));
+        text_creators.add(rs_text.getString("creator"));
+		text_mediaTypes.add(rs_text.getString("mediaType"));
+		text_imagesNums.add(rs_text.getString("imagesNum"));
+		text_image00s.add(rs_text.getString("image00"));
+		text_image01s.add(rs_text.getString("image01"));
+		text_image02s.add(rs_text.getString("image02"));
+		text_image03s.add(rs_text.getString("image03"));
+		text_image04s.add(rs_text.getString("image04"));
+		text_image05s.add(rs_text.getString("image05"));
+		text_image06s.add(rs_text.getString("image06"));
+		text_image07s.add(rs_text.getString("image07"));
+		text_image08s.add(rs_text.getString("image08"));
+		text_image09s.add(rs_text.getString("image09"));
+		text_video00s.add(rs_text.getString("video00"));
+      }
+      model.put("text_ids", text_ids);
+      model.put("text_titles", text_titles);
+      model.put("text_descriptions", text_descriptions);
+      model.put("text_postDates",text_postDates);
+      model.put("text_visibilities",text_visibilities);
+      model.put("text_creators",text_creators);
+      model.put("text_mediaTypes",text_mediaTypes);
+      model.put("text_imagesNums",text_imagesNums);
+      model.put("text_image00s",text_image00s);
+      model.put("text_image01s",text_image01s);
+      model.put("text_image02s",text_image02s);
+      model.put("text_image03s",text_image03s);
+      model.put("text_image04s",text_image04s);
+      model.put("text_image05s",text_image05s);
+      model.put("text_image06s",text_image06s);
+      model.put("text_image07s",text_image07s);
+      model.put("text_image08s",text_image08s);
+      model.put("text_image09s",text_image09s);
+      model.put("text_video00s",text_video00s);
+
+      //return "scrollingFeed";
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    //dealing with review posts
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String username= (String) request.getSession().getAttribute("USER");
+      ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE (category='review-post' AND visibility='PUBLIC') OR (category='review-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
+	  ArrayList<String> review_ids = new ArrayList<String>();
+      ArrayList<String> review_titles = new ArrayList<String>();
+      ArrayList<String> review_descriptions = new ArrayList<String>();
+      ArrayList<String> review_ratings=new ArrayList<String>();
+      ArrayList<String> review_postDates=new ArrayList<String>();
+      ArrayList<String> review_visibilities=new ArrayList<String>();
+      ArrayList<String> review_creators=new ArrayList<String
+      ArrayList<String> review_imagesNums = new ArrayList<String>();
+      ArrayList<String> review_image00s = new ArrayList<String>();
+      ArrayList<String> review_image01s = new ArrayList<String>();
+      ArrayList<String> review_image02s = new ArrayList<String>();
+      ArrayList<String> review_image03s = new ArrayList<String>();
+      ArrayList<String> review_image04s = new ArrayList<String>();
+      while (rs_review.next())
+      {
+        review_ids.add(rs_review.getString("id"));
+        review_titles.add(rs_review.getString("title"));
+        review_descriptions.add(rs_review.getString("content"));
+        review_ratings.add(rs_review.getString("rating"));
+        review_postDates.add(rs_review.getString("post_date"));
+        review_visibilities.add(rs_review.getString("visibility"));
+        review_creators.add(rs_review.getString("creator"));
+		review_imagesNums.add(rs_text.getString("imagesNum"));
+		review_image00s.add(rs_text.getString("image00"));
+		review_image01s.add(rs_text.getString("image01"));
+		review_image02s.add(rs_text.getString("image02"));
+		review_image03s.add(rs_text.getString("image03"));
+		review_image04s.add(rs_text.getString("image04"));
+      }
+      model.put("review_titles", review_titles);
+      model.put("review_descriptions", review_descriptions);
+      model.put("review_ratings",review_ratings);
+      model.put("review_postDates",review_postDates);
+      model.put("review_visibilities",review_visibilities);
+      model.put("review_creators",review_creators);
+	  model.put("review_ids", review_ids);
+      model.put("review_titles", review_titles);
+      model.put("review_descriptions", review_descriptions);
+      model.put("review_ratings",review_ratings);
+      model.put("review_postDates",review_postDates);
+      model.put("review_visibilities",review_visibilities);
+      model.put("review_creators",review_creators);
+      model.put("review_imagesNums",review_imagesNums);
+      model.put("review_image00s",review_image00s);
+      model.put("review_image01s",review_image01s);
+      model.put("review_image02s",review_image02s);
+      model.put("review_image03s",review_image03s);
+      model.put("review_image04s",review_image04s);
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+    //dealing with plan posts
+    try (Connection connection = dataSource.getConnection()) {
+      Statement stmt = connection.createStatement();
+      String username= (String) request.getSession().getAttribute("USER");
+      ResultSet rs_plan = stmt.executeQuery("SELECT * FROM posts WHERE (category='plan-post' AND visibility='PUBLIC') OR (category='plan-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
+      ArrayList<String> plan_titles = new ArrayList<String>();
+      ArrayList<String> plan_descriptions = new ArrayList<String>();
+      ArrayList<String> plan_postDates = new ArrayList<String>();
+      ArrayList<String> plan_visibilities = new ArrayList<String>();
+      ArrayList<String> plan_creators = new ArrayList<String>();
+      while (rs_plan.next())
+      {
+        plan_titles.add(rs_plan.getString("title"));
+        plan_descriptions.add(rs_plan.getString("content"));
+        plan_postDates.add(rs_plan.getString("post_date"));
+        plan_visibilities.add(rs_plan.getString("visibility"));
+        plan_creators.add(rs_plan.getString("creator"));
+      }
+      model.put("plan_titles", plan_titles);
+      model.put("plan_descriptions", plan_descriptions);
+      model.put("plan_postDates",plan_postDates);
+      model.put("plan_visibilities",plan_visibilities);
+      model.put("plan_creators",plan_creators);
+    } catch (Exception e) {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
+    //dealing with users
+    try (Connection connection = dataSource.getConnection())
+    {
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery("SELECT * FROM accounts where role='default'");
+      ArrayList<String> usernames = new ArrayList<String>();
+      ArrayList<String> user_ids = new ArrayList<String>(); 
+      while (rs.next()){
+        usernames.add(String.valueOf(rs.getString("username")));
+        user_ids.add(String.valueOf(rs.getInt("id")));
+      }
+      model.put("usernames", usernames);
+      model.put("user_ids", user_ids);
+    }
+    catch (Exception e)
+    {
+      model.put("message", e.getMessage());
+      return "error";
+    }
+
+    model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
+    return "fileViewingTest";
+  }

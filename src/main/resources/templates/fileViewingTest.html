@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="./stylesheets/scrollingFeed.css">
+    <link rel="stylesheet" th:href="@{/stylesheets/table.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+    <script type="text/javascript" src="/js/scrollingFeed.js" defer=""></script>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <title>Testing Scroll Feed</title>
+</head>
+<body onload="defaultSet()">　
+
+<!-- navbar header -->
+<div th:replace="fragments/nav :: navbar"></div>
+
+<div class="container">
+    <div class="sidebar">
+        <ul class="tabs">
+            <li class="tab"><a href ="#plan_post">Plan Posts</a></li>
+            <li class="tab"><a href ="#review_post">Review Posts</a></li>
+            <li class="tab"><a href ="#text_post">Text Posts</a></li>
+            <div>
+                <input type="text" id="filter" placeholder="Search posts/users here" onkeyup="searchPost();searchUser()">
+            </div>
+            <li class="tab" id="userTab"><a href ="#user_list">Users</a></li>
+        </ul>
+    </div>
+    <div id="main">
+        <div id="plan_post">
+            <h1>Plan Posts</h1>
+            <div class="post Record-Plan-post" th:each="id,iter : ${ids}">
+                <a th:href="@{/editPlanPost(id=${id})}">Edit Post</a>
+                <a th:href="@{/deletePost(id=${id})}">Delete Post</a>
+                <a th:href="@{/reportPost(id=${id})}">Report Post</a>
+                <p class="title" th:text="${plan_titles[iter.index]}"/>
+                <p th:text="${plan_descriptions[iter.index]}"/>
+                <p class="Infor" th:text="'post by : '+ ${plan_creators[iter.index]}"/>
+                <p class="Infor" th:text="'post type : '+${plan_visibilities[iter.index]}+' post'"/>
+                <p class="Infor" th:text="${plan_postDates[iter.index]}"/>
+            </div>
+        </div>
+
+        <div id="review_post">
+            <h1>Review Posts</h1>
+            <div class="post Record-Review-post" th:each="id,iter : ${ids}">
+                <a th:href="@{/editReviewPost(id=${id})}">Edit Post</a>
+                <a th:href="@{/deletePost(id=${id})}">Delete Post</a>
+                <a th:href="@{/reportPost(id=${id})}">Report Post</a>
+                <p class="title" th:text="${review_titles[iter.index]}"/>
+                <p class="rating" th:text="${review_ratings[iter.index]}+' / 5'"/>
+                <p th:text="${review_descriptions[iter.index]}"/>
+                <p class="Infor" th:text="'post by : '+ ${review_creators[iter.index]}"/>
+                <p class="Infor" th:text="'post type : '+${review_visibilities[iter.index]}"/>
+                <p class="Infor" th:text="${review_postDates[iter.index]}"/>
+            </div>
+        </div>
+
+        <div id="text_post">
+            <h1>Text Posts</h1>
+
+            <div class="post Record-Text-post" th:each="id,iter : ${ids}">
+                <a th:href="@{/editTextPost(id=${id})}">Edit Post</a>
+                <a th:href="@{/deletePost(id=${id})}">Delete Post</a>
+                <a th:href="@{/reportPost(id=${id})}">Report Post</a>
+                <p class="title" th:text="${text_titles[iter.index]}"/>
+                <p th:text="${text_descriptions[iter.index]}"/>
+				<p th:id="${text_ids[iter.index]}" th:attr="onload='displayMedia( + )'">
+				displayMedia( postID, mType, imgAmmount )
+				<table>
+				<tbody>
+				  <tr>
+					<td th:text="${text_image00s[iter.index]}" class="imageCell"></td>
+					<td th:text="${text_image01s[iter.index]}" class="imageCell"></td>
+					<td th:text="${text_image02s[iter.index]}" class="imageCell"></td>
+					<td th:text="${text_image03s[iter.index]}" class="imageCell"></td>
+					<td th:text="${text_image04s[iter.index]}" class="imageCell"></td>
+				  </tr>
+				  <tr>
+					<td th:text="${text_image05s[iter.index]}" class="imageCell"></td>
+					<td th:text="${text_image06s[iter.index]}" class="imageCell"></td>
+					<td th:text="${text_image07s[iter.index]}" class="imageCell"></td>
+					<td th:text="${text_image08s[iter.index]}" class="imageCell"></td>
+					<td th:text="${text_image09s[iter.index]}" class="imageCell"></td>
+				  </tr>
+				  <tr>
+					<td th:text="${text_video00s[iter.index]}" class="imageCell"></td>
+				  </tr>
+				</tbody>
+				</table></p>
+				<p th:id="${}"
+                <p class="Infor" th:text="'post by : '+ ${text_creators[iter.index]}"/>
+                <p class="Infor" th:text="'post type : '+${text_visibilities[iter.index]}+' post'"/>
+                <p class="Infor" th:text="${text_postDates[iter.index]}"/>
+            </div>
+        </div>
+
+        <br><br><br>
+
+        <div id="user_list">
+            <div class="userList" th:each="username,iter : ${usernames}" >
+                <p class="userInfor">
+                    <a th:text="${username}" th:href="@{/profile(username=${username})}"></a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
