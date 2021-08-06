@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/stylesheets/basicStyle.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/object.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/main.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -17,10 +18,12 @@
 
     <h1>View Post</h1>
     
-    <h2 th:text="${title}"></h2>
-    <p th:text="${category}">
-    <p th:text="'By: ' + ${creator}">
-    <p th:text="${content}">
-    <p th:text="${visibility}">
-    <p th:text="${post_date}">
+    <div class="container">
+        <h2 th:text="${title}"></h2>
+        <p th:text="${category}">
+        <p th:text="'By: ' + ${creator}">
+        <p th:text="${content}">
+        <p th:text="${visibility}">
+        <p th:text="${post_date}">
+    </div>
 </body>

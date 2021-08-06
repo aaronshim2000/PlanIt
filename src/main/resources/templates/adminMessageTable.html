@@ -16,7 +16,6 @@
     <!-- navbar header -->
     <div th:replace="fragments/nav :: navbar"></div>
     
-    <a th:href="@{/contact}">Back to Contact Us</a> <br>
     <h1>Administrator Messages</h1>
     <span style="color:maroon" th:text="${message}"></span>
     <form id="messageTableForm" action="#" method="post" th:action="@{/adminMessage}" th:object="${adminMessage}">

@@ -4,6 +4,12 @@
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+body{
+    text-align: left;
+    color:black;
+    font-family:Verdana,sans-serif;
+}
+
 .content-table
 {
     margin: 25px 0;
@@ -37,6 +43,11 @@
 .content-table tbody tr
 {
     border: 1px solid #dddddd;
+}
+
+.content-table tbody tr:nth-of-type(odd)
+{
+    background-color: #ffffff;
 }
 
 .content-table tbody tr:nth-of-type(even)
