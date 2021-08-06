@@ -8,6 +8,7 @@
     <link rel="stylesheet" th:href="@{/stylesheets/object.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/main.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+	<script type="text/javascript" src="/js/viewPost.js" defer=""></script>
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
     <title>View Post</title>
@@ -25,5 +26,20 @@
         <p th:text="${content}">
         <p th:text="${visibility}">
         <p th:text="${post_date}">
+		<p id="containerForVid"></p>
+		<table id="images">
+		<tbody>
+		  <tr><td th:style="'width: 250px; height: 250px; background-image: url(\'' + ${image00} + '\');'"></td></tr>
+		  <tr><td th:style="'width: 250px; height: 250px; background-image: url(\'' + ${image01} + '\');'"></td></tr>
+		  <tr><td th:style="'width: 250px; height: 250px; background-image: url(\'' + ${image02} + '\');'"></td></tr>
+		  <tr><td th:style="'width: 250px; height: 250px; background-image: url(\'' + ${image03} + '\');'"></td></tr>
+		  <tr><td th:style="'width: 250px; height: 250px; background-image: url(\'' + ${image04} + '\');'"></td></tr>
+		  <tr><td th:style="'width: 250px; height: 250px; background-image: url(\'' + ${image05} + '\');'"></td></tr>
+		  <tr><td th:style="'width: 250px; height: 250px; background-image: url(\'' + ${image06} + '\');'"></td></tr>
+		  <tr><td th:style="'width: 250px; height: 250px; background-image: url(\'' + ${image07} + '\');'"></td></tr>
+		  <tr><td th:style="'width: 250px; height: 250px; background-image: url(\'' + ${image08} + '\');'"></td></tr>
+		  <tr><td th:style="'width: 250px; height: 250px; background-image: url(\'' + ${image09} + '\');'"></td></tr>
+		</tbody>
+		</table>
     </div>
 </body>
