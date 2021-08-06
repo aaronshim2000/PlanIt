@@ -359,7 +359,7 @@ public class Main {
       {
         model.put("tag", tag);
         model.put("title", rs.getString("title"));
-        model.put("description", rs.getString("content"));
+        model.put("content", rs.getString("content"));
         model.put("visibility", rs.getString("visibility"));
 		model.put("image00", rs.getString("image00"));
 		model.put("image01", rs.getString("image01"));
