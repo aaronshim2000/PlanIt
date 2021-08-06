@@ -63,6 +63,7 @@ public class Main {
   @RequestMapping("/")
   String index(Map<String, Object> model, HttpServletRequest request) { 
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return "homepage";
   }
   
@@ -72,6 +73,7 @@ public class Main {
       return "redirect:/login";
     }
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return "redirect:/post/text";
   }
   
@@ -85,6 +87,7 @@ public class Main {
     Post post=new Post();
     model.put("post",post);
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return "post-text";
   }
 
@@ -99,6 +102,7 @@ public class Main {
       post.setCreator(username);
       statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,image00,image01,image02,image03,image04,image05,image06,image07,image08,image09,imagesNum,video00,mediaType) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() + "','" + post.getImage06() + "','" + post.getImage07() + "','" + post.getImage08() + "','" + post.getImage09() + "','" + post.getImagesNum() + "','" + post.getVideo00() + "','" + post.getMediaType() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -113,6 +117,7 @@ public class Main {
     Post post=new Post();
     model.put("post",post);
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return "post-review";
   }
 
@@ -127,6 +132,7 @@ public class Main {
       post.setCreator(username);
       statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04,imagesNum) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImagesNum() + "')");
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -157,6 +163,7 @@ public class Main {
       //send notification to friends
       //statement.executeupdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$New Post from" + post.getCreator() + "$$, $$FRIENDS$$, $$" + request.getSession().getAttribute("USER") + "$$, $$View Post$$, now())");
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "redirect:/scrollingFeed";
     }
     catch (Exception e)
@@ -279,9 +286,13 @@ public class Main {
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery("SELECT * FROM accounts where role='default'");
       ArrayList<String> usernames = new ArrayList<String>();
-      while (rs.next())
+      ArrayList<String> user_ids = new ArrayList<String>(); 
+      while (rs.next()){
         usernames.add(String.valueOf(rs.getString("username")));
+        user_ids.add(String.valueOf(rs.getInt("id")));
+      }
       model.put("usernames", usernames);
+      model.put("user_ids", user_ids);
     }
     catch (Exception e)
     {
@@ -290,6 +301,7 @@ public class Main {
     }
 
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return "scrollingFeed";
   }
 
@@ -446,6 +458,7 @@ public class Main {
     adminMessage.setPostId(tag);
     model.put("adminMessage", adminMessage);
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     model.put("email", request.getSession().getAttribute("EMAIL"));
     return "report";
   }
@@ -482,17 +495,21 @@ public class Main {
   @RequestMapping("/costCalculator")
   String costCalculator(Map<String, Object> model, HttpServletRequest request) {
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return "costCalculator";
   }
 
   @RequestMapping("/flightCalculator")
   String flightCalculator(Map<String, Object> model, HttpServletRequest request) {
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return "flightCalculator";
   }
   
   @RequestMapping("/map")
-  String postMap() {
+  String postMap(Map<String, Object> model, HttpServletRequest request) {
+    model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return "map";
   }
 
@@ -501,6 +518,7 @@ public class Main {
     Account account = new Account();
     model.put("account", account);
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return "register";
   }
   
@@ -607,6 +625,7 @@ public class Main {
       request.getSession().setAttribute("ROLE", role);
 
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       request.getSession().setAttribute("login", "OK");
       if(request.getSession().getAttribute("target")!=null){
         model.put("message","You can access the page now.");
@@ -614,6 +633,7 @@ public class Main {
       }
 
       model.put("message", "Welcome, " + request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "homepage"; //go to main page
     }
     catch(Exception e){
@@ -627,6 +647,7 @@ public class Main {
     request.getSession().invalidate();
     model.put("message", "Successfully logged out");
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return("homepage");
   }
 
@@ -635,6 +656,7 @@ public class Main {
     Account account = new Account();
     model.put("account", account);
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     return "forgot";
   }
 
@@ -643,6 +665,7 @@ public class Main {
     AdminMessage adminMessage = new AdminMessage();
     model.put("adminMessage", adminMessage);
     model.put("user", request.getSession().getAttribute("USER"));
+    model.put("role", request.getSession().getAttribute("ROLE"));
     model.put("email", request.getSession().getAttribute("EMAIL"));
     return "contact";
   }
@@ -654,20 +677,18 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) 
     {
       Statement statement = connection.createStatement();
-
       statement.executeUpdate(
         "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
             + "message varchar(1000), category varchar(20), postId varchar(10));");
 
       adminMessage.setCategory("contact");
-
+      
       statement.executeUpdate(
-          "INSERT INTO adminMessages(username, email, message, category, postId) VALUES ($$" 
+          "INSERT INTO adminMessages(username, email, message, category) VALUES ($$" 
           + adminMessage.getUsername() + "$$, $$" + adminMessage.getEmail() + "$$, $$" + adminMessage.getMessage() + "$$, $$" 
           + adminMessage.getCategory() + "$$);");
 
       model.put("message", "Contact sent.");
-
       return "redirect:/contact";
     } 
     catch (Exception e) 
@@ -711,6 +732,7 @@ public class Main {
       model.put("categories", categories);
       model.put("postIds", postIds);
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
 
       return "adminMessageTable";
     } 
@@ -730,6 +752,8 @@ public class Main {
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery("SELECT * FROM adminMessages where id=" + tag);
 
+      Notification notification = new Notification();
+
       while (rs.next()) 
       {
         model.put("id", String.valueOf(rs.getInt("id")));
@@ -738,14 +762,40 @@ public class Main {
         model.put("message", rs.getString("message"));
         model.put("category", rs.getString("category"));
         model.put("postId", rs.getString("postId"));
-      }
-      model.put("user", request.getSession().getAttribute("USER"));
 
+        notification.setRecipient(rs.getString("username"));
+      }
+      
+      model.put("notification", notification);
+      model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "adminMessage";
     } 
     catch (Exception e) 
     {
       model.put("message", e.getMessage());
+      return "error";
+    }
+  }
+  //Sending Replies to admin messages
+  @PostMapping(
+    path = "/adminMessage",
+    consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
+  )
+  public String handleAdminReply(Map<String, Object> model, Notification n, String username, String title, HttpServletRequest request) throws Exception{
+    try(Connection connection = dataSource.getConnection()){
+      Statement stmt = connection.createStatement();
+      //Create table (if it doesn't exist)
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(20), recipient varchar(20), sender varchar(20), body varchar(1000), time timestamp);");
+
+      //add new notification to table
+      String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + n.getTitle() + "$$, $$" + n.getRecipient() + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$" + n.getBody() + "$$, now())";
+      stmt.executeUpdate(sql);
+      model.put("message", "Notification successfully sent");
+      return "homepage";
+    }
+    catch(Exception e){
+      model.put("Error", e.getMessage());
       return "error";
     }
   }
@@ -774,6 +824,7 @@ public class Main {
           String message = "Succesfully deleted all messages"; 
           model.put("message", message);
           model.put("user", request.getSession().getAttribute("USER"));
+          model.put("role", request.getSession().getAttribute("ROLE"));
           return "redirect:/viewAdminMessages";
     } 
     catch (Exception e) 
@@ -806,6 +857,7 @@ public class Main {
            String message = "Succesfully deleted all posts"; 
            model.put("message", message);
            model.put("user", request.getSession().getAttribute("USER"));
+           model.put("role", request.getSession().getAttribute("ROLE"));
            return "redirect:/";
      } 
      catch (Exception e) 
@@ -852,6 +904,7 @@ public class Main {
       model.put("fnames", fnames);
       model.put("lnames", lnames);
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "viewAccountsTable";
     }
     catch(Exception e){
@@ -934,6 +987,7 @@ public class Main {
       model.put("image09s", image09s);
       model.put("video00s", video00s);
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "viewPostsTable";
     }
     catch(Exception e){
@@ -963,6 +1017,7 @@ public class Main {
       }
 
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "viewAccount";
     } 
     catch (Exception e) 
@@ -992,6 +1047,7 @@ public class Main {
         if((creatorId != request.getSession().getAttribute("ID")) && request.getSession().getAttribute("ROLE") == "admin"){
           model.put("message", "You do not have access to that post");
           model.put("user", request.getSession().getAttribute("USER"));
+          model.put("role", request.getSession().getAttribute("ROLE"));
           return "homepage";
         }
       }
@@ -1020,6 +1076,7 @@ public class Main {
       
 
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "viewPost";
     } 
     catch (Exception e) 
@@ -1068,6 +1125,7 @@ public class Main {
       model.put("notification", notification);
 
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
 
 
       return "notifications";
@@ -1127,6 +1185,7 @@ public class Main {
       }
       model.put("records", output);
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "friend";
 
     }
@@ -1193,7 +1252,9 @@ public class Main {
   String getProfile(@RequestParam(value = "username", required = false) String tag, Map<String, Object> model, HttpServletRequest request){
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
-      
+      if(request.getSession().getAttribute("USER") == null){
+        return "redirect:/login";
+      }
       //user who's profile is being viewed
       String user = tag;
       //default to current user profile
@@ -1246,6 +1307,7 @@ public class Main {
       model.put("creators",creators);
       model.put("categories", categories);
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "profile";
     }
     catch(Exception e){
@@ -1287,6 +1349,7 @@ public class Main {
           model.put("lname", request.getSession().getAttribute("LNAME"));
 
           model.put("user", request.getSession().getAttribute("USER"));
+          model.put("role", request.getSession().getAttribute("ROLE"));
           return "profile"; //if one exists
         }
         stmt.executeUpdate("UPDATE accounts SET username='"+u.getUsername()+"' WHERE id='"+request.getSession().getAttribute("ID")+"'");
@@ -1320,6 +1383,7 @@ public class Main {
       // Account account = new Account();
       // model.put("account", account);
       model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       return "homepage";
     }
     catch(Exception e){
