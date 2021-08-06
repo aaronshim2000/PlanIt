@@ -18,7 +18,7 @@
 
     <h1>Profile</h1>
     <form action="#" method="post" id="update" th:action="@{/profile}" th:object="${account}" th:if="${edit}">
-        <table style="margin-left: auto;  margin-right: auto;">
+        <table style="margin-left:auto; margin-right:auto;">
             <tr>
                 <td>Username: </td>
                 <td>
@@ -50,10 +50,10 @@
                 </td>
             </tr>
         </table>
-        <input type="submit" value="Update Info">
+        <input style="margin:20px;" type="submit" value="Update Info">
     </form>
 
-    <table id="display" th:if="!${edit}">
+    <table class="post" id="display" th:if="!${edit}">
         <tr>
             <td>Username: </td>
             <td th:text="${username}"></td>
