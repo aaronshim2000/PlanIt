@@ -13,6 +13,7 @@ html{
   position: sticky;
   top: 20px;
 }
+
 li{
  float: left;
 }
@@ -22,9 +23,27 @@ li{
  width: 180px;
  display: block;
  text-decoration: none;
- color:black;
+ color:white;
  font-weight: bold;
 }
+
+a:link {
+color:white;
+}
+
+a:visited {
+color:white;
+}
+
+/*
+a:hover {
+color:#007399;
+text-decoration:underline;
+}
+
+a:active {
+color:#004d66;
+}*/
 
 #main {
   width: 80%;

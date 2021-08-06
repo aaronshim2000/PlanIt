@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/stylesheets/basicStyle.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/adminMessage.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -15,8 +16,8 @@
     <div th:replace="fragments/nav :: navbar"></div>
     <div class="border">
         <div class="container">
-            <h1>Friends List</h1>
-            <table id="myTable">
+            <h1 style="color:black;">Friends List</h1>
+            <table style="color:black;" id="myTable">
                 <tr>
                     <th>Username</th>
                     <th>Date</th>

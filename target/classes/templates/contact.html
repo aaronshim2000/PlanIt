@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" th:href="@{/stylesheets/basicStyle.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/stylesheets/contact.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
@@ -17,11 +18,11 @@
 
     <div class="container">
         <p th:text="${message}"></p>
-        <div class="title">Contact Us</div>
+        <div style="color:black;" class="title">Contact Us</div>
         <form id="contactForm" action="#" method="post" th:action="@{/contact}" th:object="${adminMessage}">
-            <div class="contact-details">
+            <div style="color:black;" class="contact-details">
                 <div class="input-box">
-                    <span class="details">Username</span>
+                    <span class="details">Name</span>
                     <input type="text" class="input" th:field=*{username} th:value=${username} placeholder="Username" required>
                 </div>
                 <div class="input-box">

@@ -5,7 +5,8 @@ body{
 }
 
 .centerdiv{
-	background-color: white;
+	/*background-color: white;*/
+	background:#1f1f2e;
 	width: 50%;
 	margin: auto;
 	padding: 1%;

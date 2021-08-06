@@ -1,0 +1,14 @@
+body{
+background:#1f1f2e;
+text-align: center;
+color:white;
+font-family:Verdana,sans-serif;
+}
+
+.container{
+  /*opacity: 0.8;*/
+  width: 70%;
+  margin: auto;
+  padding: 1%;
+  padding-top: 0.5%;
+}

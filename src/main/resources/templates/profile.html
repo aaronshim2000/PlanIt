@@ -1,9 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/stylesheets/basicStyle.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/main.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -11,12 +12,13 @@
     <title>Profile</title>
 </head>
 <body>
+<div class="container">
     <!-- navbar header -->
     <div th:replace="fragments/nav :: navbar"></div>
 
     <h1>Profile</h1>
     <form action="#" method="post" id="update" th:action="@{/profile}" th:object="${account}" th:if="${edit}">
-        <table>
+        <table style="margin-left: auto;  margin-right: auto;">
             <tr>
                 <td>Username: </td>
                 <td>
@@ -91,4 +93,5 @@
             <a th:text="Like this Post" th:href="@{/likePost(id=${ids[iter.index]})}"></a> -->
         </div>
     </div>
+</div>
 </body>
