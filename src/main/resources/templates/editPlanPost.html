@@ -26,7 +26,7 @@
 		<h1 class="titlelabel">Title</h1>
 		<form action="#" method="post" th:action="@{/editPlanPost}" th:object="${post}">
 			<input name="id" type="hidden" th:value="${tag}">
-			<input type = "text" maxlength="49" th:field=*{title} th:value="${title}">
+			<input type = "text" th:value="${title}" th:name="title" th:id="title" maxlength="49">
 			<p></p>
 			<textarea placeholder="Add a description" th:field=*{description} th:value="${description}" maxlength="1000" class="contents" name="textcontent" rows = 6 cols=80 style="resize: vertical;" th:inline="text">[[${description}]]</textarea>
 			<p>
