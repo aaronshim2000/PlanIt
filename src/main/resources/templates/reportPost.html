@@ -19,7 +19,7 @@
     <div class="container">
         <p th:text="${message}"></p>
         <div style="color:black;" class="title">Report a post</div>
-        <form id="reportForm" action="#" method="post" th:action="@{/report}" th:object="${adminMessage}">
+        <form id="reportForm" action="#" method="post" th:action="@{/reportPost}" th:object="${adminMessage}">
             <input name="id" type="hidden" th:value="${tag}">
             <div class="contact-details">
                 <div class="input-box">
