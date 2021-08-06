@@ -29,6 +29,7 @@ function setReviewScore(scoreG){
 }
 
 function checkCorrectStar(){
+	console.log("called star");
 	var ReviewTranslation;
 	if ( starReview.value == "0.5" ){ ReviewTranslation = "s0" }
 	if ( starReview.value == "1" ){ ReviewTranslation = "s1" }
@@ -44,6 +45,7 @@ function checkCorrectStar(){
 }
 
 function loadImages(){
+	console.log("called load");
 	for (let i = 0; i < imageCounter; i++){
 		var curRes = document.getElementsByClassName("imageRes0" + i);
 		curRes = curRes[0];
@@ -66,8 +68,6 @@ function removeImageNo( index ){
 	document.getElementById("imageRes0" + imageCounter).value = "empty";
 }
 
-function reviewFixFunc(){
-	console.log("called fix function");
-	checkCorrectStar();
-	loadImages();
-}
+console.log("called fix function");
+checkCorrectStar();
+loadImages();
