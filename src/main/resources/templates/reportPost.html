@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" th:href="@{/stylesheets/basicStyle.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/contact.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <title>Report a Post</title>
+</head>
+
+<body>
+    <!-- navbar header -->
+    <div th:replace="fragments/nav :: navbar"></div>
+
+    <div class="container">
+        <p th:text="${message}"></p>
+        <div style="color:black;" class="title">Report a post</div>
+        <form id="reportForm" action="#" method="post" th:action="@{/report}" th:object="${adminMessage}">
+            <input name="id" type="hidden" th:value="${tag}">
+            <div class="contact-details">
+                <div class="input-box">
+                    <span class="details">Username</span>
+                    <input type="text" class="input" th:field=*{username} th:value=${username} placeholder="Username" required>
+                </div>
+                <div class="input-box">
+                    <span class="details">Email</span>
+                    <input type="text" class="input" th:field=*{email} th:value=${email} placeholder="Email" required>
+                </div>
+                <div class="input-box-large">
+                    <span class="details">Reason for reporting</span>
+                    <input type="text" class="input" th:field=*{message} placeholder="Reason" required>
+                </div>
+            </div>
+            <div class="button">
+                <input type="submit" value="Submit"></input>
+            </div>
+        </form>
+    </div>
+</body> 
+
+</html>
