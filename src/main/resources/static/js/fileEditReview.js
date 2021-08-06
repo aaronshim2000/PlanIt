@@ -50,7 +50,7 @@ function loadImages(){
 		var curRes = document.getElementsByClassName("imageRes0" + i);
 		curRes = curRes[0];
 		document.getElementById("viewImg0" + i).style = 'width: 250px; height: 250px; background-image: url("' + curRes.value + '"';
-		document.getElementById("remButton0" + imageCounter).innerHTML = '<button type="button" onclick="removeImageNo(' + i + ')" class="removeButton">X</button>';
+		document.getElementById("remButton0" + i).innerHTML = '<button type="button" onclick="removeImageNo(' + i + ')" class="removeButton">X</button>';
 	}
 }
 
