@@ -10,6 +10,10 @@ body{
     font-family:Verdana,sans-serif;
 }
 
+h1{
+    color: white;
+}
+
 .content-table
 {
     margin: 25px 0;

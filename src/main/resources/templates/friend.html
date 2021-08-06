@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/stylesheets/basicStyle.css}">
-    <link rel="stylesheet" th:href="@{/stylesheets/adminMessage.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/table.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Account View</title>
@@ -14,24 +14,23 @@
 <body>
     <!-- navbar header -->
     <div th:replace="fragments/nav :: navbar"></div>
-    <div class="border">
-        <div class="container">
-            <h1 style="color:black;">Friends List</h1>
-            <table style="color:black;" id="myTable">
-                <tr>
-                    <th>Username</th>
-                    <th>Date added</th>
-                </tr>
 
-                <tr th:each="record : ${records}">
-                    <td><a th:text="${record.friendUsername}" th:href="@{/profile(username=${record.friendUsername})}"></a></td>
-                    <td th:text="${record.timestamp}"></td>
+    <h1>Friends List</h1>
+    <table class=content-table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Date added</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="record : ${records}">
+                <td><a th:text="${record.friendUsername}" th:href="@{/profile(username=${record.friendUsername})}"></a></td>
+                <td th:text="${record.timestamp}"></td>
 
-                </tr>
-            </table>
-        </div>
-        
-    </div>
+            </tr>
+        </tbody>
+    </table>
 </body>
 
 </html>
