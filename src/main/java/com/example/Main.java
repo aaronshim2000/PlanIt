@@ -1349,17 +1349,22 @@ public class Main {
       Statement stmt = connection.createStatement();
       //Create table (if it doesn't exist)
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friends (id serial PRIMARY KEY, username1 varchar(20), username2 varchar(20), isFriend boolean, time timestamp, CONSTRAINT constraint_name UNIQUE(username1, username2));");
-      String sql = "INSERT INTO friends (username1, username2, isFriend, time) VALUES ('" + request.getSession().getAttribute("USER") + "', '" + user2 + "', TRUE , now()) ON CONFLICT ON CONSTRAINT constraint_name DO UPDATE SET isFriend = TRUE, time = now();";
-      
-      System.out.println(sql);
-      stmt.executeUpdate(sql);
-      sql = "INSERT INTO friends (username1, username2, isFriend, time) VALUES ('" + user2 + "', '" + request.getSession().getAttribute("USER") + "', TRUE , now())ON CONFLICT ON CONSTRAINT constraint_name DO UPDATE SET isFriend = TRUE, time = now();";
-      System.out.println(sql);
-      stmt.executeUpdate(sql);
-      model.put("message", "Friend successfully added");
-      model.put("user", request.getSession().getAttribute("USER"));
-      model.put("role", request.getSession().getAttribute("ROLE"));
-      return "homepage";
+      if(!user2.equals(request.getSession().getAttribute("USER"))){
+        String sql = "INSERT INTO friends (username1, username2, isFriend, time) VALUES ('" + request.getSession().getAttribute("USER") + "', '" + user2 + "', TRUE , now()) ON CONFLICT ON CONSTRAINT constraint_name DO UPDATE SET isFriend = TRUE, time = now();";
+        System.out.println(sql);
+        stmt.executeUpdate(sql);
+        sql = "INSERT INTO friends (username1, username2, isFriend, time) VALUES ('" + user2 + "', '" + request.getSession().getAttribute("USER") + "', TRUE , now())ON CONFLICT ON CONSTRAINT constraint_name DO UPDATE SET isFriend = TRUE, time = now();";
+        System.out.println(sql);
+        stmt.executeUpdate(sql);
+        model.put("message", "Friend successfully added");
+        model.put("user", request.getSession().getAttribute("USER"));
+        model.put("role", request.getSession().getAttribute("ROLE"));
+        return "redirect:/";
+      }
+      else{
+        System.out.println(request.getSession().getAttribute("USER"));
+        return "redirect:/";
+      }
     }
     catch(SQLException e){
       e.printStackTrace();
@@ -1377,17 +1382,22 @@ public class Main {
       Statement stmt = connection.createStatement();
       //Create table (if it doesn't exist)
       stmt.executeUpdate("CREATE TABLE IF NOT EXISTS friends (id serial PRIMARY KEY, username1 varchar(20), username2 varchar(20), isFriend boolean, time timestamp, CONSTRAINT constraint_name UNIQUE(username1, username2));");
-      String sql = "UPDATE friends SET isFriend=FALSE, time=now() WHERE username1='" + request.getSession().getAttribute("USER") +"' AND username2='" + user2 +"';";
-      
-      System.out.println(sql);
-      stmt.executeUpdate(sql);
-      sql = "UPDATE friends SET isFriend=FALSE, time=now() WHERE username1='" + user2 +"' AND username2='" + request.getSession().getAttribute("USER") +"';";
-      System.out.println(sql);
-      stmt.executeUpdate(sql);
-      model.put("message", "Friend successfully removed");
-      model.put("user", request.getSession().getAttribute("USER"));
-      model.put("role", request.getSession().getAttribute("ROLE"));
-      return "homepage";
+      if(!user2.equals(request.getSession().getAttribute("USER"))){
+        String sql = "UPDATE friends SET isFriend=FALSE, time=now() WHERE username1='" + request.getSession().getAttribute("USER") +"' AND username2='" + user2 +"';";
+        System.out.println(sql);
+        stmt.executeUpdate(sql);
+        sql = "UPDATE friends SET isFriend=FALSE, time=now() WHERE username1='" + user2 +"' AND username2='" + request.getSession().getAttribute("USER") +"';";
+        System.out.println(sql);
+        stmt.executeUpdate(sql);
+        model.put("message", "Friend successfully removed");
+        model.put("user", request.getSession().getAttribute("USER"));
+        model.put("role", request.getSession().getAttribute("ROLE"));
+        return "redirect:/";
+      }
+      else{
+        System.out.println(request.getSession().getAttribute("USER"));
+        return "redirect:/";
+      }
     }
     catch(SQLException e){
       e.printStackTrace();

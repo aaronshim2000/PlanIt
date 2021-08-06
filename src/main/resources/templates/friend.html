@@ -20,11 +20,11 @@
             <table style="color:black;" id="myTable">
                 <tr>
                     <th>Username</th>
-                    <th>Date</th>
+                    <th>Date added</th>
                 </tr>
 
                 <tr th:each="record : ${records}">
-                    <td th:text="${record.friendUsername}" ></td>
+                    <td><a th:text="${record.friendUsername}" th:href="@{/profile(username=${record.friendUsername})}"></a></td>
                     <td th:text="${record.timestamp}"></td>
 
                 </tr>
