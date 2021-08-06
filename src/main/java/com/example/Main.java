@@ -361,6 +361,19 @@ public class Main {
         model.put("title", rs.getString("title"));
         model.put("description", rs.getString("content"));
         model.put("visibility", rs.getString("visibility"));
+		model.put("image00", rs.getString("image00"));
+		model.put("image01", rs.getString("image01"));
+		model.put("image02", rs.getString("image02"));
+		model.put("image03", rs.getString("image03"));
+		model.put("image04", rs.getString("image04"));
+		model.put("image05", rs.getString("image05"));
+		model.put("image06", rs.getString("image06"));
+		model.put("image07", rs.getString("image07"));
+		model.put("image08", rs.getString("image08"));
+		model.put("image09", rs.getString("image09"));
+		model.put("video00", rs.getString("video00"));
+		model.put("imagesNum", rs.getString("imagesNum"));
+		model.put("mediaType", rs.getString("mediaType"));
         model.put("user", request.getSession().getAttribute("USER"));
         model.put("role", request.getSession().getAttribute("ROLE"));
       }
