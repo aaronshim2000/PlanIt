@@ -347,7 +347,6 @@ public class Main {
     if(request.getSession().getAttribute("USER") == null){
       return "redirect:/login";
     }
-
     Post post = new Post();
     model.put("post", post);
 

@@ -39,8 +39,8 @@
             <div class="post Record-Plan-post" th:each="id,iter : ${plan_ids}">
                 <a th:href="@{/editPlanPost(id=${id})}" th:if="${plan_creators[iter.index]} == ${user}">Edit Post</a>
                 <a th:href="@{/deletePost(id=${id})}" th:if="${plan_creators[iter.index]} == ${user}">Delete Post</a>
-                <a th:href="@{/reportPost(id=${id})}">Report Post</a>
-                <p class="title" th:text="${plan_titles[iter.index]}"/>
+                <a th:href="@{/reportPost(id=${id})}">Report Post</a> <br> <br>
+                <a class="title" th:href="@{/viewPost(id=${id})}" th:text="${plan_titles[iter.index]}"></a>
                 <p th:text="${plan_descriptions[iter.index]}"/>
                 <p class="Infor" th:text="'post by : '+ ${plan_creators[iter.index]}"/>
                 <p class="Infor" th:text="'post type : '+${plan_visibilities[iter.index]}+' post'"/>
@@ -53,8 +53,8 @@
             <div class="post Record-Review-post" th:each="id,iter : ${review_ids}">
                 <a th:href="@{/editReviewPost(id=${id})}" th:if="${review_creators[iter.index]} == ${user}">Edit Post</a>
                 <a th:href="@{/deletePost(id=${id})}" th:if="${review_creators[iter.index]} == ${user}">Delete Post</a>
-                <a th:href="@{/reportPost(id=${id})}">Report Post</a>
-                <p class="title" th:text="${review_titles[iter.index]}"/>
+                <a th:href="@{/reportPost(id=${id})}">Report Post</a> <br> <br>
+                <a class="title" th:href="@{/viewPost(id=${id})}" th:text="${review_titles[iter.index]}"></a>
                 <p class="rating" th:text="${review_ratings[iter.index]}+' / 5'"/>
                 <p th:text="${review_descriptions[iter.index]}"/>
                 <p class="Infor" th:text="'post by : '+ ${review_creators[iter.index]}"/>
@@ -69,8 +69,8 @@
             <div class="post Record-Text-post" th:each="id,iter : ${text_ids}">
                 <a th:href="@{/editTextPost(id=${id})}" th:if="${text_creators[iter.index]} == ${user}">Edit Post</a>
                 <a th:href="@{/deletePost(id=${id})}" th:if="${text_creators[iter.index]} == ${user}">Delete Post</a>
-                <a th:href="@{/reportPost(id=${id})}">Report Post</a>
-                <p class="title" th:text="${text_titles[iter.index]}"/>
+                <a th:href="@{/reportPost(id=${id})}">Report Post</a> <br> <br>
+                <a class="title" th:href="@{/viewPost(id=${id})}" th:text="${text_titles[iter.index]}"></a>
                 <p th:text="${text_descriptions[iter.index]}"/>
                 <p class="Infor" th:text="'post by : '+ ${text_creators[iter.index]}"/>
                 <p class="Infor" th:text="'post type : '+${text_visibilities[iter.index]}+' post'"/>
