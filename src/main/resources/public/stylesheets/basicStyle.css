@@ -12,3 +12,10 @@ font-family:Verdana,sans-serif;
   padding: 1%;
   padding-top: 0.5%;
 }
+
+.post{
+ border: 3px double #000000;
+ margin: 100px;
+ padding:20px;
+ background:#29293d;
+}
