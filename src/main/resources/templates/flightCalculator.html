@@ -7,12 +7,12 @@
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
 
     <!-- local-->
-    <link rel="stylesheet" href="../public/stylesheets/flightCalculator.css">
-    <script src="../static/js/flightCalculator.js"></script>
+    <!-- <link rel="stylesheet" href="../public/stylesheets/flightCalculator.css">
+    <script src="../static/js/flightCalculator.js"></script> -->
 
     <!-- webapp-->
-    <!-- <link rel="stylesheet" th:href="@{/stylesheets/flightCalculator.css}"> -->
-    <!-- <script type="text/javascript" src="/js/flightCalculator.js" defer=""></script> -->
+    <link rel="stylesheet" th:href="@{/stylesheets/flightCalculator.css}">
+    <script type="text/javascript" src="/js/flightCalculator.js" defer=""></script>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
@@ -31,10 +31,10 @@
             <input type="text" class="form-control" value="CAD" id="currency" required>
 
             <label>Origin Country</label>
-            <select class="form-control" id="origin"></select required>
+            <select class="form-control" id="origin"></select>
 
             <label>Destination Country</label>
-            <select class="form-control" id="destination"></select required>
+            <select class="form-control" id="destination"></select>
 
             <label>Departing Date</label>
             <input type="text" class="form-control select-date" id="outboundDate" placeholder="yyyy-mm-dd or anytime" required>
@@ -46,7 +46,7 @@
     </div>
 
     <div>
-        <form id="flightTableForm" action="#" method="post" th:action="@{/flightCalculator}" th:object="${flight}" onsubmit="return saveRow()">
+        <form id="flightTableForm" action="#" method="post">
             <table class=content-table>
                 <thead>
                     <tr>
