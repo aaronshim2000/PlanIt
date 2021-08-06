@@ -703,6 +703,13 @@ public class Main {
 
     try (Connection connection = dataSource.getConnection()) 
     {
+      //check if user is an admin
+      if(request.getSession().getAttribute("ROLE") != "admin"){
+        model.put("user", request.getSession().getAttribute("USER"));
+        model.put("role", request.getSession().getAttribute("ROLE"));
+        model.put("message", "You do not have access to that page");
+        return "homepage";
+      }
       Statement statement = connection.createStatement();
 
       statement.executeUpdate(
@@ -746,6 +753,13 @@ public class Main {
   // Selected a specific admin message, view its details
   @RequestMapping("/adminMessage")
   String adminMessage(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
+    //check if user is an admin
+    if(request.getSession().getAttribute("ROLE") != "admin"){
+      model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
+      model.put("message", "You do not have access to that page");
+      return "homepage";
+    }
 
     try (Connection connection = dataSource.getConnection()) 
     {
@@ -803,7 +817,13 @@ public class Main {
   // Prompt for deleting all messages
   @RequestMapping("/deleteAllMessages") 
   String attemptDeleteAll(Map<String, Object> model) {
-
+    //check if user is an admin
+    if(request.getSession().getAttribute("ROLE") != "admin"){
+      model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
+      model.put("message", "You do not have access to that page");
+      return "homepage";
+    }
     String message = "Do you wish to delete all messages?";
     model.put("message", message);
 
@@ -815,7 +835,13 @@ public class Main {
   // Clicked on delete all stored messages
   @PostMapping(path = "/deleteAllMessages", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
   public String deleteAllMessages(Map<String, Object> model, HttpServletRequest request) throws Exception {
-
+    //check if user is an admin
+    if(request.getSession().getAttribute("ROLE") != "admin"){
+      model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
+      model.put("message", "You do not have access to that page");
+      return "homepage";
+    }
     try (Connection connection = dataSource.getConnection()) 
     {
           Statement statement = connection.createStatement();
@@ -836,11 +862,17 @@ public class Main {
    // Prompt for deleting all messages
    @RequestMapping("/deleteAllPosts") 
    String attemptDeletePosts(Map<String, Object> model) {
- 
+    //check if user is an admin
+    if(request.getSession().getAttribute("ROLE") != "admin"){
+      model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
+      model.put("message", "You do not have access to that page");
+      return "homepage";
+    }
      String message = "Do you wish to delete all posts?";
      model.put("message", message);
  
-     // Notify users of this when notifications are done in the future
+     // Notify users of this when notifications are done in the future ***************************************************************
  
      return "deleteAllPosts";
    }
@@ -882,6 +914,14 @@ public class Main {
   @RequestMapping("/viewAccountsTable")
   String viewAccountsTable(Map<String, Object> model, HttpServletRequest request){
     try(Connection connection = dataSource.getConnection()){
+      //check if user is an admin
+      if(request.getSession().getAttribute("ROLE") != "admin"){
+        model.put("user", request.getSession().getAttribute("USER"));
+        model.put("role", request.getSession().getAttribute("ROLE"));
+        model.put("message", "You do not have access to that page");
+        return "homepage";
+      }
+
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery("SELECT * FROM accounts");
 
@@ -917,6 +957,14 @@ public class Main {
   @RequestMapping("/viewPostsTable")
   String viewPostsTable(Map<String, Object> model, HttpServletRequest request){
     try(Connection connection = dataSource.getConnection()){
+      //check if user is an admin
+      if(request.getSession().getAttribute("ROLE") != "admin"){
+        model.put("user", request.getSession().getAttribute("USER"));
+        model.put("role", request.getSession().getAttribute("ROLE"));
+        model.put("message", "You do not have access to that page");
+        return "homepage";
+      }
+      
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery("SELECT * FROM posts");
 
