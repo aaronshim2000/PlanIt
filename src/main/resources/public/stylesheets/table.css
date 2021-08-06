@@ -6,7 +6,6 @@
 
 body{
     text-align: left;
-    color:black;
     font-family:Verdana,sans-serif;
 }
 
@@ -46,17 +45,17 @@ h1{
 
 .content-table tbody tr
 {
-    border: 1px solid #dddddd;
+    border: 1px solid #1f1f2e;
 }
 
 .content-table tbody tr:nth-of-type(odd)
 {
-    background-color: #ffffff;
+    background-color: #29293d;
 }
 
 .content-table tbody tr:nth-of-type(even)
 {
-    background-color: #f3f3f3;
+    background-color: #1f1f2e;
 }
 
 .content-table tbody tr:last-of-type

@@ -978,7 +978,7 @@ public class Main {
       String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + n.getTitle() + "$$, $$" + n.getRecipient() + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$" + n.getBody() + "$$, now())";
       stmt.executeUpdate(sql);
       model.put("message", "Notification successfully sent");
-      return "homepage";
+      return "redirect:/";
     }
     catch(Exception e){
       model.put("Error", e.getMessage());
@@ -1247,9 +1247,7 @@ public class Main {
           if(found == 0){
             System.out.println("DENIED");
             model.put("message", "You do not have access to that post");
-            model.put("user", request.getSession().getAttribute("USER"));
-            model.put("role", request.getSession().getAttribute("ROLE"));
-            return "homepage";
+            return "redirect:/";
           }
         }
       }
@@ -1600,9 +1598,7 @@ public class Main {
       // model.put("edit", true);
       // Account account = new Account();
       // model.put("account", account);
-      model.put("user", request.getSession().getAttribute("USER"));
-      model.put("role", request.getSession().getAttribute("ROLE"));
-      return "homepage";
+      return "redirect:/";
     }
     catch(Exception e){
       model.put("Error", e.getMessage());
