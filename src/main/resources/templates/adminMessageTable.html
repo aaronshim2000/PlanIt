@@ -15,44 +15,44 @@
 <body>
     <!-- navbar header -->
     <div th:replace="fragments/nav :: navbar"></div>
-    
-    <h1>Administrator Messages</h1>
-    <span style="color:maroon" th:text="${message}"></span>
-    <form id="messageTableForm" action="#" method="post" th:action="@{/adminMessage}" th:object="${adminMessage}">
+    <div class="container">
+        <h1>Administrator Messages</h1>
+        <span style="color:maroon" th:text="${message}"></span>
+        <form id="messageTableForm" action="#" method="post" th:action="@{/adminMessage}" th:object="${adminMessage}">
 
-        <table class=content-table>
-            <thead>
-                <tr>
-                    <th class="column">Id</th>
-                    <th class="column">Username</th>
-                    <th class="column">Email</th>
-                    <th class="column">Category</th>
-                    <th class="column">Post Id</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="id,iter : ${ids}">
-                    <td th:text="${id}"></td>
-                    <td>
-                        <a th:text="${usernames[iter.index]}" th:href="@{/adminMessage(id=${id})}"></a>
-                    </td>
+            <table class=content-table>
+                <thead>
+                    <tr>
+                        <th class="column">Id</th>
+                        <th class="column">Username</th>
+                        <th class="column">Email</th>
+                        <th class="column">Category</th>
+                        <th class="column">Post Id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="id,iter : ${ids}">
+                        <td th:text="${id}"></td>
+                        <td>
+                            <a th:text="${usernames[iter.index]}" th:href="@{/adminMessage(id=${id})}"></a>
+                        </td>
 
-                    <td th:text="${emails[iter.index]}"></td>
-                    <td th:text="${categories[iter.index]}"></td>
-                    <td th:text="${postIds[iter.index]}"></td>
-                </tr>
-            </tbody>
-        </table>
+                        <td th:text="${emails[iter.index]}"></td>
+                        <td th:text="${categories[iter.index]}"></td>
+                        <td th:text="${postIds[iter.index]}"></td>
+                    </tr>
+                </tbody>
+            </table>
 
-    </form>
+        </form>
+        <div id="buttons">
+            <form action="#" th:action="@{/deleteAllMessages}" th:method="get">
+                <input type="submit" class="button" value="Delete all Messages">
+                </input>
+            </form>
+        </div>
+    </div>
 </body>
-
-<div id="buttons">
-    <form action="#" th:action="@{/deleteAllMessages}" th:method="get">
-        <input type="submit" class="button" value="Delete all Messages">
-        </input>
-    </form>
-</div>
 
 </html>
 

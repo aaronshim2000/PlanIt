@@ -24,7 +24,7 @@
             </div>
 
             <div class="dropdown" th:if="${user}" style="float:right;">
-                <button class="dropbtn">My Account</button>
+                <button class="dropbtn" th:text="${user}"></button>
                 <div class="dropdown-content">
                     <a href="/profile">Profile</a>
                     <a href="/notifications">Notifications</a>

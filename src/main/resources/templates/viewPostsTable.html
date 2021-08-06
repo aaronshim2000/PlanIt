@@ -16,60 +16,62 @@
     <!-- navbar header -->
     <div th:replace="fragments/nav :: navbar"></div>
     
-    <h1>Posts List</h1>
-    <form id="messageTableForm" action="#" method="post" th:action="@{/viewAccount}" th:object="${viewAccount}">
-        <table class=content-table>
-            <thead>
-                <tr>
-                    <th class="column">ID</th>
-                    <th class="column">Title</th>
-                    <th class="column">Date</th>
-                    <th class="column">Description</th>
-                    <th class="column">Category</th>
-                    <th class="column">Visibility</th>
-                    <th class="column">Rating</th>
-					<th class="column">Creator</th>
-                    <th class="column">Media Type</th>
-                    <th class="column">Num of Images</th>
-                    <th class="column">Images</th>
-                    <th class="column">Video</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="id,iter : ${ids}">
-					<td><a th:text="${id}" th:href="@{/viewPost(id=${id})}"></a></td>
-					<td th:text="${titles[iter.index]}"></td>
-					<td th:text="${post_dates[iter.index]}"></td>
-					<td th:text="${contents[iter.index]}"></td>
-					<td th:text="${categories[iter.index]}"></td>
-					<td th:text="${visibilities[iter.index]}"></td>
-					<td th:text="${ratings[iter.index]}"></td>
-					<td th:text="${creators[iter.index]}"></td>
-					<td th:text="${mediaTypes[iter.index]}"></td>
-					<td th:text="${imagesNums[iter.index]}"></td>
-                    <td>
-                        <p th:text="${image00s[iter.index]}"></p>
-                        <p th:text="${image01s[iter.index]}"></p>
-                        <p th:text="${image02s[iter.index]}"></p>
-                        <p th:text="${image03s[iter.index]}"></p>
-                        <p th:text="${image04s[iter.index]}"></p>
-                        <p th:text="${image05s[iter.index]}"></p>
-                        <p th:text="${image06s[iter.index]}"></p>
-                        <p th:text="${image07s[iter.index]}"></p>
-                        <p th:text="${image08s[iter.index]}"></p>
-                        <p th:text="${image09s[iter.index]}"></p>
-                    </td>
-                    <td th:text="${video00s[iter.index]}"></td>
-                </tr>
-            </tbody>
-        </table>
+    <div class="container">
+        <h1>Posts List</h1>
+        <form id="messageTableForm" action="#" method="post" th:action="@{/viewAccount}" th:object="${viewAccount}">
+            <table class=content-table>
+                <thead>
+                    <tr>
+                        <th class="column">ID</th>
+                        <th class="column">Title</th>
+                        <th class="column">Date</th>
+                        <th class="column">Description</th>
+                        <th class="column">Category</th>
+                        <th class="column">Visibility</th>
+                        <th class="column">Rating</th>
+                        <th class="column">Creator</th>
+                        <th class="column">Media Type</th>
+                        <th class="column">Num of Images</th>
+                        <th class="column">Images</th>
+                        <th class="column">Video</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="id,iter : ${ids}">
+                        <td><a th:text="${id}" th:href="@{/viewPost(id=${id})}"></a></td>
+                        <td th:text="${titles[iter.index]}"></td>
+                        <td th:text="${post_dates[iter.index]}"></td>
+                        <td th:text="${contents[iter.index]}"></td>
+                        <td th:text="${categories[iter.index]}"></td>
+                        <td th:text="${visibilities[iter.index]}"></td>
+                        <td th:text="${ratings[iter.index]}"></td>
+                        <td th:text="${creators[iter.index]}"></td>
+                        <td th:text="${mediaTypes[iter.index]}"></td>
+                        <td th:text="${imagesNums[iter.index]}"></td>
+                        <td>
+                            <p th:text="${image00s[iter.index]}"></p>
+                            <p th:text="${image01s[iter.index]}"></p>
+                            <p th:text="${image02s[iter.index]}"></p>
+                            <p th:text="${image03s[iter.index]}"></p>
+                            <p th:text="${image04s[iter.index]}"></p>
+                            <p th:text="${image05s[iter.index]}"></p>
+                            <p th:text="${image06s[iter.index]}"></p>
+                            <p th:text="${image07s[iter.index]}"></p>
+                            <p th:text="${image08s[iter.index]}"></p>
+                            <p th:text="${image09s[iter.index]}"></p>
+                        </td>
+                        <td th:text="${video00s[iter.index]}"></td>
+                    </tr>
+                </tbody>
+            </table>
 
-    </form>
+        </form>
 
-    <form action="#" th:action="@{/deleteAllPosts}" th:method="get">
-        <input type="submit" class="button" value="Delete all Posts">
-        </input>
-    </form>
+        <form action="#" th:action="@{/deleteAllPosts}" th:method="get">
+            <input type="submit" class="button" value="Delete all Posts">
+            </input>
+        </form>
+    </div>
 </body>
 
 </html>

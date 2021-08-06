@@ -15,22 +15,24 @@
     <!-- navbar header -->
     <div th:replace="fragments/nav :: navbar"></div>
 
-    <h1>Friends List</h1>
-    <table class=content-table>
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Date added</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="record : ${records}">
-                <td><a th:text="${record.friendUsername}" th:href="@{/profile(username=${record.friendUsername})}"></a></td>
-                <td th:text="${record.timestamp}"></td>
+    <div class="container">
+        <h1>Friends List</h1>
+        <table class=content-table>
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Date added</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="record : ${records}">
+                    <td><a th:text="${record.friendUsername}" th:href="@{/profile(username=${record.friendUsername})}"></a></td>
+                    <td th:text="${record.timestamp}"></td>
 
-            </tr>
-        </tbody>
-    </table>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </body>
 
 </html>

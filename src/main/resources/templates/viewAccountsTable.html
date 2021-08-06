@@ -16,35 +16,37 @@
     <!-- navbar header -->
     <div th:replace="fragments/nav :: navbar"></div>
     
-    <h1>Accounts List</h1>
-    <form id="messageTableForm" action="#" method="post" th:action="@{/viewAccount}" th:object="${viewAccount}">
+    <div class="container">
+        <h1>Accounts List</h1>
+        <form id="messageTableForm" action="#" method="post" th:action="@{/viewAccount}" th:object="${viewAccount}">
 
-        <table class=content-table>
-            <thead>
-                <tr>
-                    <th class="column">Id</th>
-                    <th class="column">Username</th>
-                    <th class="column">Email</th>
-                    <th class="column">First Name</th>
-                    <th class="column">Last Name</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="id,iter : ${ids}">
-                    <td th:text="${id}"></td>
-                    <td>
-                        <a th:text="${usernames[iter.index]}" th:href="@{/viewAccount(id=${id})}"></a>
-                    </td>
-                    </td>
+            <table class=content-table>
+                <thead>
+                    <tr>
+                        <th class="column">Id</th>
+                        <th class="column">Username</th>
+                        <th class="column">Email</th>
+                        <th class="column">First Name</th>
+                        <th class="column">Last Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="id,iter : ${ids}">
+                        <td th:text="${id}"></td>
+                        <td>
+                            <a th:text="${usernames[iter.index]}" th:href="@{/viewAccount(id=${id})}"></a>
+                        </td>
+                        </td>
 
-                    <td th:text="${emails[iter.index]}"></td>
-                    <td th:text="${fnames[iter.index]}"></td>
-                    <td th:text="${lnames[iter.index]}"></td>
-                </tr>
-            </tbody>
-        </table>
+                        <td th:text="${emails[iter.index]}"></td>
+                        <td th:text="${fnames[iter.index]}"></td>
+                        <td th:text="${lnames[iter.index]}"></td>
+                    </tr>
+                </tbody>
+            </table>
 
-    </form>
+        </form>
+    </div>
 </body>
 
 </html>
