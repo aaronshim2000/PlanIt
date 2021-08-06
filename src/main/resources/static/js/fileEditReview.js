@@ -1,8 +1,8 @@
-var butContainer00 = document.getElementById("remButton00");
+/*var butContainer00 = document.getElementById("remButton00");
 var butContainer01 = document.getElementById("remButton01");
 var butContainer02 = document.getElementById("remButton02");
 var butContainer03 = document.getElementById("remButton03");
-var butContainer04 = document.getElementById("remButton04");
+var butContainer04 = document.getElementById("remButton04");*/
 
 var imgRes00 = document.getElementsByClassName("imageRes00");
 var imgRes01 = document.getElementsByClassName("imageRes01");
@@ -55,7 +55,7 @@ function loadImages(){
 function removeImageNo( index ){
 	imageCounter--;
 	fileCount.value = imageCounter;
-	if (imageCounter == 0){ mediaType.value = "none"; }
+	//if (imageCounter == 0){ mediaType.value = "none"; }
 	while (index < imageCounter){
 		document.getElementById("viewImg0" + index).style = 'width: 250px; height: 250px; background-image: url(' + document.getElementById("imageRes0" + (index+1)).value + ')';
 		document.getElementById("imageRes0" + index).value = document.getElementById("imageRes0" + (index+1)).value;
@@ -67,6 +67,7 @@ function removeImageNo( index ){
 }
 
 function reviewFixFunc(){
+	console.log("called fix function");
 	checkCorrectStar();
 	loadImages();
 }
