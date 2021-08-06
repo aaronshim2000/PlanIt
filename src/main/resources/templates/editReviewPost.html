@@ -29,7 +29,8 @@
 			<label for="p3">Plan</label</p>
 		<h1 class="titlelabel">Title</h1>
 		<form action="#" method="post" th:action="@{/post/review}" th:object="${post}">
-			<input type = "text" th:field=*{title} maxlength="49">
+			<input name="id" type="hidden" th:value="${tag}">
+			<input type = "text" th:field=*{title} th:value="${title}" maxlength="49">
 			<!-- add location select -->
 			<p><div class="rating">
 			<input type="radio" id="s9" name="starrate" value="5" th:field=*{rating}/>
@@ -54,7 +55,7 @@
 			<label for="s0" class="half slabel"></label>
 		</div></p>
 			<div class="locations"><br>*LOCATION SELECT HERE*<br>&nbsp;</div>
-			<textarea th:field=*{description} maxlength="2000" placeholder="Write your review" class="contents" name="textcontent" rows = 15 cols=80 style="resize: vertical;"></textarea><p></p>
+			<textarea th:field=*{description} th:value="${description}" maxlength="2000" placeholder="Write your review" class="contents" name="textcontent" rows = 15 cols=80 style="resize: vertical;"></textarea><p></p>
 			<button id="upload_widgetImage" type="button" class="cloudinary-button">Upload files</button>
 			<table>
 			<tbody>

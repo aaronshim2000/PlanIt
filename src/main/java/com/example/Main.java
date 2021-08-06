@@ -27,6 +27,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import jdk.jfr.Description;
+
 import org.springframework.http.MediaType;
 
 import javax.net.ssl.HandshakeCompletedEvent;
@@ -337,7 +340,15 @@ public class Main {
     }
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
-
+      
+      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE id = " + tag + ";");
+      rs.next();
+      model.put("tag", tag);
+      model.put("title", rs.getString("title"));
+      model.put("description", rs.getString("description"));
+      model.put("visibility", rs.getString("visibility"));
+      model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
       
       return "editTextPost";
     }
@@ -351,12 +362,21 @@ public class Main {
     path = "/editTextPost",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleEditTextPost(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
+  public String handleEditTextPost(Map<String, Object> model, Post p, @RequestParam("id") int id, HttpServletRequest request) throws Exception{
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
 
-      ResultSet rs;
+      String postId = Integer.toString(id);
 
+      if(!p.getTitle().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET title='" + p.getTitle() + "' WHERE id='" + postId + "'");
+      }
+      if(!p.getDescription().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getDescription() + "' WHERE id='" + postId + "'");
+      }
+      if(!p.getVisibility().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET visibility='" + p.getVisibility() + "' WHERE id='" + postId + "'");
+      }
       
       return "redirect:/scrollingFeed";
     }
@@ -375,6 +395,16 @@ public class Main {
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
 
+      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE id = " + tag + ";");
+      rs.next();
+      model.put("tag", tag);
+      model.put("title", rs.getString("title"));
+      model.put("description", rs.getString("description"));
+      model.put("rating", rs.getString("rating"));
+      model.put("visibility", rs.getString("visibility"));
+      model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
+      
       return "editReviewPost";
     }
     catch(Exception e){
@@ -387,12 +417,24 @@ public class Main {
     path = "/editReviewPost",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleEditReviewPost(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
+  public String handleEditReviewPost(Map<String, Object> model, Post p, @RequestParam("id") int id, HttpServletRequest request) throws Exception{
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
 
-      ResultSet rs;
+      String postId = Integer.toString(id);
 
+      if(!p.getTitle().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET title='" + p.getTitle() + "' WHERE id='" + postId + "'");
+      }
+      if(!p.getDescription().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getDescription() + "' WHERE id='" + postId + "'");
+      }
+      if(!p.getRating().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET rating='" + p.getRating() + "' WHERE id='" + postId + "'");
+      }
+      if(!p.getVisibility().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET visibility='" + p.getVisibility() + "' WHERE id='" + postId + "'");
+      }
       
       return "redirect:/scrollingFeed";
     }
@@ -411,6 +453,24 @@ public class Main {
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
 
+      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE id = " + tag + ";");
+      ArrayList<String> titles = new ArrayList<String>();
+      ArrayList<String> descriptions = new ArrayList<String>();
+      ArrayList<String> visibilities=new ArrayList<String>();
+
+      while (rs.next())
+      {
+        titles.add(rs.getString("title"));
+        descriptions.add(rs.getString("content"));
+        visibilities.add(rs.getString("visibility"));
+      }
+      model.put("tag", tag);
+      model.put("title", rs.getString("title"));
+      model.put("description", rs.getString("description"));
+      model.put("visibility", rs.getString("visibility"));
+      model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
+
       return "editPlanPost";
     }
     catch(Exception e){
@@ -423,12 +483,21 @@ public class Main {
     path = "/editPlanPost",
     consumes = {MediaType.APPLICATION_FORM_URLENCODED_VALUE}
   )
-  public String handleEditPlanPost(Map<String, Object> model, Account u, HttpServletRequest request) throws Exception{
+  public String handleEditPlanPost(Map<String, Object> model, Post p, @RequestParam("id") int id, HttpServletRequest request) throws Exception{
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
 
-      ResultSet rs;
+      String postId = Integer.toString(id);
 
+      if(!p.getTitle().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET title='" + p.getTitle() + "' WHERE id='" + postId + "'");
+      }
+      if(!p.getDescription().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getDescription() + "' WHERE id='" + postId + "'");
+      }
+      if(!p.getVisibility().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET visibility='" + p.getVisibility() + "' WHERE id='" + postId + "'");
+      }
       
       return "redirect:/scrollingFeed";
     }

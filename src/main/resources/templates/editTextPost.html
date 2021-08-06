@@ -30,9 +30,10 @@
 			<label for="p3">Plan</label</p>
 		<h1 class="titlelabel">Title</h1>
 		<form action="#" method="post" th:action="@{/post/text}" th:object="${post}">
-			<input type = "text" th:field=*{title} maxlength="49">
+			<input name="id" type="hidden" th:value="${tag}">
+			<input type = "text" th:field=*{title} th:value="${title}" maxlength="49">
 			<p></p>
-			<textarea th:field=*{description} maxlength="2000" placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea><p></p>
+			<textarea th:field=*{description} th:value="${description}" maxlength="2000" placeholder="Write your post" class="contents" name="textcontent" rows = 20 cols=80 style="resize: vertical;"></textarea><p></p>
 			<label><input type="radio" id="selectImgs" name="filetype" checked>Photos</label>
 			<label><input type="radio" id="selectVid" name="filetype">Video</label>
 			<p><button id="upload_widgetImage" type="button" class="cloudinary-button">Upload Images</button></p>
