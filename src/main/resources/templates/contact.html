@@ -21,7 +21,7 @@
         <form id="contactForm" action="#" method="post" th:action="@{/contact}" th:object="${adminMessage}">
             <div class="contact-details">
                 <div class="input-box">
-                    <span class="details">Username</span>
+                    <span class="details">Name</span>
                     <input type="text" class="input" th:field=*{username} th:value=${username} placeholder="Username" required>
                 </div>
                 <div class="input-box">

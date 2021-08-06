@@ -28,10 +28,10 @@
 
     <h1>Notifications</h1>
     <ul th:each="title,iter : ${titles}" style="list-style-type:none;">
-        <li th:text=${title}></li>
-        <li th:text=${senders[iter.index]}></li>
-        <li th:text=${bodies[iter.index]}></li>
-        <li th:text=${times[iter.index]}></li>
+        <li th:text="${title}"></li>
+        <li th:text="'By: ' + ${senders[iter.index]}"></li>
+        <li th:utext=${bodies[iter.index]}></li>
+        <li th:text="'Sent: ' + ${times[iter.index]}"></li>
     </ul>
 </body>
 </html>

@@ -17,6 +17,7 @@
 <div th:replace="fragments/nav :: navbar"></div>
 
 <div class="container">
+    
     <div class="sidebar">
         <ul class="tabs">
             <li class="tab"><a href ="#plan_post">Plan Posts</a></li>
@@ -27,6 +28,9 @@
             </div>
             <li class="tab" id="userTab"><a href ="#user_list">Users</a></li>
         </ul>
+        <form method="POST" th:action="@{/post}">
+            <button type="submit" name="submit" value="value" class="link-button">Create a Post</button>
+        </form>
     </div>
     <div id="main">
         <div id="plan_post">

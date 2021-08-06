@@ -101,6 +101,30 @@ public class Main {
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
       statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,image00,image01,image02,image03,image04,image05,image06,image07,image08,image09,imagesNum,video00,mediaType) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImage05() + "','" + post.getImage06() + "','" + post.getImage07() + "','" + post.getImage08() + "','" + post.getImage09() + "','" + post.getImagesNum() + "','" + post.getVideo00() + "','" + post.getMediaType() + "')");
+      //send to friends
+      //create notifications
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(100), recipient varchar(50), sender varchar(50), body varchar(1000), time timestamp);");
+      //get id of latest post by user
+      ResultSet rs = statement.executeQuery("SELECT * FROM posts WHERE creator=$$"+post.getCreator()+"$$ ORDER BY id DESC");
+      rs.next();
+      String postID = rs.getString("id");
+      //look for all friends of user
+      rs = statement.executeQuery("SELECT * FROM friends WHERE username1='"+ post.getCreator() +"' AND isFriend=TRUE");
+      ArrayList<String> friends = new ArrayList<String>();
+      //for each friend, create notification
+      while(rs.next()){
+        System.out.println("A");
+        friends.add(rs.getString("username2"));
+
+        //create notification
+        //statement.executeUpdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + post.getCreator() + " has created a post!$$, $$" + rs.getString("username2") + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$<a th:href='@{/viewPost(id=${"+postID+"})}'>$$, now())");
+        System.out.println("B");
+      }
+      System.out.println("C");
+      for(int i=0;i<friends.size();i++){
+        statement.executeUpdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + post.getCreator() + " has created a post!$$, $$" + friends.get(i) + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$<a href='/viewPost?id="+postID+"'>See Here</a>$$, now())");
+      }
+
       model.put("user", request.getSession().getAttribute("USER"));
       model.put("role", request.getSession().getAttribute("ROLE"));
       return "redirect:/scrollingFeed";
@@ -703,13 +727,6 @@ public class Main {
 
     try (Connection connection = dataSource.getConnection()) 
     {
-      //check if user is an admin
-      if(request.getSession().getAttribute("ROLE") != "admin"){
-        model.put("user", request.getSession().getAttribute("USER"));
-        model.put("role", request.getSession().getAttribute("ROLE"));
-        model.put("message", "You do not have access to that page");
-        return "homepage";
-      }
       Statement statement = connection.createStatement();
 
       statement.executeUpdate(
@@ -753,13 +770,6 @@ public class Main {
   // Selected a specific admin message, view its details
   @RequestMapping("/adminMessage")
   String adminMessage(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
-    //check if user is an admin
-    if(request.getSession().getAttribute("ROLE") != "admin"){
-      model.put("user", request.getSession().getAttribute("USER"));
-      model.put("role", request.getSession().getAttribute("ROLE"));
-      model.put("message", "You do not have access to that page");
-      return "homepage";
-    }
 
     try (Connection connection = dataSource.getConnection()) 
     {
@@ -800,7 +810,7 @@ public class Main {
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
       //Create table (if it doesn't exist)
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(20), recipient varchar(20), sender varchar(20), body varchar(1000), time timestamp);");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(100), recipient varchar(50), sender varchar(50), body varchar(1000), time timestamp);");
 
       //add new notification to table
       String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + n.getTitle() + "$$, $$" + n.getRecipient() + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$" + n.getBody() + "$$, now())";
@@ -816,14 +826,7 @@ public class Main {
 
   // Prompt for deleting all messages
   @RequestMapping("/deleteAllMessages") 
-  String attemptDeleteAll(Map<String, Object> model) {
-    //check if user is an admin
-    if(request.getSession().getAttribute("ROLE") != "admin"){
-      model.put("user", request.getSession().getAttribute("USER"));
-      model.put("role", request.getSession().getAttribute("ROLE"));
-      model.put("message", "You do not have access to that page");
-      return "homepage";
-    }
+  String attemptDeleteAll(Map<String, Object> model, HttpServletRequest request) {
     String message = "Do you wish to delete all messages?";
     model.put("message", message);
 
@@ -835,13 +838,6 @@ public class Main {
   // Clicked on delete all stored messages
   @PostMapping(path = "/deleteAllMessages", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE }, params = "action=delete")
   public String deleteAllMessages(Map<String, Object> model, HttpServletRequest request) throws Exception {
-    //check if user is an admin
-    if(request.getSession().getAttribute("ROLE") != "admin"){
-      model.put("user", request.getSession().getAttribute("USER"));
-      model.put("role", request.getSession().getAttribute("ROLE"));
-      model.put("message", "You do not have access to that page");
-      return "homepage";
-    }
     try (Connection connection = dataSource.getConnection()) 
     {
           Statement statement = connection.createStatement();
@@ -861,14 +857,7 @@ public class Main {
 
    // Prompt for deleting all messages
    @RequestMapping("/deleteAllPosts") 
-   String attemptDeletePosts(Map<String, Object> model) {
-    //check if user is an admin
-    if(request.getSession().getAttribute("ROLE") != "admin"){
-      model.put("user", request.getSession().getAttribute("USER"));
-      model.put("role", request.getSession().getAttribute("ROLE"));
-      model.put("message", "You do not have access to that page");
-      return "homepage";
-    }
+   String attemptDeletePosts(Map<String, Object> model, HttpServletRequest request) {
      String message = "Do you wish to delete all posts?";
      model.put("message", message);
  
@@ -914,13 +903,6 @@ public class Main {
   @RequestMapping("/viewAccountsTable")
   String viewAccountsTable(Map<String, Object> model, HttpServletRequest request){
     try(Connection connection = dataSource.getConnection()){
-      //check if user is an admin
-      if(request.getSession().getAttribute("ROLE") != "admin"){
-        model.put("user", request.getSession().getAttribute("USER"));
-        model.put("role", request.getSession().getAttribute("ROLE"));
-        model.put("message", "You do not have access to that page");
-        return "homepage";
-      }
 
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery("SELECT * FROM accounts");
@@ -957,14 +939,7 @@ public class Main {
   @RequestMapping("/viewPostsTable")
   String viewPostsTable(Map<String, Object> model, HttpServletRequest request){
     try(Connection connection = dataSource.getConnection()){
-      //check if user is an admin
-      if(request.getSession().getAttribute("ROLE") != "admin"){
-        model.put("user", request.getSession().getAttribute("USER"));
-        model.put("role", request.getSession().getAttribute("ROLE"));
-        model.put("message", "You do not have access to that page");
-        return "homepage";
-      }
-      
+
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery("SELECT * FROM posts");
 
@@ -1084,22 +1059,41 @@ public class Main {
 
       ResultSet rs = statement.executeQuery("SELECT * FROM posts WHERE id=" + tag);
       rs.next();
+      String creator = rs.getString("creator");
       //check if user should have access when private
-      if(rs.getString("visibility") == "PRIVATE"){
+      System.out.println(rs.getString("visibility"));
+      if(rs.getString("visibility").equals("PRIVATE")){
+        System.out.println("Private post");
         //get id of post creator
         ResultSet rsAccount = statement.executeQuery("SELECT * FROM accounts WHERE username=$$"+ rs.getString("creator") +"$$");
         rsAccount.next();
         String creatorId = String.valueOf(rsAccount.getInt("id"));
-
-        //if id of user is the same as its creator  AND  role is admin OR  *******************************************************************************user is a friend, Deny access, go to homepage
-        if((creatorId != request.getSession().getAttribute("ID")) && request.getSession().getAttribute("ROLE") == "admin"){
-          model.put("message", "You do not have access to that post");
-          model.put("user", request.getSession().getAttribute("USER"));
-          model.put("role", request.getSession().getAttribute("ROLE"));
-          return "homepage";
+        
+        //if id of user is not the same as its creator  AND  role is not admin AND  user is not a friend, Deny access, go to homepage
+        if(!(creatorId.equals(request.getSession().getAttribute("ID"))) && !(request.getSession().getAttribute("ROLE").equals("admin"))){
+          System.out.println("NOT CREATOR OR ADMIN");
+          //check if the creator is a friend of the user
+          ResultSet rsFriend = statement.executeQuery("SELECT * FROM friends WHERE username1='"+ creator +"' AND isFriend=TRUE");
+          int found = 0;
+          while(rsFriend.next()){
+            if(rsFriend.getString("username2").equals(request.getSession().getAttribute("USER"))){
+              found = 1;
+              break;
+            }
+          }
+          //if not a friend
+          if(found == 0){
+            System.out.println("DENIED");
+            model.put("message", "You do not have access to that post");
+            model.put("user", request.getSession().getAttribute("USER"));
+            model.put("role", request.getSession().getAttribute("ROLE"));
+            return "homepage";
+          }
         }
       }
-
+      System.out.println("GRANTED");
+      rs = statement.executeQuery("SELECT * FROM posts WHERE id=" + tag);
+      rs.next();
       model.put("id", String.valueOf(rs.getInt("id")));
       model.put("title", rs.getString("title"));
       model.put("post_date", rs.getString("post_date"));
@@ -1142,7 +1136,7 @@ public class Main {
     }
     try(Connection connection = dataSource.getConnection()){
       Statement statement = connection.createStatement();
-      statement.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(20), recipient varchar(20), sender varchar(20), body varchar(1000), time timestamp);");
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(100), recipient varchar(50), sender varchar(50), body varchar(1000), time timestamp);");
       ResultSet rs = statement.executeQuery("SELECT * FROM notifications WHERE recipient='"+request.getSession().getAttribute("USER")+"'");
 
       //ArrayList<String> ids = new ArrayList<String>();
@@ -1193,7 +1187,7 @@ public class Main {
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
       //Create table (if it doesn't exist)
-      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(20), recipient varchar(20), sender varchar(20), body varchar(1000), time timestamp);");
+      stmt.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(100), recipient varchar(50), sender varchar(50), body varchar(1000), time timestamp);");
       //add new notification to table
       String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + n.getTitle() + "$$, $$" + n.getRecipient() + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$" + n.getBody() + "$$, now())";
       stmt.executeUpdate(sql);
@@ -1261,7 +1255,9 @@ public class Main {
       System.out.println(sql);
       stmt.executeUpdate(sql);
       model.put("message", "Friend successfully added");
-      return "redirect:/viewAccountsTable";
+      model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
+      return "homepage";
     }
     catch(SQLException e){
       e.printStackTrace();
@@ -1286,8 +1282,10 @@ public class Main {
       sql = "UPDATE friends SET isFriend=FALSE, time=now() WHERE username1='" + user2 +"' AND username2='" + request.getSession().getAttribute("USER") +"';";
       System.out.println(sql);
       stmt.executeUpdate(sql);
-      model.put("message", "Friend successfully added");
-      return "redirect:/viewAccountsTable";
+      model.put("message", "Friend successfully removed");
+      model.put("user", request.getSession().getAttribute("USER"));
+      model.put("role", request.getSession().getAttribute("ROLE"));
+      return "homepage";
     }
     catch(SQLException e){
       e.printStackTrace();

@@ -2,11 +2,18 @@
     <nav>
         <ul class="navBar">
             <li class="navButton"><a class="navLink" href="/">Home</a></li>
-            <li class="navButton"><a class="navLink" href="/post">Post</a></li>
+            <!-- <li class="navButton"><a class="navLink" href="/post">Post</a></li> -->
             <li class="navButton"><a class="navLink" href="/scrollingFeed">Feed</a></li>
-            <li class="navButton"><a class="navLink" href="/costCalculator">Cost Calculator</a></li>
-            <li class="navButton"><a class="navLink" href="/map">Weather Map</a></li>
             <li class="navButton"><a class="navLink" href="/contact">Contact Us</a></li>
+            <div class="dropdown">
+                <button class="dropbtn">Planning</button>
+                <div class="dropdown-content">
+                    <a href="/costCalculator">Cost Calculator</a>
+                    <a href="/flightCalculator">Fight Calculator</a>
+                    <a href="/map">Maps</a>
+                </div>
+            </div>
+
             <div class="dropdown" th:if="${role} == 'admin'">
                 <button class="dropbtn">Admin Tables</button>
                 <div class="dropdown-content">
