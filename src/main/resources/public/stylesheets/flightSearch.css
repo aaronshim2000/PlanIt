@@ -4,12 +4,6 @@
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-body
-{
-    background-size: cover;
-    background-position: center;
-}
-
 .radio-button
 {
     margin: 0 20px;
@@ -52,7 +46,8 @@ body
 .booking-form-box
 {
     position: absolute;
-    left: 50px;
+    left: 300px;
+    bottom: 500px;
     max-width: 350px;
     border: 1px solid #ced4da;
     margin: 10% auto 0;
@@ -130,7 +125,7 @@ body
 .content-table
 {
     position: absolute;
-    left: 500px;
+    left: 800px;
     margin: 25px 0;
     font-size: 0.9em;
     min-width: 400px;
@@ -142,7 +137,7 @@ body
 
 .column
 {
-    width: 130px;
+    width: 200px;
     padding: 5px;
 }
 
