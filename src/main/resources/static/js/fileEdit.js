@@ -12,6 +12,7 @@ var vidRes00 = document.getElementsByClassName("videoID");
 
 var fileCount = document.getElementsByClassName("numFiles");
 var mediaType = document.getElementsByClassName("fileType");
+var playerOnPage = document.getElementById("containerForVid");
 
 imgRes00 = imgRes00[0];
 imgRes01 = imgRes01[0];
