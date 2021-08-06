@@ -45,7 +45,7 @@ function checkCorrectStar(){
 }
 
 function loadImages(){
-	console.log("called load");
+	console.log("called load, i = " + imageCounter);
 	for (let i = 0; i < imageCounter; i++){
 		var curRes = document.getElementsByClassName("imageRes0" + i);
 		curRes = curRes[0];

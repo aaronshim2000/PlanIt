@@ -401,10 +401,48 @@ public class Main {
       if(!p.getDescription().isEmpty()){
         stmt.executeUpdate("UPDATE posts SET content='" + p.getDescription() + "' WHERE id='" + postId + "'");
       }
+	  if(!p.getImagesNum().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImagesNum() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getMediaType().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getMediaType() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage00().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage00() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage01().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage01() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage02().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage02() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage03().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage03() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage04().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage04() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage05().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage05() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage06().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage06() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage07().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage07() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage08().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage08() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage09().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage09() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getVideo00().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getVideo00() + "' WHERE id='" + postId + "'");
+      }
       if(!p.getVisibility().isEmpty()){
         stmt.executeUpdate("UPDATE posts SET visibility='" + p.getVisibility() + "' WHERE id='" + postId + "'");
       }
-      
       return "redirect:/scrollingFeed";
     }
     catch(Exception e){
@@ -434,6 +472,12 @@ public class Main {
         model.put("description", rs.getString("content"));
         model.put("rating", rs.getString("rating"));
         model.put("visibility", rs.getString("visibility"));
+		model.put("image00", rs.getString("image00"));
+        model.put("image01", rs.getString("image01"));
+        model.put("image02", rs.getString("image02"));
+        model.put("image03", rs.getString("image03"));
+        model.put("image04", rs.getString("image04"));
+        model.put("imagesNum", rs.getString("imagesNum"));
         model.put("user", request.getSession().getAttribute("USER"));
         model.put("role", request.getSession().getAttribute("ROLE"));
       }
@@ -465,10 +509,27 @@ public class Main {
       if(!p.getRating().isEmpty()){
         stmt.executeUpdate("UPDATE posts SET rating='" + p.getRating() + "' WHERE id='" + postId + "'");
       }
+	  if(!p.getImagesNum().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImagesNum() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage00().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage00() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage01().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage01() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage02().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage02() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage03().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage03() + "' WHERE id='" + postId + "'");
+      }
+	  if(!p.getImage04().isEmpty()){
+        stmt.executeUpdate("UPDATE posts SET content='" + p.getImage04() + "' WHERE id='" + postId + "'");
+      }
       if(!p.getVisibility().isEmpty()){
         stmt.executeUpdate("UPDATE posts SET visibility='" + p.getVisibility() + "' WHERE id='" + postId + "'");
       }
-      
       return "redirect:/scrollingFeed";
     }
     catch(Exception e){
