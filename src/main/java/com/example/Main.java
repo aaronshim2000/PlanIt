@@ -347,7 +347,6 @@ public class Main {
     if(request.getSession().getAttribute("USER") == null){
       return "redirect:/login";
     }
-
     Post post = new Post();
     model.put("post", post);
 
@@ -359,7 +358,7 @@ public class Main {
       {
         model.put("tag", tag);
         model.put("title", rs.getString("title"));
-        model.put("content", rs.getString("content"));
+        model.put("description", rs.getString("content"));
         model.put("visibility", rs.getString("visibility"));
         model.put("image00", rs.getString("image00"));
         model.put("image01", rs.getString("image01"));
