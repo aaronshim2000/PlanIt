@@ -33,7 +33,7 @@
 			<input name="id" type="hidden" th:value="${tag}">
 			<input type = "text" th:value="${title}" th:name="title" th:id="title" maxlength="49">
 			<p></p>
-			<textarea th:value="${content}" th:name="content" th:id="content" maxlength="2000" placeholder="Write your post" class="contents" rows = 20 cols=80 style="resize: vertical;"></textarea><p></p>
+			<textarea th:value="${content}" th:name="content" th:id="content" maxlength="2000" placeholder="Write your post" class="contents" rows = 20 cols=80 style="resize: vertical;" th:inline="text">[[${content}]]</textarea><p></p>
 			<p id="containerForVid"></p>
 			<table>
 			<tbody>

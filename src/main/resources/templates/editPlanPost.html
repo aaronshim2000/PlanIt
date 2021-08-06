@@ -28,7 +28,7 @@
 			<input name="id" type="hidden" th:value="${tag}">
 			<input type = "text" maxlength="49" th:field=*{title} th:value="${title}">
 			<p></p>
-			<textarea placeholder="Add a description" th:field=*{description} th:value="${description}" maxlength="1000" class="contents" name="textcontent" rows = 6 cols=80 style="resize: vertical;"></textarea>
+			<textarea placeholder="Add a description" th:field=*{description} th:value="${description}" maxlength="1000" class="contents" name="textcontent" rows = 6 cols=80 style="resize: vertical;" th:inline="text">[[${description}]]</textarea>
 			<p>
 				<label><input type="radio" name="visibility" th:field=*{visibility} value="PRIVATE" required>private</label>
 				<label><input type="radio" name="visibility" th:field=*{visibility} value="PUBLIC">public</label>
