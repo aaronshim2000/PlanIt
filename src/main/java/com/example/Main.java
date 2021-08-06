@@ -224,20 +224,23 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       String username= (String) request.getSession().getAttribute("USER");
-      ResultSet rs_text = stmt.executeQuery("SELECT * FROM posts WHERE (category='text-post' AND visibility='PUBLIC') OR (category='text-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE (category='text-post' AND visibility='PUBLIC') OR (category='text-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
+      ArrayList<String> text_ids = new ArrayList<String>();
       ArrayList<String> text_titles = new ArrayList<String>();
       ArrayList<String> text_descriptions = new ArrayList<String>();
       ArrayList<String> text_postDates= new ArrayList<String>();
       ArrayList<String> text_visibilities=new ArrayList<String>();
       ArrayList<String> text_creators=new ArrayList<String>();
-      while (rs_text.next())
+      while (rs.next())
       {
-        text_titles.add(rs_text.getString("title"));
-        text_descriptions.add(rs_text.getString("content"));
-        text_postDates.add(rs_text.getString("post_date"));
-        text_visibilities.add(rs_text.getString("visibility"));
-        text_creators.add(rs_text.getString("creator"));
+        text_ids.add(Integer.toString(rs.getInt("id")));
+        text_titles.add(rs.getString("title"));
+        text_descriptions.add(rs.getString("content"));
+        text_postDates.add(rs.getString("post_date"));
+        text_visibilities.add(rs.getString("visibility"));
+        text_creators.add(rs.getString("creator"));
       }
+      model.put("text_ids", text_ids);
       model.put("text_titles", text_titles);
       model.put("text_descriptions", text_descriptions);
       model.put("text_postDates",text_postDates);
@@ -253,22 +256,25 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       String username= (String) request.getSession().getAttribute("USER");
-      ResultSet rs_review = stmt.executeQuery("SELECT * FROM posts WHERE (category='review-post' AND visibility='PUBLIC') OR (category='review-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE (category='review-post' AND visibility='PUBLIC') OR (category='review-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
+      ArrayList<String> review_ids = new ArrayList<String>();
       ArrayList<String> review_titles = new ArrayList<String>();
       ArrayList<String> review_descriptions = new ArrayList<String>();
       ArrayList<String> review_ratings=new ArrayList<String>();
       ArrayList<String> review_postDates=new ArrayList<String>();
       ArrayList<String> review_visibilities=new ArrayList<String>();
       ArrayList<String> review_creators=new ArrayList<String>();
-      while (rs_review.next())
+      while (rs.next())
       {
-        review_titles.add(rs_review.getString("title"));
-        review_descriptions.add(rs_review.getString("content"));
-        review_ratings.add(rs_review.getString("rating"));
-        review_postDates.add(rs_review.getString("post_date"));
-        review_visibilities.add(rs_review.getString("visibility"));
-        review_creators.add(rs_review.getString("creator"));
+        review_ids.add(Integer.toString(rs.getInt("id")));
+        review_titles.add(rs.getString("title"));
+        review_descriptions.add(rs.getString("content"));
+        review_ratings.add(rs.getString("rating"));
+        review_postDates.add(rs.getString("post_date"));
+        review_visibilities.add(rs.getString("visibility"));
+        review_creators.add(rs.getString("creator"));
       }
+      model.put("review_ids", review_ids);
       model.put("review_titles", review_titles);
       model.put("review_descriptions", review_descriptions);
       model.put("review_ratings",review_ratings);
@@ -283,20 +289,23 @@ public class Main {
     try (Connection connection = dataSource.getConnection()) {
       Statement stmt = connection.createStatement();
       String username= (String) request.getSession().getAttribute("USER");
-      ResultSet rs_plan = stmt.executeQuery("SELECT * FROM posts WHERE (category='plan-post' AND visibility='PUBLIC') OR (category='plan-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
+      ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE (category='plan-post' AND visibility='PUBLIC') OR (category='plan-post' AND creator='" + username + "' AND visibility='PRIVATE') ORDER BY id DESC");
+      ArrayList<String> plan_ids = new ArrayList<String>();
       ArrayList<String> plan_titles = new ArrayList<String>();
       ArrayList<String> plan_descriptions = new ArrayList<String>();
       ArrayList<String> plan_postDates = new ArrayList<String>();
       ArrayList<String> plan_visibilities = new ArrayList<String>();
       ArrayList<String> plan_creators = new ArrayList<String>();
-      while (rs_plan.next())
+      while (rs.next())
       {
-        plan_titles.add(rs_plan.getString("title"));
-        plan_descriptions.add(rs_plan.getString("content"));
-        plan_postDates.add(rs_plan.getString("post_date"));
-        plan_visibilities.add(rs_plan.getString("visibility"));
-        plan_creators.add(rs_plan.getString("creator"));
+        plan_ids.add(Integer.toString(rs.getInt("id")));
+        plan_titles.add(rs.getString("title"));
+        plan_descriptions.add(rs.getString("content"));
+        plan_postDates.add(rs.getString("post_date"));
+        plan_visibilities.add(rs.getString("visibility"));
+        plan_creators.add(rs.getString("creator"));
       }
+      model.put("plan_ids", plan_ids);
       model.put("plan_titles", plan_titles);
       model.put("plan_descriptions", plan_descriptions);
       model.put("plan_postDates",plan_postDates);
@@ -338,17 +347,23 @@ public class Main {
     if(request.getSession().getAttribute("USER") == null){
       return "redirect:/login";
     }
+
+    Post post = new Post();
+    model.put("post", post);
+
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
       
       ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE id = " + tag + ";");
-      rs.next();
-      model.put("tag", tag);
-      model.put("title", rs.getString("title"));
-      model.put("description", rs.getString("description"));
-      model.put("visibility", rs.getString("visibility"));
-      model.put("user", request.getSession().getAttribute("USER"));
-      model.put("role", request.getSession().getAttribute("ROLE"));
+      while (rs.next()) 
+      {
+        model.put("tag", tag);
+        model.put("title", rs.getString("title"));
+        model.put("description", rs.getString("content"));
+        model.put("visibility", rs.getString("visibility"));
+        model.put("user", request.getSession().getAttribute("USER"));
+        model.put("role", request.getSession().getAttribute("ROLE"));
+      }
       
       return "editTextPost";
     }
@@ -392,18 +407,24 @@ public class Main {
     if(request.getSession().getAttribute("USER") == null){
       return "redirect:/login";
     }
+
+    Post post = new Post();
+    model.put("post", post);
+    
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
 
       ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE id = " + tag + ";");
-      rs.next();
-      model.put("tag", tag);
-      model.put("title", rs.getString("title"));
-      model.put("description", rs.getString("description"));
-      model.put("rating", rs.getString("rating"));
-      model.put("visibility", rs.getString("visibility"));
-      model.put("user", request.getSession().getAttribute("USER"));
-      model.put("role", request.getSession().getAttribute("ROLE"));
+      while (rs.next()) 
+      {
+        model.put("tag", tag);
+        model.put("title", rs.getString("title"));
+        model.put("description", rs.getString("content"));
+        model.put("rating", rs.getString("rating"));
+        model.put("visibility", rs.getString("visibility"));
+        model.put("user", request.getSession().getAttribute("USER"));
+        model.put("role", request.getSession().getAttribute("ROLE"));
+      }
       
       return "editReviewPost";
     }
@@ -450,26 +471,23 @@ public class Main {
     if(request.getSession().getAttribute("USER") == null){
       return "redirect:/login";
     }
+
+    Post post = new Post();
+    model.put("post", post);
+
     try(Connection connection = dataSource.getConnection()){
       Statement stmt = connection.createStatement();
 
       ResultSet rs = stmt.executeQuery("SELECT * FROM posts WHERE id = " + tag + ";");
-      ArrayList<String> titles = new ArrayList<String>();
-      ArrayList<String> descriptions = new ArrayList<String>();
-      ArrayList<String> visibilities=new ArrayList<String>();
-
-      while (rs.next())
+      while (rs.next()) 
       {
-        titles.add(rs.getString("title"));
-        descriptions.add(rs.getString("content"));
-        visibilities.add(rs.getString("visibility"));
+        model.put("tag", tag);
+        model.put("title", rs.getString("title"));
+        model.put("description", rs.getString("content"));
+        model.put("visibility", rs.getString("visibility"));
+        model.put("user", request.getSession().getAttribute("USER"));
+        model.put("role", request.getSession().getAttribute("ROLE"));
       }
-      model.put("tag", tag);
-      model.put("title", rs.getString("title"));
-      model.put("description", rs.getString("description"));
-      model.put("visibility", rs.getString("visibility"));
-      model.put("user", request.getSession().getAttribute("USER"));
-      model.put("role", request.getSession().getAttribute("ROLE"));
 
       return "editPlanPost";
     }
@@ -545,24 +563,26 @@ public class Main {
     return "redirect:/scrollingFeed";
   }
 
-  @RequestMapping("/report") 
+  @RequestMapping("/reportPost") 
   String report(@RequestParam(value = "id", required = false) String tag, Map<String, Object> model, HttpServletRequest request) {
     AdminMessage adminMessage = new AdminMessage();
-    adminMessage.setPostId(tag);
     model.put("adminMessage", adminMessage);
+    model.put("tag", tag);
     model.put("user", request.getSession().getAttribute("USER"));
     model.put("role", request.getSession().getAttribute("ROLE"));
     model.put("email", request.getSession().getAttribute("EMAIL"));
-    return "report";
+    return "reportPost";
   }
 
   // Submits the report post form
-  @PostMapping(path = "/report", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
-  public String reportSent(AdminMessage adminMessage, Map<String, Object> model) throws Exception {
+  @PostMapping(path = "/reportPost", consumes = { MediaType.APPLICATION_FORM_URLENCODED_VALUE })
+  public String reportSent(AdminMessage adminMessage, @RequestParam("id") int id, Map<String, Object> model) throws Exception {
 
     try (Connection connection = dataSource.getConnection()) 
     {
       Statement statement = connection.createStatement();
+
+      String postId = Integer.toString(id);
 
       statement.executeUpdate(
           "CREATE TABLE IF NOT EXISTS adminMessages (id serial PRIMARY KEY, username varchar(20), email varchar(100), "
@@ -573,7 +593,7 @@ public class Main {
       statement.executeUpdate(
           "INSERT INTO adminMessages(username, email, message, category, postId) VALUES ($$" 
           + adminMessage.getUsername() + "$$, $$" + adminMessage.getEmail() + "$$, $$" + adminMessage.getMessage() + "$$, $$" 
-          + adminMessage.getCategory() + "$$, $$" + adminMessage.getPostId() + "$$);");
+          + adminMessage.getCategory() + "$$, $$" + postId + "$$);");
 
       model.put("message", "Thank you for reporting.");
 

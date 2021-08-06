@@ -29,7 +29,7 @@
 		<p class="rp"><input type="radio" id="p3" name="postselect"/>
 			<label for="p3">Plan</label</p>
 		<h1 class="titlelabel">Title</h1>
-		<form action="#" method="post" th:action="@{/post/text}" th:object="${post}">
+		<form action="#" method="post" th:action="@{/editTextPost}" th:object="${post}">
 			<input name="id" type="hidden" th:value="${tag}">
 			<input type = "text" th:field=*{title} th:value="${title}" maxlength="49">
 			<p></p>
@@ -66,7 +66,7 @@
 				<label><input type="radio" name="visibility" th:field=*{visibility} value="PUBLIC">public</label>
 				<label><input type="radio" name="visibility" th:field=*{visibility} value="FRIENDONLY">friend only</label>
 			</p>
-			<p><input type="submit" value="CREATE POST"></p>
+			<p><input type="submit" value="SUBMIT EDITS"></p>
 		</form>
 	</div>
 </body>
