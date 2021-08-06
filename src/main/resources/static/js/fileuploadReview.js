@@ -18,6 +18,11 @@ var butContainer04 = document.getElementById("remButton04");
 
 var imageCounter = 0;
 var fileCount = document.getElementById("numFiles"); fileCount.value = 0;
+var starReview = document.getElementById("starRatingField");
+
+function setReviewScore(scoreG){
+	starReview.value = scoreG;
+}
 
 function uploadImages(){
 	imageCounter = 0;
