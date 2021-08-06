@@ -401,9 +401,9 @@ public class Main {
       if(!p.getDescription().isEmpty()){
         stmt.executeUpdate("UPDATE posts SET content='" + p.getDescription() + "' WHERE id='" + postId + "'");
       }
-	  if(!p.getImagesNum().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET content='" + String.valueOf(p.getImagesNum()) + "' WHERE id='" + postId + "'");
-      }
+	  
+      stmt.executeUpdate("UPDATE posts SET content='" + p.getImagesNum() + "' WHERE id='" + postId + "'");
+      
 	  if(!p.getMediaType().isEmpty()){
         stmt.executeUpdate("UPDATE posts SET content='" + p.getMediaType() + "' WHERE id='" + postId + "'");
       }
@@ -509,9 +509,9 @@ public class Main {
       if(!p.getRating().isEmpty()){
         stmt.executeUpdate("UPDATE posts SET rating='" + p.getRating() + "' WHERE id='" + postId + "'");
       }
-	  if(!p.getImagesNum().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET content='" + String.valueOf(p.getImagesNum()) + "' WHERE id='" + postId + "'");
-      }
+	  
+      stmt.executeUpdate("UPDATE posts SET content='" + p.getImagesNum() + "' WHERE id='" + postId + "'");
+      
 	  if(!p.getImage00().isEmpty()){
         stmt.executeUpdate("UPDATE posts SET content='" + p.getImage00() + "' WHERE id='" + postId + "'");
       }
