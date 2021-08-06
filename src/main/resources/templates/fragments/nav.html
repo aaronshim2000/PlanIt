@@ -6,13 +6,28 @@
             <li class="navButton"><a class="navLink" href="/scrollingFeed">Feed</a></li>
             <li class="navButton"><a class="navLink" href="/costCalculator">Cost Calculator</a></li>
             <li class="navButton"><a class="navLink" href="/map">Weather Map</a></li>
-            <li class="navButton"><a class="navLink" href="/notifications">Notifications</a></li>
             <li class="navButton"><a class="navLink" href="/contact">Contact Us</a></li>
-            <li class="navButton"><a class="navLink" href="/friend">Friends List</a></li>
-            <li class="navButton"><a class="navLink" href="/profile">Profile</a></li>
+            <div class="dropdown" th:if="${role} == 'admin'">
+                <button class="dropbtn">Admin Tables</button>
+                <div class="dropdown-content">
+                    <a href="/viewAdminMessages">Messages</a>
+                    <a href="/viewAccountsTable">Accounts</a>
+                    <a href="/viewPostsTable">Posts</a>
+                </div>
+            </div>
+
+            <div class="dropdown" th:if="${user}" style="float:right;">
+                <button class="dropbtn">My Account</button>
+                <div class="dropdown-content">
+                    <a href="/profile">Profile</a>
+                    <a href="/notifications">Notifications</a>
+                    <a href="/friend">Friends</a>
+                    <a href="/logout">Logout</a>
+                </div>
+            </div> 
 
             <li class="rightSide" th:if="!${user}"><a class="navLink" href="/login">Login</a></li>
-            <li class="rightSide" th:if="${user}"><a class="navLink" href="/logout">Logout</a></li>
+            <!-- <li class="rightSide" th:if="${user}"><a class="navLink" href="/logout">Logout</a></li> -->
         </ul>
     </nav>
 </div>

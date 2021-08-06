@@ -16,7 +16,7 @@
 
     <div class="container">
         <a th:href="@{/viewAdminMessages}">Back to Messages</a> <br>
-        <ul class="table"> 
+        <ul> 
             <li th:text="'ID: ' + ${id}"></li>
             <li th:text="'Username: ' + ${username}"></li>
             <li th:text="'Email: ' + ${email}"></li>
@@ -25,6 +25,13 @@
             </div>
         </ul>
     </div>
+    <h2>Reply</h2>
+    <form action="#" method="post" id="sending" th:action="@{adminMessage}" th:object="${notification}">
+        <input type="text" placeholder="Title" th:field="*{title}" required> <span>(required)</span> <br> <br>
+        <input type="hidden" th:field="*{recipient}" name="username" value="User" th:value="${username}">
+        <input type="text" placeholder="Body" th:field=*{body} required> <span>(required) </span> <br> <br>
+        <input type="submit" value="SEND">
+    </form>
 </body>
 
 </html>

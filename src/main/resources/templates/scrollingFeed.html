@@ -78,7 +78,7 @@
         <div id="user_list">
             <div class="userList" th:each="username,iter : ${usernames}" >
                 <p class="userInfor">
-                    <a th:text="${username}"></a>
+                    <a th:text="${username}" th:href="@{/profile(username=${username})}"></a>
                 </p>
             </div>
         </div>
