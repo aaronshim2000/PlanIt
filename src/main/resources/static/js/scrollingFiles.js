@@ -12,7 +12,7 @@ function enablePlayer(){
 	});
 }
 
-function displayMedia( postID, mType, imgAmmount ){
+function displayMedia( postID ){
 	console.log("Called display from post " + postID);
 	/*currPost = document.getElementById(postID);
 	aFiles = currPost.getElementsByClassName("imageCell");
