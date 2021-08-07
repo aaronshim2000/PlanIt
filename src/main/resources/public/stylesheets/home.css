@@ -1,5 +1,10 @@
 * {box-sizing:border-box}
 
+body{
+  background:#1f1f2e;
+  color:white;
+  font-family:Verdana,sans-serif;
+}
 /* Slideshow container */
 h1{
   text-align: center;
