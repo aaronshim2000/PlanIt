@@ -78,7 +78,10 @@
                 <a class="title" th:href="@{/viewPost(id=${id})}" th:text="${text_titles[iter.index]}"></a>
                 <p th:text="${text_descriptions[iter.index]}"/>
 				
-				<p th:id="${text_ids[iter.index]}" th:attr="onload='displayMedia(\'' + ${text_ids[iter.index]} + '\');'">
+				<p th:id="${text_ids[iter.index]}">
+				<script type="text/javascript">
+					var currID = [[${text_ids[iter.index]}]];
+					displayMedia( currID );</script>
 				<p class="mediaContainer"></p>
 				<table><tbody>
 				  <tr>
