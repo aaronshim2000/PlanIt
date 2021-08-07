@@ -78,8 +78,8 @@
                 <a class="title" th:href="@{/viewPost(id=${id})}" th:text="${text_titles[iter.index]}"></a>
                 <p th:text="${text_descriptions[iter.index]}"/>
 				
-				<p th:id="${text_ids[iter.index]}" th:onclick="'javascript:displayMedia(\''+ ${text_ids[iter.index]} +'\');'"><table><tbody>
-				  <!--tr>
+				<p th:id="${text_ids[iter.index]}" th:attr="onload='displayMedia(\'' + ${text_ids[iter.index]} + '\')'"><table><tbody>
+				  <tr>
 					<td class="imageCell"><p class="remButton00"></p><input type="text" th:value="${text_image00s[iter.index]}" class="imageResult imageRes00" disabled></td>
 					<td class="imageCell"><p class="remButton01"></p><input type="text" th:value="${text_image01s[iter.index]}" class="imageResult imageRes01" disabled></td>
 					<td class="imageCell"><p class="remButton02"></p><input type="text" th:value="${text_image02s[iter.index]}" class="imageResult imageRes02" disabled></td>
@@ -97,7 +97,7 @@
 					<td class="imageCell"><p class="remButton07"></p><input type="text" th:value="${text_image07s[iter.index]}" class="imageResult imageRes07" disabled></td>
 					<td class="imageCell"><p class="remButton08"></p><input type="text" th:value="${text_image08s[iter.index]}" class="imageResult imageRes08" disabled></td>
 					<td class="imageCell"><p class="remButton09"></p><input type="text" th:value="${text_image09s[iter.index]}" class="imageResult imageRes09" disabled></td>
-				  </tr-->
+				  </tr>
 				</tbody></table></p>
 				
                 <p class="Infor" th:text="'post by : '+ ${text_creators[iter.index]}"/>
