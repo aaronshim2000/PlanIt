@@ -78,7 +78,9 @@
                 <a class="title" th:href="@{/viewPost(id=${id})}" th:text="${text_titles[iter.index]}"></a>
                 <p th:text="${text_descriptions[iter.index]}"/>
 				
-				<p th:id="${text_ids[iter.index]}" th:attr="onload='displayMedia(\'' + ${text_ids[iter.index]} + '\')'"><table><tbody>
+				<p th:id="${text_ids[iter.index]}" th:attr="onload='displayMedia(\'' + ${text_ids[iter.index]} + '\');'">
+				<p class="mediaContainer"></p>
+				<table><tbody>
 				  <tr>
 					<td class="imageCell"><p class="remButton00"></p><input type="text" th:value="${text_image00s[iter.index]}" class="imageResult imageRes00" disabled></td>
 					<td class="imageCell"><p class="remButton01"></p><input type="text" th:value="${text_image01s[iter.index]}" class="imageResult imageRes01" disabled></td>
