@@ -31,9 +31,18 @@
 		<h1 class="titlelabel">Title</h1>
 		<form action="#" method="post" th:action="@{/editTextPost}" th:object="${post}">
 			<input name="id" type="hidden" th:value="${tag}">
-			<input type = "text" th:value="${title}" th:name="title" th:id="title" maxlength="49">
+			<input th:field="*{title}" type = "text" th:value="${title}" th:name="title" id="title" maxlength="49">
 			<p></p>
-			<textarea th:field=*{description} maxlength="2000" placeholder="Write your post" class="contents" rows = 20 cols=80 style="resize: vertical;" th:inline="text">[[${content}]]</textarea><p></p>
+			<textarea th:field=*{description} placeholder="Write a description" id="description" maxlength="2000" rows=20 cols=80 style="resize: vertical;" class="contents" th:inline="text">[[${description}]]</textarea>
+
+			<script th:inline="javascript">
+				//fill fields (VISUALSTUDIO GIVES AN ERROR HERE BUT IT'S FINE)
+				var title = document.getElementById('title');
+				title.value = [[${title}]];
+				var description = document.getElementById('description');
+				description.value = [[${description}]];
+			</script>
+
 			<p id="containerForVid"></p>
 			<table>
 			<tbody>
