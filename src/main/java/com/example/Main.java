@@ -158,6 +158,17 @@ public class Main {
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
       statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04,imagesNum) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImagesNum() + "')");
+      //send to friends
+      //create notifications
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(100), recipient varchar(50), sender varchar(50), body varchar(1000), time timestamp);");
+      //get id of latest post by user
+      ResultSet rs = statement.executeQuery("SELECT * FROM posts WHERE creator=$$"+post.getCreator()+"$$ ORDER BY id DESC");
+      rs.next();
+      String postID = rs.getString("id");
+      //look for all friends of user
+      rs = statement.executeQuery("SELECT * FROM friends WHERE username1='"+ post.getCreator() +"' AND isFriend=TRUE");
+      ArrayList<String> friends = new ArrayList<String>();
+      //for each friend, create notification
       while(rs.next()){
         System.out.println("A");
         friends.add(rs.getString("username2"));
@@ -200,8 +211,17 @@ public class Main {
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
       statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),$$" + username + "$$,$$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "')");
-      //send notification to friends
-      //statement.executeupdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$New Post from" + post.getCreator() + "$$, $$FRIENDS$$, $$" + request.getSession().getAttribute("USER") + "$$, $$View Post$$, now())");
+      //send to friends
+      //create notifications
+      statement.executeUpdate("CREATE TABLE IF NOT EXISTS notifications (id serial PRIMARY KEY, title varchar(100), recipient varchar(50), sender varchar(50), body varchar(1000), time timestamp);");
+      //get id of latest post by user
+      ResultSet rs = statement.executeQuery("SELECT * FROM posts WHERE creator=$$"+post.getCreator()+"$$ ORDER BY id DESC");
+      rs.next();
+      String postID = rs.getString("id");
+      //look for all friends of user
+      rs = statement.executeQuery("SELECT * FROM friends WHERE username1='"+ post.getCreator() +"' AND isFriend=TRUE");
+      ArrayList<String> friends = new ArrayList<String>();
+      //for each friend, create notification
       while(rs.next()){
         System.out.println("A");
         friends.add(rs.getString("username2"));
