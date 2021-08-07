@@ -24,11 +24,12 @@
 
 .container
 {
-    color: black;
+    margin-top: 100px;
+    color: white;
     text-align: left;
     max-width: 700px;
     width: 100%;
-    background: #fff;
+    background: #29293d;
     padding: 25px 30px;
     border-radius: 5px;
     overflow: hidden;
