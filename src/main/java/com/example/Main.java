@@ -318,12 +318,12 @@ public class Main {
         review_postDates.add(rs.getString("post_date"));
         review_visibilities.add(rs.getString("visibility"));
         review_creators.add(rs.getString("creator"));
-		review_imagesNums.add(rs_text.getString("imagesNum"));
-		review_image00s.add(rs_text.getString("image00"));
-		review_image01s.add(rs_text.getString("image01"));
-		review_image02s.add(rs_text.getString("image02"));
-		review_image03s.add(rs_text.getString("image03"));
-		review_image04s.add(rs_text.getString("image04"));
+		review_imagesNums.add(rs.getString("imagesNum"));
+		review_image00s.add(rs.getString("image00"));
+		review_image01s.add(rs.getString("image01"));
+		review_image02s.add(rs.getString("image02"));
+		review_image03s.add(rs.getString("image03"));
+		review_image04s.add(rs.getString("image04"));
       }
       model.put("review_ids", review_ids);
       model.put("review_titles", review_titles);
