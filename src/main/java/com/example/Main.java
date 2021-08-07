@@ -231,6 +231,19 @@ public class Main {
       ArrayList<String> text_postDates= new ArrayList<String>();
       ArrayList<String> text_visibilities=new ArrayList<String>();
       ArrayList<String> text_creators=new ArrayList<String>();
+	  ArrayList<String> text_mediaTypes = new ArrayList<String>();
+      ArrayList<String> text_imagesNums = new ArrayList<String>();
+      ArrayList<String> text_image00s = new ArrayList<String>();
+      ArrayList<String> text_image01s = new ArrayList<String>();
+      ArrayList<String> text_image02s = new ArrayList<String>();
+      ArrayList<String> text_image03s = new ArrayList<String>();
+      ArrayList<String> text_image04s = new ArrayList<String>();
+      ArrayList<String> text_image05s = new ArrayList<String>();
+      ArrayList<String> text_image06s = new ArrayList<String>();
+      ArrayList<String> text_image07s = new ArrayList<String>();
+      ArrayList<String> text_image08s = new ArrayList<String>();
+      ArrayList<String> text_image09s = new ArrayList<String>();
+      ArrayList<String> text_video00s = new ArrayList<String>();
       while (rs.next())
       {
         text_ids.add(Integer.toString(rs.getInt("id")));
@@ -238,7 +251,20 @@ public class Main {
         text_descriptions.add(rs.getString("content"));
         text_postDates.add(rs.getString("post_date"));
         text_visibilities.add(rs.getString("visibility"));
-        text_creators.add(rs.getString("creator"));
+        text_creators.add(rs.getString("creator
+		text_mediaTypes.add(rs_text.getString("mediaType"));
+		text_imagesNums.add(rs_text.getString("imagesNum"));
+		text_image00s.add(rs_text.getString("image00"));
+		text_image01s.add(rs_text.getString("image01"));
+		text_image02s.add(rs_text.getString("image02"));
+		text_image03s.add(rs_text.getString("image03"));
+		text_image04s.add(rs_text.getString("image04"));
+		text_image05s.add(rs_text.getString("image05"));
+		text_image06s.add(rs_text.getString("image06"));
+		text_image07s.add(rs_text.getString("image07"));
+		text_image08s.add(rs_text.getString("image08"));
+		text_image09s.add(rs_text.getString("image09"));
+		text_video00s.add(rs_text.getString("video00"));
       }
       model.put("text_ids", text_ids);
       model.put("text_titles", text_titles);
@@ -246,6 +272,19 @@ public class Main {
       model.put("text_postDates",text_postDates);
       model.put("text_visibilities",text_visibilities);
       model.put("text_creators",text_creators);
+	  model.put("text_mediaTypes",text_mediaTypes);
+      model.put("text_imagesNums",text_imagesNums);
+      model.put("text_image00s",text_image00s);
+      model.put("text_image01s",text_image01s);
+      model.put("text_image02s",text_image02s);
+      model.put("text_image03s",text_image03s);
+      model.put("text_image04s",text_image04s);
+      model.put("text_image05s",text_image05s);
+      model.put("text_image06s",text_image06s);
+      model.put("text_image07s",text_image07s);
+      model.put("text_image08s",text_image08s);
+      model.put("text_image09s",text_image09s);
+      model.put("text_video00s",text_video00s);
 
       //return "scrollingFeed";
     } catch (Exception e) {
@@ -264,6 +303,12 @@ public class Main {
       ArrayList<String> review_postDates=new ArrayList<String>();
       ArrayList<String> review_visibilities=new ArrayList<String>();
       ArrayList<String> review_creators=new ArrayList<String>();
+	  ArrayList<String> review_imagesNums = new ArrayList<String>();
+      ArrayList<String> review_image00s = new ArrayList<String>();
+      ArrayList<String> review_image01s = new ArrayList<String>();
+      ArrayList<String> review_image02s = new ArrayList<String>();
+      ArrayList<String> review_image03s = new ArrayList<String>();
+      ArrayList<String> review_image04s = new ArrayList<String>();
       while (rs.next())
       {
         review_ids.add(Integer.toString(rs.getInt("id")));
@@ -273,6 +318,12 @@ public class Main {
         review_postDates.add(rs.getString("post_date"));
         review_visibilities.add(rs.getString("visibility"));
         review_creators.add(rs.getString("creator"));
+		review_imagesNums.add(rs_text.getString("imagesNum"));
+		review_image00s.add(rs_text.getString("image00"));
+		review_image01s.add(rs_text.getString("image01"));
+		review_image02s.add(rs_text.getString("image02"));
+		review_image03s.add(rs_text.getString("image03"));
+		review_image04s.add(rs_text.getString("image04"));
       }
       model.put("review_ids", review_ids);
       model.put("review_titles", review_titles);
@@ -281,6 +332,12 @@ public class Main {
       model.put("review_postDates",review_postDates);
       model.put("review_visibilities",review_visibilities);
       model.put("review_creators",review_creators);
+      model.put("review_imagesNums",review_imagesNums);
+      model.put("review_image00s",review_image00s);
+      model.put("review_image01s",review_image01s);
+      model.put("review_image02s",review_image02s);
+      model.put("review_image03s",review_image03s);
+      model.put("review_image04s",review_image04s);
     } catch (Exception e) {
       model.put("message", e.getMessage());
       return "error";
