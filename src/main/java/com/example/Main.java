@@ -251,7 +251,7 @@ public class Main {
         text_descriptions.add(rs.getString("content"));
         text_postDates.add(rs.getString("post_date"));
         text_visibilities.add(rs.getString("visibility"));
-        text_creators.add(rs.getString("creator
+        text_creators.add(rs.getString("creator"));
 		text_mediaTypes.add(rs_text.getString("mediaType"));
 		text_imagesNums.add(rs_text.getString("imagesNum"));
 		text_image00s.add(rs_text.getString("image00"));
