@@ -4,6 +4,13 @@
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
+body
+{
+    background:#1f1f2e;
+    color:white;
+    font-family:Verdana,sans-serif;
+}
+
 .radio-button
 {
     margin: 0 20px;
@@ -45,6 +52,7 @@
 
 .booking-form-box
 {
+    background: #29293d;
     position: absolute;
     left: 300px;
     bottom: 500px;
@@ -89,6 +97,7 @@
 
 .flight
 {
+    color: white;
     margin-top: 20px;
     width:100% px;
     padding: 9px 8px;
@@ -101,7 +110,7 @@
 
 .flight:hover
 {
-    background: #fff;
+    background: black;
     border: 1.3px solid;
 }
 
@@ -133,44 +142,4 @@
     border-radius: 5px 5px 0 0;
     overflow: hidden;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-.column
-{
-    width: 200px;
-    padding: 5px;
-}
-
-.content-table thead tr
-{
-    background-color: var(--main-color);
-    text-align:left;
-    font-weight: bold;
-}
-
-.content-table th,
-.content-table td
-{
-    padding: 12px 15px;
-}
-
-.content-table tbody tr
-{
-    border: 1px solid #dddddd;
-}
-
-.content-table tbody tr:nth-of-type(even)
-{
-    background-color: #f3f3f3;
-}
-
-.content-table tbody tr:last-of-type
-{
-    border-bottom: 2px solid var(--main-color);
-}
-
-.content-table tbody tr.active-row
-{
-    font-weight: bold;
-    color: var(--main-color);
 }
