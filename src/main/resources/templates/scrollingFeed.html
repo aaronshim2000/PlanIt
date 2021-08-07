@@ -9,7 +9,12 @@
     <link rel="stylesheet" th:href="@{/stylesheets/table.css}">
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <script type="text/javascript" src="/js/scrollingFeed.js" defer=""></script>
-    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<script type="text/javascript" src="/js/scrollingFiles.js" defer=""></script>
+	<link href="https://unpkg.com/cloudinary-video-player@1.5.4/dist/cld-video-player.min.css" rel="stylesheet">
+	<script src="https://unpkg.com/cloudinary-core@latest/cloudinary-core-shrinkwrap.min.js" type="text/javascript"></script>
+	<script src="https://unpkg.com/cloudinary-video-player@1.5.4/dist/cld-video-player.min.js" type="text/javascript"></script>
+	<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+	<!--link rel="stylesheet" href="/stylesheets/fileupload.css"-->
     <title>Personalized Scrolling Feed</title>
 </head>
 <body onload="defaultSet()">　
@@ -72,6 +77,29 @@
                 <a th:href="@{/reportPost(id=${id})}">Report Post</a> <br> <br>
                 <a class="title" th:href="@{/viewPost(id=${id})}" th:text="${text_titles[iter.index]}"></a>
                 <p th:text="${text_descriptions[iter.index]}"/>
+				
+				<p th:id="${text_ids[iter.index]}" th:onclick="'javascript:displayMedia(\''+ ${text_ids[iter.index]} +'\');'"><table><tbody>
+				  <tr>
+					<td class="imageCell"><p class="remButton00"></p><input type="text" th:value="${text_image00s[iter.index]}" class="imageResult imageRes00" disabled></td>
+					<td class="imageCell"><p class="remButton01"></p><input type="text" th:value="${text_image01s[iter.index]}" class="imageResult imageRes01" disabled></td>
+					<td class="imageCell"><p class="remButton02"></p><input type="text" th:value="${text_image02s[iter.index]}" class="imageResult imageRes02" disabled></td>
+					<td class="imageCell"><p class="remButton03"></p><input type="text" th:value="${text_image03s[iter.index]}" class="imageResult imageRes03" disabled></td>
+					<td class="imageCell"><p class="remButton04"></p><input type="text" th:value="${text_image04s[iter.index]}" class="imageResult imageRes04" disabled></td>
+				  </tr>
+				  <tr>
+					<td class="imageCell"><input type="text" th:value="${text_video00s[iter.index]}" class="imageResult videoID" disabled></td>
+					<td class="imageCell"><input type="text" th:value="${text_imagesNums[iter.index]}" class="imageResult numFiles" disabled></td>
+					<td class="imageCell"><input type="text" th:value="${text_mediaTypes[iter.index]}" class="imageResult fileType" disabled></td>
+				  </tr>
+				  <tr>
+					<td class="imageCell"><p class="remButton05"></p><input type="text" th:value="${text_image05s[iter.index]}" class="imageResult imageRes05" disabled></td>
+					<td class="imageCell"><p class="remButton06"></p><input type="text" th:value="${text_image06s[iter.index]}" class="imageResult imageRes06" disabled></td>
+					<td class="imageCell"><p class="remButton07"></p><input type="text" th:value="${text_image07s[iter.index]}" class="imageResult imageRes07" disabled></td>
+					<td class="imageCell"><p class="remButton08"></p><input type="text" th:value="${text_image08s[iter.index]}" class="imageResult imageRes08" disabled></td>
+					<td class="imageCell"><p class="remButton09"></p><input type="text" th:value="${text_image09s[iter.index]}" class="imageResult imageRes09" disabled></td>
+				  </tr>
+				</tbody></table></p>
+				
                 <p class="Infor" th:text="'post by : '+ ${text_creators[iter.index]}"/>
                 <p class="Infor" th:text="'post type : '+${text_visibilities[iter.index]}+' post'"/>
                 <p class="Infor" th:text="${text_postDates[iter.index]}"/>
