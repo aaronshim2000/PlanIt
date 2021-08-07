@@ -727,7 +727,7 @@ public class Main {
 
       model.put("message", "Thank you for reporting.");
 
-      return "redirect:/";
+      return "redirect:/scrollingFeed";
     } 
     catch (Exception e) 
     {
@@ -1035,7 +1035,7 @@ public class Main {
       String sql = "INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + n.getTitle() + "$$, $$" + n.getRecipient() + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$" + n.getBody() + "$$, now())";
       stmt.executeUpdate(sql);
       model.put("message", "Notification successfully sent");
-      return "redirect:/";
+      return "redirect:/viewAdminMessages";
     }
     catch(Exception e){
       model.put("Error", e.getMessage());
@@ -1098,7 +1098,7 @@ public class Main {
            model.put("message", message);
            model.put("user", request.getSession().getAttribute("USER"));
            model.put("role", request.getSession().getAttribute("ROLE"));
-           return "redirect:/";
+           return "redirect:/viewPostsTable";
      } 
      catch (Exception e) 
      {
@@ -1474,11 +1474,11 @@ public class Main {
         model.put("message", "Friend successfully added");
         model.put("user", request.getSession().getAttribute("USER"));
         model.put("role", request.getSession().getAttribute("ROLE"));
-        return "redirect:/";
+        return "redirect:/friend";
       }
       else{
         System.out.println(request.getSession().getAttribute("USER"));
-        return "redirect:/";
+        return "redirect:/friend";
       }
     }
     catch(SQLException e){
@@ -1507,11 +1507,11 @@ public class Main {
         model.put("message", "Friend successfully removed");
         model.put("user", request.getSession().getAttribute("USER"));
         model.put("role", request.getSession().getAttribute("ROLE"));
-        return "redirect:/";
+        return "redirect:/friend";
       }
       else{
         System.out.println(request.getSession().getAttribute("USER"));
-        return "redirect:/";
+        return "redirect:/friend";
       }
     }
     catch(SQLException e){
@@ -1651,11 +1651,10 @@ public class Main {
 
       //stmt.executeUpdate(sql);
       model.put("message", "Account successfully updated");
-      // model.put("")
       // model.put("edit", true);
       // Account account = new Account();
       // model.put("account", account);
-      return "redirect:/";
+      return "redirect:/profile";
     }
     catch(Exception e){
       model.put("Error", e.getMessage());
