@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="stylesheet" th:href="@{/stylesheets/basicStyle.css}">
+    <link rel="stylesheet" th:href="@{/stylesheets/object.css}">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" th:href="@{/stylesheets/contact.css}">
+    
     <link rel="stylesheet" th:href="@{/stylesheets/nav.css}">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
     <title>Contact Us</title>
@@ -18,9 +20,9 @@
 
     <div class="container">
         <p th:text="${message}"></p>
-        <div style="color:black;" class="title">Contact Us</div>
+        <div class="title">Contact Us</div>
         <form id="contactForm" action="#" method="post" th:action="@{/contact}" th:object="${adminMessage}">
-            <div style="color:black;" class="contact-details">
+            <div class="contact-details">
                 <div class="input-box">
                     <span class="details">Name</span>
                     <input type="text" class="input" th:field=*{username} th:value=${username} placeholder="Username" required>
