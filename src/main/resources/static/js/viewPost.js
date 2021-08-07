@@ -1,10 +1,10 @@
 var imagesCounter = document.getElementById("imagesNum").value;
+if (imagesCounter == ""){ imagesCounter = 0; }
 var mediaType = document.getElementById("fileType").value;
 var videoID = document.getElementById("video00").value;
-var myMax = 0;
 if (document.getElementById("imagesMax").value == "text-post"){ myMax = 10; }
 if (document.getElementById("imagesMax").value == "review-post"){ myMax = 5; }
-//document.getElementById("imNumContain").innerHTML = '';
+document.getElementById("imNumContain").innerHTML = '';
 var playerOnPage = document.getElementById("containerForVid");
 
 var cld = cloudinary.Cloudinary.new({ cloud_name: "hq73wefct", secure: true});
@@ -21,19 +21,13 @@ function enablePlayer(){
 	});
 }
 
-if (mediaType == "images"){
-	for (let i = imagesCounter; i < myMax; i++){
-		document.getElementById("image0" + i).innerHTML = '';
-	}
+for (let i = imagesCounter; i < 10; i++){
+	document.getElementById("image0" + i).innerHTML = '';
 }
-else if (mediaType == "video"){
+
+if (mediaType == "video"){
 	document.getElementById("images").innerHTML = '';
 	playerOnPage.innerHTML = '<video id="demo-player" controls class="cld-video-player HiddenPlayer"></video>';
 	enablePlayer();
 	demoplayer.source( videoID );
-}
-else{
-	for (let i = 0; i < myMax; i++){
-		document.getElementById("image0" + i).innerHTML = '';
-	}
 }
