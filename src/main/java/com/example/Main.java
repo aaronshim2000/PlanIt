@@ -158,6 +158,19 @@ public class Main {
       String username= (String) request.getSession().getAttribute("USER");
       post.setCreator(username);
       statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility,rating,image00,image01,image02,image03,image04,imagesNum) VALUES (now(),$$" + username + "$$, $$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "','" + post.getRating() + "','" + post.getImage00() + "','" + post.getImage01() + "','" + post.getImage02() + "','" + post.getImage03() + "','" + post.getImage04() + "','" + post.getImagesNum() + "')");
+      while(rs.next()){
+        System.out.println("A");
+        friends.add(rs.getString("username2"));
+
+        //create notification
+        //statement.executeUpdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + post.getCreator() + " has created a post!$$, $$" + rs.getString("username2") + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$<a th:href='@{/viewPost(id=${"+postID+"})}'>$$, now())");
+        System.out.println("B");
+      }
+      System.out.println("C");
+      for(int i=0;i<friends.size();i++){
+        statement.executeUpdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + post.getCreator() + " has created a post!$$, $$" + friends.get(i) + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$<a href='/viewPost?id="+postID+"'>See Here</a>$$, now())");
+      }
+      
       model.put("user", request.getSession().getAttribute("USER"));
       model.put("role", request.getSession().getAttribute("ROLE"));
       return "redirect:/scrollingFeed";
@@ -189,6 +202,19 @@ public class Main {
       statement.executeUpdate("INSERT INTO posts(post_date,creator,title,content,category,visibility) VALUES (now(),$$" + username + "$$,$$" + post.getTitle() + "$$, $$" + post.getDescription() + "$$, '" + post.getCategory() + "','" + post.getVisibility() + "')");
       //send notification to friends
       //statement.executeupdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$New Post from" + post.getCreator() + "$$, $$FRIENDS$$, $$" + request.getSession().getAttribute("USER") + "$$, $$View Post$$, now())");
+      while(rs.next()){
+        System.out.println("A");
+        friends.add(rs.getString("username2"));
+
+        //create notification
+        //statement.executeUpdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + post.getCreator() + " has created a post!$$, $$" + rs.getString("username2") + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$<a th:href='@{/viewPost(id=${"+postID+"})}'>$$, now())");
+        System.out.println("B");
+      }
+      System.out.println("C");
+      for(int i=0;i<friends.size();i++){
+        statement.executeUpdate("INSERT INTO notifications (title, recipient, sender, body, time) VALUES ($$" + post.getCreator() + " has created a post!$$, $$" + friends.get(i) + "$$, $$" + request.getSession().getAttribute("USER") + "$$, $$<a href='/viewPost?id="+postID+"'>See Here</a>$$, now())");
+      }
+      
       model.put("user", request.getSession().getAttribute("USER"));
       model.put("role", request.getSession().getAttribute("ROLE"));
       return "redirect:/scrollingFeed";
