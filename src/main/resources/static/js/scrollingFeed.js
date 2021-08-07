@@ -52,7 +52,7 @@ let TextPostRecord=document.getElementsByClassName("Record-Text-post");
 for(var i=0;i<TextPostRecord.length;i++){
  let title=TextPostRecord[i].getElementsByTagName("p")[0];
  let content=TextPostRecord[i].getElementsByTagName("p")[1];
- let user=TextPostRecord[i].getElementsByTagName("p")[2];
+ let user=TextPostRecord[i].getElementsByTagName("p")[3];
  if(title||content||user){
    let titleValue=title.textContent;
    let contentValue=content.textContent;
