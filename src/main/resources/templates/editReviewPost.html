@@ -21,7 +21,7 @@
     <div th:replace="fragments/nav :: navbar"></div>
 	
 	<div class="centerdiv" onload="reviewFixFunc()">
-		<h1 class="titlelabel">Title</h1>
+		<h1 class="titlelabel">Location</h1>
 		<form action="#" method="post" th:action="@{/editReviewPost}" th:object="${post}">
 			<input name="id" type="hidden" th:value="${tag}">
 			<input th:field="*{title}" type = "text" id='title' th:value="${title}" th:name="title" th:id="title" maxlength="49">
@@ -49,7 +49,7 @@
 			<label for="s0" class="half slabel"></label>
 			<input type="text" th:value="${rating}" th:name="rating" th:id="rating" class="imageResult starRatingField" readonly>
 		</div></p>
-			<div class="locations"><br>*LOCATION SELECT HERE*<br>&nbsp;</div>
+			<!--div class="locations"><br>*LOCATION SELECT HERE*<br>&nbsp;</div-->
 			<textarea th:field=*{description} id='description' maxlength="2000" placeholder="Write your review" class="contents" name="textcontent" rows = 15 cols=80 style="resize: vertical;" th:inline="text">[[${description}]]</textarea><p></p>
 
 			<script th:inline="javascript">
