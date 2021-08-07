@@ -499,52 +499,52 @@ public class Main {
       String postId = Integer.toString(id);
 
       if(!p.getTitle().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET title='" + p.getTitle() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET title=$$" + p.getTitle() + "$$ WHERE id='" + postId + "'");
       }
       if(!p.getDescription().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET content='" + p.getDescription() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET content=$$" + p.getDescription() + "$$ WHERE id='" + postId + "'");
       }
 	  
-      stmt.executeUpdate("UPDATE posts SET imagesNum='" + p.getImagesNum() + "' WHERE id='" + postId + "'");
+      stmt.executeUpdate("UPDATE posts SET imagesNum=$$" + p.getImagesNum() + "$$ WHERE id='" + postId + "'");
       
 	  if(!p.getMediaType().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET mediaType='" + p.getMediaType() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET mediaType=$$" + p.getMediaType() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage00().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image00='" + p.getImage00() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image00=$$" + p.getImage00() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage01().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image01='" + p.getImage01() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image01=$$" + p.getImage01() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage02().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image02='" + p.getImage02() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image02=$$" + p.getImage02() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage03().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image03='" + p.getImage03() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image03=$$" + p.getImage03() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage04().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image04='" + p.getImage04() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image04=$$" + p.getImage04() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage05().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image05='" + p.getImage05() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image05=$$" + p.getImage05() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage06().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image06='" + p.getImage06() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image06=$$" + p.getImage06() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage07().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image07='" + p.getImage07() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image07=$$" + p.getImage07() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage08().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image08='" + p.getImage08() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image08=$$" + p.getImage08() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage09().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image09='" + p.getImage09() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image09=$$" + p.getImage09() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getVideo00().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET video00='" + p.getVideo00() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET video00=$$" + p.getVideo00() + "$$ WHERE id='" + postId + "'");
       }
       if(!p.getVisibility().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET visibility='" + p.getVisibility() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET visibility=$$" + p.getVisibility() + "$$ WHERE id='" + postId + "'");
       }
       return "redirect:/scrollingFeed";
     }
@@ -604,34 +604,34 @@ public class Main {
       String postId = Integer.toString(id);
 
       if(!p.getTitle().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET title='" + p.getTitle() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET title=$$" + p.getTitle() + "$$ WHERE id='" + postId + "'");
       }
       if(!p.getDescription().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET content='" + p.getDescription() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET content=$$" + p.getDescription() + "$$ WHERE id='" + postId + "'");
       }
       if(!p.getRating().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET rating='" + p.getRating() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET rating=$$" + p.getRating() + "$$ WHERE id='" + postId + "'");
       }
 	  
-      stmt.executeUpdate("UPDATE posts SET imagesNum='" + p.getImagesNum() + "' WHERE id='" + postId + "'");
+      stmt.executeUpdate("UPDATE posts SET imagesNum=$$" + p.getImagesNum() + "$$ WHERE id='" + postId + "'");
       
 	  if(!p.getImage00().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image00='" + p.getImage00() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image00=$$" + p.getImage00() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage01().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image01='" + p.getImage01() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image01=$$" + p.getImage01() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage02().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image02='" + p.getImage02() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image02=$$" + p.getImage02() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage03().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image03='" + p.getImage03() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image03=$$" + p.getImage03() + "$$ WHERE id='" + postId + "'");
       }
 	  if(!p.getImage04().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET image04='" + p.getImage04() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET image04=$$" + p.getImage04() + "$$ WHERE id='" + postId + "'");
       }
       if(!p.getVisibility().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET visibility='" + p.getVisibility() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET visibility=$$" + p.getVisibility() + "$$ WHERE id='" + postId + "'");
       }
       return "redirect:/scrollingFeed";
     }
@@ -684,10 +684,10 @@ public class Main {
       String postId = Integer.toString(id);
 
       if(!p.getTitle().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET title='" + p.getTitle() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET title=$$" + p.getTitle() + "$$ WHERE id='" + postId + "'");
       }
       if(!p.getDescription().isEmpty()){
-        stmt.executeUpdate("UPDATE posts SET content='" + p.getDescription() + "' WHERE id='" + postId + "'");
+        stmt.executeUpdate("UPDATE posts SET content=$$" + p.getDescription() + "$$ WHERE id='" + postId + "'");
       }
       if(!p.getVisibility().isEmpty()){
         stmt.executeUpdate("UPDATE posts SET visibility='" + p.getVisibility() + "' WHERE id='" + postId + "'");
