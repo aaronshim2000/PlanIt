@@ -18,7 +18,7 @@ for(var i=0;i<PlanPostRecord.length;i++){
  let user=PlanPostRecord[i].getElementsByTagName("p")[2];
 
    if(title||content||user){
-     let titleValue=title.textContent;
+     let titleValue=title.textContent||titleValue.innerHTML;
      let contentValue=content.textContent;
      let userValue=user.textContent;
      if(titleValue.toUpperCase().indexOf(filter)>-1||contentValue.toUpperCase().indexOf(filter)>-1||userValue.toUpperCase().indexOf(filter)>-1){
